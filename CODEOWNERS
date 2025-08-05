@@ -1,0 +1,4 @@
+# Global code owners for the Atlassian MCP Server repository
+# These users will be automatically requested for review on all pull requests
+
+* @pnguyen-atlassian @SreeNerella @iosamaatlassian @lsosa1
