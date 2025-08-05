@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="images/atlassian_logo_brand_RGB.svg">
+</p>
+
 >[!NOTE]
 > This feature is currently in public beta, which means: 
 > - Core functionality is available, but some advanced features are still under development.
