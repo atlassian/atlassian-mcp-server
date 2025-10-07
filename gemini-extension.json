@@ -1,0 +1,7 @@
+{ 
+"mcpServers": {
+    "Atlassian-Rovo-MCP-Server": {
+      "url": "https://mcp.atlassian.com/v1/sse"
+    }
+  }
+}
