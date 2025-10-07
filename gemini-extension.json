@@ -1,6 +1,8 @@
 { 
+"name": "atlassian-rovo-mcp-server",
+  "version": "1.0.0",
 "mcpServers": {
-    "Atlassian-Rovo-MCP-Server": {
+    "atlassian-rovo-mcp-server": {
       "url": "https://mcp.atlassian.com/v1/sse"
     }
   }
