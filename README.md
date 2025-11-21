@@ -125,7 +125,7 @@ npx -y mcp-remote@0.1.13 https://mcp.atlassian.com/v1/sse
 
 ## Support and feedback
 Your feedback plays a crucial role in shaping the Remote MCP Server. If you encounter bugs, limitations, or have suggestions:
-- Visit the [Atlassian Support Portal](https://customerfeedback.atlassian.net/servicedesk/customer/portal/1701/group/1762/create/11360) to report issues.
+- Visit the [Atlassian Support Portal](https://support.atlassian.com/) to report issues.
 - Share your experiences and feature requests on the [Atlassian Community](https://community.atlassian.com/).
 - Enterprise customers can contact their Atlassian Customer Success Manager for advanced support and roadmap discussions.
 - We’re excited to collaborate with you to improve this capability before its general availability.
