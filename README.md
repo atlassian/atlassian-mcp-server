@@ -2,14 +2,6 @@
   <img src="images/atlassian_logo_brand_RGB.svg">
 </p>
 
->[!NOTE]
-> This feature is currently in public beta, which means: 
-> - Core functionality is available, but some advanced features are still under development.
-> - The experience may vary across different clients—Claude, for instance, works best on the Team or Enterprise plan.
-> - We’re actively gathering feedback to improve the product before its general availability (GA) release.  
-> 
-> For more information, read our blog post - [Introducing Atlassian's Remote Model Context Protocol (MCP) Server - Work Life by Atlassian](https://www.atlassian.com/blog/announcements/remote-mcp-server)
-
 # Atlassian MCP Server
 The Model Context Protocol (MCP) is a new, standardized protocol designed by Anthropic to manage context between large language models (LLMs) and external systems. This repository offers an MCP Server for Atlassian.
 
@@ -38,8 +30,8 @@ Before connecting to the Remote MCP Server, review the setup requirements for yo
 - Node.js v18+ installed to run the local MCP proxy (mcp-remote). Download from [nodejs.org](https://nodejs.org/en)
 - A modern browser for completing the OAuth login
 
-### Beta access and limits
-The beta is open to all Atlassian Cloud customers. No special sign-up is required. However, usage is subject to rate limits:
+### Rate limits
+Usage of the MCP is subject to rate limits:
 - **Standard plan**: Moderate usage thresholds.
 - **Premium/Enterprise plans**: Higher usage quotas (1,000 requests/hour plus per-user limits).
 
