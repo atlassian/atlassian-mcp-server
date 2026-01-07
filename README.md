@@ -115,6 +115,13 @@ npx -y mcp-remote@0.1.13 https://mcp.atlassian.com/v1/sse
 ```
 4. Save and reload your client's MCP extension or plugin.
 
+## Security
+Model Context Protocol (MCP) lets AI agents connect to tools and Atlassian data using your account’s permissions, which creates powerful workflows but also structural risks. Any MCP client or server you enable (e.g., IDE plugins, desktop apps, hosted MCP servers, “one-click” integrations) can cause an AI agent to perform actions on your behalf.
+
+Large Language models (LLMs) are vulnerable to [prompt injection](https://owasp.org/www-community/attacks/PromptInjection) and related attacks (such as [indirect prompt injection](https://owasp.org/www-community/attacks/PromptInjection) and [tool poisoning](https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks)). These attacks can instruct the agent to exfiltrate data or make unintended changes without explicit requests.
+
+To reduce risk, only use trusted MCP clients and servers, carefully review which tools and data each agent can access, and apply least privilege (scoped tokens, minimal project/workspace access). For any high‑impact or destructive action, require human confirmation and monitor audit logs for unusual activity. We strongly recommend reviewing Atlassian’s guidance on MCP risks at [MCP Clients: Understanding the potential security risks](https://www.atlassian.com/blog/artificial-intelligence/mcp-risk-awareness)
+
 ## Support and feedback
 Your feedback plays a crucial role in shaping the Remote MCP Server. If you encounter bugs, limitations, or have suggestions:
 - Visit the [Atlassian Support Portal](https://support.atlassian.com/) to report issues.
