@@ -1,6 +1,6 @@
 {
   "atlassian": {
-    "type": "http",
+    "type": "streamable-http",
     "url": "https://mcp.atlassian.com/v1/mcp"
   }
 }
