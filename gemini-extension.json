@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "mcpServers": {
     "atlassian-rovo-mcp-server": {
-      "url": "https://mcp.atlassian.com/v1/sse"
+      "url": "https://mcp.atlassian.com/v1/mcp"
     }
   }
 }
