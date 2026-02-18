@@ -1,0 +1,14 @@
+{
+  "name": "atlassian",
+  "description": "Atlassian plugin for Cursor",
+  "version": "0.1.0",
+  "author": {
+    "name": "Atlassian",
+    "url": "https://atlassian.com"
+  },
+  "homepage": "https://confluence.atlassian.com",
+  "repository": "https://github.com/atlassian/atlassian-mcp-server",
+  "license": "MIT",
+  "keywords": ["atlassian", "mcp", "rovo", "jira", "confluence"],
+  "logo": "assets/logo.svg"
+}
