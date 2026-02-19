@@ -25,6 +25,7 @@ The Atlassian Rovo MCP Server supports several clients, including:
 * [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli)
 * [Google Gemini](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md)
 * [Amazon Quick Suite](https://docs.aws.amazon.com/quicksuite/latest/userguide/mcp-integration.html)
+* [VS Code](https://code.visualstudio.com/)
 
 The Atlassian Rovo MCP Server also supports any **local MCP-compatible client** that can run on `localhost` and connect to the server via the `mcp-remote` proxy. This enables custom or third-party integrations that follow the MCP specification.
 
