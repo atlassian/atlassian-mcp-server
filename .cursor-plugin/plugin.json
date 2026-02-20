@@ -11,5 +11,7 @@
   "repository": "https://github.com/atlassian/atlassian-mcp-server",
   "license": "MIT",
   "keywords": ["atlassian", "mcp", "rovo", "jira", "confluence", "skills"],
-  "logo": "assets/logo.svg"
+  "logo": "assets/logo.svg",
+  "skills": "./skills/",
+  "mcp": "./mcp.json"
 }
