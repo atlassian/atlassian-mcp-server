@@ -1,1 +1,8 @@
-{"mcpServers":{"atlassian":{"type":"http","url":"https://mcp.atlassian.com/v1/mcp"}}}
+{
+  "mcpServers": {
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    }
+  }
+}
