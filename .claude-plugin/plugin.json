@@ -4,6 +4,6 @@
   "author": {
     "name": "Atlassian"
   },
-  "mcpServers": "./mcp.json",
+  "mcpServers": "./.mcp.json",
   "skills": "./skills/"
 }
