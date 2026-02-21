@@ -13,5 +13,5 @@
   "keywords": ["atlassian", "mcp", "rovo", "jira", "confluence", "skills"],
   "logo": "assets/logo.svg",
   "skills": "./skills/",
-  "mcp": "./mcp.json"
+  "mcp": "./.mcp.json"
 }

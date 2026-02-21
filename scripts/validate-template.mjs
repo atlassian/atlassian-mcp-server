@@ -275,9 +275,10 @@ async function validateOnePlugin(pluginDir, pluginName) {
     addWarning(`${pluginName}: no hooks/hooks.json file found (only needed when using hooks).`);
   }
 
-  const mcpPath = path.join(pluginDir, "mcp.json");
-  if (!(await pathExists(mcpPath))) {
-    addWarning(`${pluginName}: no mcp.json file found (only needed when using MCP servers).`);
+  const mcpPath = path.join(pluginDir, ".mcp.json");
+  const mcpLegacyPath = path.join(pluginDir, "mcp.json");
+  if (!(await pathExists(mcpPath)) && !(await pathExists(mcpLegacyPath))) {
+    addWarning(`${pluginName}: no .mcp.json or mcp.json file found (only needed when using MCP servers).`);
   }
 }
 
