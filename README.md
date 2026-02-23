@@ -117,7 +117,7 @@ Once connected, you can perform a variety of useful tasks from within your suppo
 ### Combined tasks
 
 * **Link content**: "Link these three Jira tickets to the 'Release Plan' page."
-* **Find documentation: "**Fetch the Confluence documentation page linked to this Compass component."
+* **Find documentation**: "Fetch the Confluence documentation page linked to this Compass component."
 
 > [!NOTE]
 > Actual capabilities vary, depending on your permission level and client platform.
