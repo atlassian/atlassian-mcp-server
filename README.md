@@ -4,7 +4,7 @@
 
 # Atlassian MCP Server
 
-The Atlassian Rovo MCP Server is a cloud-based bridge between your Atlassian Cloud site and compatible external tools. Once configured, it enables those tools to interact with Jira, Compass, and Confluence data in real-time. This functionality is powered by secure **OAuth 2.1 authorization**, which ensures all actions respect the user's existing access controls.
+The Atlassian Rovo MCP Server is a cloud-based bridge between your Atlassian Cloud site and compatible external tools. Once configured, it enables those tools to interact with Jira, Compass, and Confluence data in real-time. This functionality is powered by secure authentication using **OAuth 2.1** or **API tokens**, which ensures all actions respect the user's existing access controls.
 
 With the Atlassian Rovo MCP Server, you can:
 
@@ -45,14 +45,14 @@ Before connecting to the Atlassian Rovo MCP Server, review the setup requirement
 
 * An **Atlassian Cloud site** with Jira, Compass, and/or Confluence
 * Access to **the client of choice**
-* A modern browser to complete the OAuth 2.1 authorization flow
+* A modern browser to complete the OAuth 2.1 authorization flow, or API token credentials for headless authentication
 
 #### For IDEs or local clients (Desktop setup)
 
 * An **Atlassian Cloud site** with Jira, Compass, and/or Confluence
 * A supported IDE (for example, **Claude desktop, VS Code, or Cursor**) or a custom MCP-compatible client
 * **Node.js v18+** installed to run the local MCP proxy (`mcp-remote`)
-* A modern browser for completing the OAuth login
+* A modern browser for completing OAuth login, or API token credentials for headless authentication
 
 ---
 
@@ -61,7 +61,7 @@ Before connecting to the Atlassian Rovo MCP Server, review the setup requirement
 Security is a core focus of the Atlassian Rovo MCP Server:
 
 * All traffic is encrypted via HTTPS using TLS 1.2 or later.
-* OAuth 2.1 ensures secure authentication and access control.
+* OAuth 2.1 and API token authentication provide secure access control.
 * Data access respects Jira, Compass, and Confluence user permissions.
 * If your organization uses IP allowlisting for Atlassian Cloud products, tool calls made through the Atlassian Rovo MCP Server also honor those IP rules.
 
@@ -80,7 +80,7 @@ For a deeper overview of the security model and admin controls, see:
 ```
 https://mcp.atlassian.com/v1/mcp
 ```
-2. A secure browser-based OAuth 2.1 flow is triggered.
+2. Depending on your setup, a secure browser-based OAuth 2.1 flow is triggered, or API token authentication is used.
 3. Once authorized, the client streams contextual data and receives real-time responses from Jira, Compass, or Confluence.
 
 > [!NOTE]
@@ -88,7 +88,16 @@ https://mcp.atlassian.com/v1/mcp
 
 ### Permission management
 
-Access is granted only to data that the user already has permission to view in Atlassian Cloud. All actions respect existing project or space-level roles. OAuth tokens are scoped and session-based.
+Access is granted only to data that the user already has permission to view in Atlassian Cloud. All actions respect existing project or space-level roles. OAuth and API token authentication both honor configured scopes and Atlassian permissions.
+
+### API token authentication (headless)
+
+API token authentication is available for headless or long-running client setups.
+
+* **Admin enablement required:** An organization admin must enable API token authentication for Rovo MCP Server.
+* **Scoped token required:** Use a Rovo MCP scoped API token for the required tools and data access.
+* **Configuration guide:** [Configure authentication via API token](https://support.atlassian.com/atlassian-rovo-mcp-server/docs/configuring-authentication-via-api-token/)
+* **Admin setting reference:** [Control Atlassian Rovo MCP Server settings - Configure authentication](https://support.atlassian.com/security-and-access-policies/docs/control-atlassian-rovo-mcp-server-settings/#Configure-authentication)
 
 ---
 
