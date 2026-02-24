@@ -124,6 +124,28 @@ Once connected, you can perform a variety of useful tasks from within your suppo
 
 ---
 
+## Tips and tricks
+
+### Set default CloudId, Jira project, and Confluence space
+
+Update your `AGENTS.md` with the Markdown below to reduce discovery tool calls, save time and tokens, and set maximum search results.
+
+``` MD
+## Atlassian Rovo MCP
+
+When connected to atlassian-rovo-mcp:
+- **MUST** use Jira project key = YOURPROJ
+- **MUST** use Confluence spaceId = "123456"
+- **MUST** use CloudId = "https://yoursite.atlassian.net" (do NOT call getAccessibleAtlassianResources)
+- **MUST** use `maxResults: 10` or `limit: 10` for ALL Jira JQL and Confluence CQL search operations.
+```
+
+### Use skills
+
+If you're using a desktop client like Claude or Cursor, you can build or reuse skills for repeated tasks. [See the default Rovo MCP skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills)
+
+---
+
 ## Admin notes: Managing access
 
 If you're an admin preparing your organization to use the Atlassian Rovo MCP Server, review these key considerations. For more detailed admin guidance, see:
