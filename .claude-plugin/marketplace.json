@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "atlassian",
+  "description": "Atlassian plugin marketplace for Claude Code",
+  "owner": {
+    "name": "Atlassian",
+    "email": "support@atlassian.com"
+  },
+  "plugins": [
+    {
+      "name": "atlassian",
+      "description": "Connect to Atlassian products including Jira and Confluence. Search and create issues, access documentation, manage sprints, and integrate your development workflow with Atlassian's collaboration tools.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Atlassian",
+        "email": "support@atlassian.com"
+      },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/atlassian/atlassian-mcp-server"
+    }
+  ]
+}
