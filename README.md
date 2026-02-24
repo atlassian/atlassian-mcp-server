@@ -23,7 +23,7 @@ The Atlassian Rovo MCP Server supports several clients, including:
 * [OpenAI ChatGPT](https://platform.openai.com/docs/guides/tools-connectors-mcp)
 * [Claude](https://code.claude.com/docs/en/mcp)
 * [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli)
-* [Google Gemini](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md)
+* [Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md)
 * [Amazon Quick Suite](https://docs.aws.amazon.com/quicksuite/latest/userguide/mcp-integration.html)
 * [Visual Studio Code](https://code.visualstudio.com/)
 
