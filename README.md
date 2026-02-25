@@ -137,7 +137,7 @@ Once connected, you can perform a variety of useful tasks from within your suppo
 
 ### Set default CloudId, Jira project, and Confluence space
 
-Update your `AGENTS.md` with the Markdown below to reduce discovery tool calls, save time and tokens, and set maximum search results.
+Update your [AGENTS.md](https://agents.md/) with the Markdown below to reduce discovery tool calls, save time and tokens, and set maximum search results.
 
 ``` MD
 ## Atlassian Rovo MCP
@@ -145,7 +145,7 @@ Update your `AGENTS.md` with the Markdown below to reduce discovery tool calls, 
 When connected to atlassian-rovo-mcp:
 - **MUST** use Jira project key = YOURPROJ
 - **MUST** use Confluence spaceId = "123456"
-- **MUST** use CloudId = "https://yoursite.atlassian.net" (do NOT call getAccessibleAtlassianResources)
+- **MUST** use cloudId = "https://yoursite.atlassian.net" (do NOT call getAccessibleAtlassianResources)
 - **MUST** use `maxResults: 10` or `limit: 10` for ALL Jira JQL and Confluence CQL search operations.
 ```
 
