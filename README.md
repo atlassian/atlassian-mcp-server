@@ -151,7 +151,9 @@ When connected to atlassian-rovo-mcp:
 
 ### Use skills
 
-If you're using a desktop client like Claude or Cursor, you can build or reuse skills for repeated tasks. [See the default Rovo MCP skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills)
+If you're using a desktop client like Claude, you can create or reuse skills for repeated tasks. [See the default Rovo MCP skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills)
+
+For [Cursor](https://cursor.com/marketplace/atlassian), skills are part of the marketplace plugin.
 
 ---
 
