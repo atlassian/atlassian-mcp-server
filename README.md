@@ -203,8 +203,9 @@ To reduce risk, only use trusted MCP clients and servers, carefully review which
 
 ## Support and feedback
 Your feedback plays a crucial role in shaping the Atlassian Rovo MCP Server. If you encounter bugs, limitations, or have suggestions:
-- Visit the [Atlassian Support Portal](https://support.atlassian.com/) to report issues.
-- Share your experiences and feature requests on the [Atlassian Community](https://community.atlassian.com/).
+- Visit the [Atlassian Support Portal](https://support.atlassian.com/) Portal to report issues and feature requests.
+- Share your experiences and questions on the [Atlassian Community](https://community.atlassian.com/) and developer-related asks on the [Developer's one](https://developer.atlassian.com/).
+- Go to our [Ecosystem Developer Portal](https://ecosystem.atlassian.net/servicedesk/customer/portal/14/user/login?destination=portal%2F14) if you are building an app and found a bug/issue or have suggestions.
 
 ## Disclaimer
 
