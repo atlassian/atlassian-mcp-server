@@ -1,0 +1,15 @@
+{
+  "name": "atlassian",
+  "version": "0.1.0",
+  "description": "Connect your AI assistant to Atlassian Cloud (Jira, Confluence, Compass) via the Atlassian Rovo MCP Server.",
+  "author": {
+    "name": "Atlassian",
+    "url": "https://atlassian.com"
+  },
+  "homepage": "https://www.atlassian.com/platform/remote-mcp-server",
+  "repository": "https://github.com/atlassian/atlassian-mcp-server",
+  "license": "MIT",
+  "keywords": ["atlassian", "mcp", "rovo", "jira", "confluence", "compass"],
+  "logo": "./assets/logo.svg",
+  "mcpServers": "./.mcp.json"
+}
