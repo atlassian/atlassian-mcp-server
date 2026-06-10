@@ -80,6 +80,11 @@ For a deeper overview of the security model and admin controls, see:
 ```
 https://mcp.atlassian.com/v1/mcp
 ```
+You can optionally scope which tools are exposed by passing `capabilities` as a query parameter:
+```
+https://mcp.atlassian.com/v1/mcp?capabilities=SEARCH_JIRA,SEARCH_CONFLUENCE,WRITE_CONFLUENCE,READ_CONFLUENCE
+```
+When `capabilities` is set, the server returns only tools mapped to the selected capabilities.
 2. Depending on your setup, a secure browser-based OAuth 2.1 flow is triggered, or API token authentication is used.
 3. Once authorized, the client streams contextual data and receives real-time responses from Jira, Compass, or Confluence.
 
@@ -89,6 +94,28 @@ https://mcp.atlassian.com/v1/mcp
 ### Permission management
 
 Access is granted only to data that the user already has permission to view in Atlassian Cloud. All actions respect existing project or space-level roles. OAuth and API token authentication both honor configured scopes and Atlassian permissions.
+
+If you pass `capabilities` in the endpoint URL, capability filtering only narrows the tool surface area exposed to the client.
+
+> [!IMPORTANT]
+> `capabilities` only filters which tools are available to the MCP client.
+> It does not change API scopes.
+> It does not grant, expand, or reduce Atlassian product permissions.
+> It does not modify access token permissions.
+
+Capability filtering does not bypass authentication or product permissions. Effective access is the intersection of:
+
+* Selected capabilities
+* Authentication mode (OAuth, headless/API token)
+* Existing Atlassian permissions
+
+### Capability compatibility by authentication mode
+
+Capability availability also depends on authentication mode:
+
+* **OAuth + Headless:** `READ_JIRA`, `WRITE_JIRA`, `SEARCH_JIRA`, `READ_CONFLUENCE`, `WRITE_CONFLUENCE`, `SEARCH_CONFLUENCE`, `SEARCH_ATLASSIAN`
+* **OAuth only:** `READ_COMPASS`, `WRITE_COMPASS`
+* **API token only:** `READ_JSM`, `WRITE_JSM`
 
 ### API token authentication (headless)
 
@@ -131,9 +158,34 @@ Once connected, you can perform a variety of useful tasks from within your suppo
 > [!NOTE]
 > Actual capabilities vary, depending on your permission level and client platform.
 
+### Capability reference
+
+Use the `capabilities` query parameter to restrict which tool families are exposed to a client session.
+
+| Capability | Enables | Supported auth mode |
+| --- | --- | --- |
+| `READ_JIRA` | Get issues, projects, transitions, issue type metadata, worklogs, remote links | OAuth + Headless |
+| `WRITE_JIRA` | Create issues, edit issues, add comments, transition issues, add worklogs, create issue links | OAuth + Headless |
+| `SEARCH_JIRA` | Search Jira issues using JQL | OAuth + Headless |
+| `READ_CONFLUENCE` | Get pages, spaces, descendants, ancestors, footer comments, inline comments, comment children | OAuth + Headless |
+| `WRITE_CONFLUENCE` | Create pages, update pages, create footer comments, create inline comments | OAuth + Headless |
+| `SEARCH_CONFLUENCE` | Search Confluence content using CQL | OAuth + Headless |
+| `READ_COMPASS` | Get components, component types, custom field definitions, labels, activity events, components owned by my teams | OAuth only |
+| `WRITE_COMPASS` | Create and update components, relationships, custom field definitions | OAuth only |
+| `READ_JSM` | Get ops alerts, schedule info, team info | API token only |
+| `WRITE_JSM` | Update ops alerts (acknowledge, close, escalate) | API token only |
+| `SEARCH_ATLASSIAN` | Search across Atlassian products (Rovo search) | OAuth + Headless |
+
 ---
 
 ## Tips and tricks
+
+### Restrict tools with capabilities
+
+Use capability presets to reduce the number of tools exposed to your client:
+
+* **Read-focused:**
+  `https://mcp.atlassian.com/v1/mcp?capabilities=READ_JIRA,READ_CONFLUENCE,SEARCH_JIRA,SEARCH_CONFLUENCE,SEARCH_ATLASSIAN`
 
 ### Set default CloudId, Jira project, and Confluence space
 
