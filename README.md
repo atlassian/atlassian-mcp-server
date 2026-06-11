@@ -133,6 +133,130 @@ Once connected, you can perform a variety of useful tasks from within your suppo
 
 ---
 
+## ❓ FAQ
+
+### What is the Atlassian Rovo MCP Server?
+
+The Atlassian Rovo MCP Server is a **cloud-based bridge** between your Atlassian Cloud site (Jira, Compass, Confluence) and compatible external AI tools. It enables AI agents to interact with your Atlassian data in real-time using **OAuth 2.1** or **API token authentication**.
+
+### What can I do with it?
+
+- **Search**: "Find all open bugs in Project Alpha" (Jira)
+- **Create/Update**: "Create a story titled 'Redesign onboarding'" (Jira)
+- **Summarize**: "Summarize the Q2 planning page" (Confluence)
+- **Link content**: "Link these Jira tickets to the Release Plan page" (Confluence)
+- **Component management**: "Create a service component from this repo" (Compass)
+- **Query dependencies**: "What depends on the `api-gateway` service?" (Compass)
+
+### Which clients are supported?
+
+- **OpenAI ChatGPT** — via Tools & Connectors MCP
+- **Claude Desktop / Claude Code** — MCP integration
+- **GitHub Copilot CLI** — Copilot agent tools
+- **Gemini CLI** — MCP server tools
+- **Amazon Quick Suite** — MCP integration
+- **Visual Studio Code** — MCP client
+- **Any local MCP-compatible client** — via `mcp-remote` proxy
+
+### How does authentication work?
+
+Two options:
+1. **OAuth 2.1** — Browser-based consent flow, secure and user-friendly
+2. **API Token** — Headless/long-running setups (admin must enable, requires scoped token)
+
+### Do I need admin approval?
+
+**For OAuth 2.1**: Yes — a site admin must complete the first 3LO consent flow. After that, users with access to at least one Atlassian app (Jira or Confluence) can also connect.
+
+**For API Token**: An organization admin must enable API token authentication for Rovo MCP Server.
+
+### What permissions does the MCP use?
+
+All actions respect your **existing Atlassian permissions**:
+- Project-level roles in Jira
+- Space-level permissions in Confluence
+- Compass component access
+
+The MCP cannot access data you don't already have permission to view.
+
+### How do I set up for local clients (Claude Desktop, VS Code)?
+
+1. Ensure Node.js v18+ is installed
+2. Configure your client to connect via `mcp-remote` proxy
+3. Complete OAuth 2.1 login in browser, or use API token credentials
+4. Refer to your client's MCP documentation for specific setup
+
+### What is the MCP endpoint?
+
+```
+https://mcp.atlassian.com/v1/mcp
+```
+
+> Note: `/sse` endpoint is deprecated. Update custom clients to use `/mcp`.
+
+### Can I use skills with MCP?
+
+**Yes.** If using Claude Desktop, create or reuse skills for repeated tasks. Default Rovo MCP skills are available at [github.com/atlassian/atlassian-mcp-server/tree/main/skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills).
+
+For Cursor, skills are part of the marketplace plugin.
+
+### How can I reduce tool calls and save tokens?
+
+Add defaults to your `AGENTS.md`:
+```markdown
+## Atlassian Rovo MCP
+
+When connected to atlassian-rovo-mcp:
+- MUST use Jira project key = YOURPROJ
+- MUST use Confluence spaceId = "123456"
+- MUST use cloudId = "https://yoursite.atlassian.net"
+- MUST use maxResults: 10 for all searches
+```
+
+### What if my IP is blocked?
+
+If your organization uses **IP allowlisting**, requests must come from an allowed IP. Ask your admin to:
+- Review IP allowlist configuration
+- Add relevant network/VPN IP ranges
+
+### How do admins manage access?
+
+- **Connected apps**: Manage/revoke access in Atlassian Administration
+- **Domain controls**: Configure which external domains can connect
+- **Audit logging**: Monitor MCP activity in organization audit log
+
+### What security measures are in place?
+
+- HTTPS with TLS 1.2+ encryption
+- OAuth 2.1 + scoped API tokens
+- Permission-based access control
+- IP allowlisting support
+- Audit logging for all actions
+
+### What are MCP security risks?
+
+MCP clients can perform actions on your behalf. Risks include:
+- **Prompt injection** — malicious prompts can instruct agents
+- **Indirect prompt injection** — compromised data sources
+- **Tool poisoning** — malicious MCP servers
+
+**Mitigation**:
+- Use trusted MCP clients/servers
+- Apply least privilege (scoped tokens, minimal access)
+- Require human confirmation for high-impact actions
+- Monitor audit logs for unusual activity
+
+See: [MCP Clients: Understanding the potential security risks](https://www.atlassian.com/blog/artificial-intelligence/mcp-risk-awareness)
+
+### Where can I get help?
+
+- **Support**: [Atlassian Support Portal](https://support.atlassian.com/)
+- **Community**: [Atlassian Community](https://community.atlassian.com/)
+- **Developer Portal**: [ecosystem.atlassian.net](https://ecosystem.atlassian.net/servicedesk/customer/portal/14)
+- **Troubleshooting**: See [Troubleshooting common issues](#troubleshooting-common-issues) section above
+
+---
+
 ## Tips and tricks
 
 ### Set default CloudId, Jira project, and Confluence space
