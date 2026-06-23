@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.atlassian/atlassian-mcp-server",
+  "description": "Connect to Atlassian Jira, Confluence, and Compass to search, create, and manage your work.",
+  "title": "Atlassian Rovo MCP Server",
+  "version": "1.1.2",
+  "websiteUrl": "https://support.atlassian.com/atlassian-rovo-mcp-server/docs/getting-started-with-the-atlassian-remote-mcp-server/",
+  "repository": {
+    "url": "https://github.com/atlassian/atlassian-mcp-server",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    },
+    {
+      "type": "sse",
+      "url": "https://mcp.atlassian.com/v1/sse"
+    },
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2"
+    }
+  ]
+}
