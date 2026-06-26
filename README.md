@@ -5,24 +5,33 @@
 <h1 align="center">Atlassian Rovo MCP Server</h1>
 
 <p align="center">
-  <b>A cloud-hosted Model Context Protocol (MCP) bridge that gives your AI tools secure, real-time access to Jira, Confluence, Jira Service Management, Bitbucket, and Compass.</b>
+  <b>The official Model Context Protocol (MCP) server for Atlassian — a cloud-hosted bridge that gives your AI tools secure, real-time access to Jira, Confluence, Jira Service Management, Bitbucket, and Compass.</b>
 </p>
 
+<!-- Line 1 · Project -->
 <p align="center">
-  <a href="https://github.com/atlassian/atlassian-mcp-server/stargazers"><img src="https://img.shields.io/github/stars/atlassian/atlassian-mcp-server?style=flat&logo=github&color=0052CC" alt="GitHub stars"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/atlassian/atlassian-mcp-server?color=0052CC" alt="License: Apache 2.0"></a>
-  <a href="https://github.com/atlassian/atlassian-mcp-server/commits/main"><img src="https://img.shields.io/github/last-commit/atlassian/atlassian-mcp-server?color=0052CC" alt="Last commit"></a>
-  <img src="https://img.shields.io/badge/Model_Context_Protocol-compatible-000000?logo=modelcontextprotocol&logoColor=white" alt="MCP compatible">
-  <img src="https://img.shields.io/badge/Auth-OAuth_2.1%20%7C%20API%20token-success" alt="Auth: OAuth 2.1 | API token">
-  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome"></a>
+  <img src="https://img.shields.io/badge/Official-Atlassian-0052CC?logo=atlassian&logoColor=white" alt="Official Atlassian Server">
+  <a href="https://github.com/atlassian/atlassian-mcp-server/stargazers"><img src="https://img.shields.io/github/stars/atlassian/atlassian-mcp-server?style=flat&logo=github&label=Stars&color=0052CC" alt="GitHub stars"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/atlassian/atlassian-mcp-server?label=License&color=0052CC" alt="License: Apache 2.0"></a>
+  <img src="https://img.shields.io/badge/Status-Generally_Available-2EBC4F" alt="Status: Generally Available">
 </p>
 
+<!-- Line 2 · Protocol & access -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Model_Context_Protocol-compatible-000000?logo=modelcontextprotocol&logoColor=white" alt="Model Context Protocol compatible">
+  <a href="server.json"><img src="https://img.shields.io/badge/MCP_Registry-com.atlassian-000000?logo=modelcontextprotocol&logoColor=white" alt="MCP Registry: com.atlassian"></a>
+  <img src="https://img.shields.io/badge/Auth-OAuth_2.1%20%7C%20API%20token-2EBC4F" alt="Auth: OAuth 2.1 or API token">
+  <img src="https://img.shields.io/badge/Hosting-Atlassian_Cloud-0052CC?logo=atlassian&logoColor=white" alt="Hosting: Atlassian Cloud">
+</p>
+
+<!-- Line 3 · Supported products. Compass & Rovo have no simple-icons slug, so they use the official @atlaskit/logo (v20) tile glyphs embedded as SVG data URIs. -->
 <p align="center">
   <img src="https://img.shields.io/badge/Jira-0052CC?logo=jira&logoColor=white" alt="Jira">
   <img src="https://img.shields.io/badge/Confluence-172B4D?logo=confluence&logoColor=white" alt="Confluence">
   <img src="https://img.shields.io/badge/Jira_Service_Management-0052CC?logo=jirasoftware&logoColor=white" alt="Jira Service Management">
   <img src="https://img.shields.io/badge/Bitbucket-0052CC?logo=bitbucket&logoColor=white" alt="Bitbucket">
-  <img src="https://img.shields.io/badge/Compass-6554C0?logo=atlassian&logoColor=white" alt="Compass">
+  <img src="https://img.shields.io/badge/Compass-94C748?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzk0Yzc0OCIgZD0iTTAgNmE2IDYgMCAwIDEgNi02aDEyYTYgNiAwIDAgMSA2IDZ2MTJhNiA2IDAgMCAxLTYgNkg2YTYgNiAwIDAgMS02LTZ6Ii8+PHBhdGggZmlsbD0iIzEwMTIxNCIgZD0iTTEyLjc1IDcuODc3di0zLjM3bDYuMTYtLjAwN2guMDA3YS41OS41OSAwIDAgMSAuNTgzLjU5OHY2LjE0N2gtMy4zNjZWNy44Nzd6Ii8+PHBhdGggZmlsbD0iIzEwMTIxNCIgZD0iTTEyLjc1IDE0LjYxNXYtMy4zN2gzLjM2OHY2LjE2NWEuNTkuNTkgMCAwIDEtLjU5MS41OUg2LjU4M0EuNTkuNTkgMCAwIDEgNiAxNy40MDJWOC40NjdhLjU5LjU5IDAgMCAxIC41OTEtLjU5aDYuMTZ2My4zNjhIOS4zNzN2My4zN3oiLz48L3N2Zz4=" alt="Compass">
+  <img src="https://img.shields.io/badge/Rovo-1868DB?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzE4NjhkYiIgZD0iTTAgNmE2IDYgMCAwIDEgNi02aDEyYTYgNiAwIDAgMSA2IDZ2MTJhNiA2IDAgMCAxLTYgNkg2YTYgNiAwIDAgMS02LTZ6Ii8+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTExLjA1NyA1LjI1N2ExLjU3IDEuNTcgMCAwIDEgMS41MzkuMDE1bDQuNjIxIDIuNjY4Yy40ODQuMjc5Ljc4My43OTcuNzgzIDEuMzU0djUuMzM2YTEuNTYgMS41NiAwIDAgMS0uNzgyIDEuMzU1bC0zLjQ3NCAyLjAwNWEyIDIgMCAwIDAgLjEyLS42OTF2LTUuMzM3YzAtLjczMy0uMzktMS40MDktMS4wMjYtMS43NzRsLTIuNTktMS40OTVWNi42MjZxLjAwMS0uMjQ2LjA3NC0uNDczYy4xMTctLjM2NC4zNjYtLjY4LjcwNy0uODc3eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik05Ljg4MSA1Ljk0IDYuNDA4IDcuOTQ1QTEuNTYgMS41NiAwIDAgMCA1LjYyNSA5LjN2NS4zMzdjMCAuNTU3LjMgMS4wNzUuNzgzIDEuMzU0bDQuNjIxIDIuNjY4Yy40NzUuMjc0IDEuMDYuMjc5IDEuNTM5LjAxNWwuMDI3LS4wMTlhMS41NyAxLjU3IDAgMCAwIC43ODEtMS4zNXYtMi4wNjdsLTIuNTg5LTEuNDk1YTIuMDUgMi4wNSAwIDAgMS0xLjAyNi0xLjc3NVY2LjYzMWEyIDIgMCAwIDEgLjEyLS42OTEiLz48L3N2Zz4=&amp;logoColor=white" alt="Rovo">
 </p>
 
 <p align="center">
@@ -34,7 +43,7 @@
 
 ---
 
-The **Atlassian Rovo MCP Server** is a cloud-based bridge between your Atlassian Cloud site and compatible external tools. Once configured, it enables those tools to interact with **Jira, Confluence, Jira Service Management, Bitbucket, and Compass** data in real time. This functionality is powered by secure authentication using **OAuth 2.1** or **API tokens**, which ensures all actions respect the user's existing access controls.
+The **official Atlassian Rovo MCP Server** is a cloud-based bridge between your Atlassian Cloud site and compatible external tools. Once configured, it enables those tools to interact with **Jira, Confluence, Jira Service Management, Bitbucket, and Compass** data in real time. This functionality is powered by secure authentication using **OAuth 2.1** or **API tokens**, which ensures all actions respect the user's existing access controls.
 
 With the Atlassian Rovo MCP Server, you can:
 
