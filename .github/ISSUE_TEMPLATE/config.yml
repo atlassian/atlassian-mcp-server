@@ -1,0 +1,20 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🛠️ Product, server, or authentication problem
+    url: https://support.atlassian.com/
+    about: >-
+      Issues with the hosted Atlassian Rovo MCP Server (mcp.atlassian.com) —
+      tool errors, OAuth 2.1 / API-token authentication, permissions, or
+      Atlassian product behavior — are handled by Atlassian Support, not in this
+      repository.
+  - name: 💬 Questions & usage help
+    url: https://community.atlassian.com/
+    about: Ask how-to questions and share tips on the Atlassian Community.
+  - name: 👩‍💻 Developer & API questions
+    url: https://community.developer.atlassian.com/
+    about: For Atlassian developer platform and API questions, use the Developer Community.
+  - name: 🔒 Report a security vulnerability
+    url: https://www.atlassian.com/trust/security/report-a-vulnerability
+    about: >-
+      Please report security vulnerabilities privately to the Atlassian security
+      team. Do not open a public issue.

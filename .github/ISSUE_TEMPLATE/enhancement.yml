@@ -1,0 +1,52 @@
+name: 💡 Enhancement / feature request
+description: Suggest an improvement to this repository — a new or improved skill, client manifest, docs, or registry metadata.
+title: "[Enhancement]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! 🙏
+
+        **This tracker covers the _contents of this repository_.** To request new **tools** or **product capabilities** in the hosted Atlassian Rovo MCP Server, please use the [Atlassian Support Portal](https://support.atlassian.com/) or [Atlassian Community](https://community.atlassian.com/) so it reaches the product team.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Confirm scope
+      options:
+        - label: I searched [existing issues](https://github.com/atlassian/atlassian-mcp-server/issues) and didn't find a duplicate.
+          required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: What would you like to improve?
+      options:
+        - New skill
+        - Existing skill
+        - Client manifest / new client support
+        - README / documentation
+        - MCP registry entry (server.json)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What are you trying to do, and what is missing or awkward today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
