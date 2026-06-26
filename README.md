@@ -5,7 +5,7 @@
 <h1 align="center">Atlassian Rovo MCP Server</h1>
 
 <p align="center">
-  <b>The official Model Context Protocol (MCP) server for Atlassian — a cloud-hosted bridge that gives your AI tools secure, real-time access to Jira, Confluence, Jira Service Management, Bitbucket, and Compass.</b>
+  <b>The official Model Context Protocol (MCP) server for Atlassian: a cloud-hosted bridge that gives your AI tools secure, real-time access to Jira, Confluence, Jira Service Management, Bitbucket, and Compass.</b>
 </p>
 
 <!-- Line 1 · Project -->
@@ -43,7 +43,7 @@
 
 ---
 
-The **official Atlassian Rovo MCP Server** is a cloud-based bridge between your Atlassian Cloud site and compatible external tools. Once configured, it enables those tools to interact with **Jira, Confluence, Jira Service Management, Bitbucket, and Compass** data in real time. This functionality is powered by secure authentication using **OAuth 2.1** or **API tokens**, which ensures all actions respect the user's existing access controls.
+The **official Atlassian Rovo MCP Server** is a cloud-based bridge between your Atlassian Cloud site and compatible external tools. Once configured, it enables those tools to interact with **Jira, Confluence, Jira Service Management, Bitbucket, and Compass** data in real time. Authentication uses **OAuth 2.1** or **API tokens**, so every action respects the user's existing access controls.
 
 With the Atlassian Rovo MCP Server, you can:
 
@@ -51,7 +51,7 @@ With the Atlassian Rovo MCP Server, you can:
 * **Create and update** issues or pages based on natural language commands.
 * **Automate repetitive work**, like generating tickets from meeting notes or specs.
 
-It's designed for developers, content creators, and project teams who use IDEs or AI platforms and want to work with Atlassian data without constantly context switching.
+It's built for developers, content creators, and project teams who work in IDEs or AI tools and want to use Atlassian data without constantly switching context.
 
 ## Contents
 
@@ -110,11 +110,11 @@ Tools are organized by product and intent (read, write, or search). Organization
 
 ## Before you start
 
-Ensure your environment meets the necessary requirements to successfully set up the Atlassian Rovo MCP Server. This section outlines the technical prerequisites and key access considerations.
+Check that your environment meets these requirements before you set up the server.
 
 ### Prerequisites
 
-Before connecting to the Atlassian Rovo MCP Server, review the setup requirements for your environment:
+The requirements depend on how you connect:
 
 #### For supported clients
 
@@ -133,7 +133,7 @@ Before connecting to the Atlassian Rovo MCP Server, review the setup requirement
 
 ## Data and security
 
-Security is a core focus of the Atlassian Rovo MCP Server:
+The server enforces several security controls:
 
 * All traffic is encrypted in transit over **HTTPS (TLS 1.2 or later)**, per [Atlassian's security practices](https://www.atlassian.com/trust/security/security-practices).
 * **OAuth 2.1** and **API token** authentication provide secure access control.
@@ -175,13 +175,13 @@ API token authentication is available for headless, service-style, or non-intera
 * **Admin enablement required:** An organization admin must enable API token authentication for the Rovo MCP Server (**Atlassian Administration → Rovo → Rovo MCP server → Authentication**).
 * **Scoped token required:** Create a personal API token with the scopes required for the tools and data you need to access.
 * **Configuration guide:** [Configure authentication via API token](https://support.atlassian.com/atlassian-rovo-mcp-server/docs/configuring-authentication-via-api-token/)
-* **Admin setting reference:** [Control Atlassian Rovo MCP Server settings — Configure authentication](https://support.atlassian.com/security-and-access-policies/docs/control-atlassian-rovo-mcp-server-settings/#Configure-authentication)
+* **Admin setting reference:** [Control Atlassian Rovo MCP Server settings: Configure authentication](https://support.atlassian.com/security-and-access-policies/docs/control-atlassian-rovo-mcp-server-settings/#Configure-authentication)
 
 ---
 
 ## Example workflows
 
-Once connected, you can perform a variety of useful tasks from within your supported client.
+Once connected, you can run tasks like these from your client.
 
 ### Jira workflows
 
@@ -237,7 +237,7 @@ For [Cursor](https://cursor.com/marketplace/atlassian), skills are part of the m
 
 ## Admin notes: managing access
 
-If you're an admin preparing your organization to use the Atlassian Rovo MCP Server, review these key considerations. For more detailed admin guidance, see:
+If you're an admin preparing your organization to use the Atlassian Rovo MCP Server, review the points below. For more detailed admin guidance, see:
 
 * [Understand Atlassian Rovo MCP Server](https://support.atlassian.com/security-and-access-policies/docs/understand-atlassian-rovo-mcp-server/)
 * [Control Atlassian Rovo MCP Server settings](https://support.atlassian.com/security-and-access-policies/docs/control-atlassian-rovo-mcp-server-settings/)
@@ -289,7 +289,7 @@ To reduce risk, only use trusted MCP clients and servers, carefully review which
 
 ## Support and feedback
 
-Your feedback plays a crucial role in shaping the Atlassian Rovo MCP Server. If you encounter bugs or limitations, or have suggestions:
+We use your feedback to improve the Atlassian Rovo MCP Server. If you hit a bug or limitation, or have a suggestion:
 
 * Visit the [Atlassian Support Portal](https://support.atlassian.com/) to report issues and feature requests.
 * Share your experiences and questions on the [Atlassian Community](https://community.atlassian.com/), and developer-related asks on the [Atlassian Developer Community](https://community.developer.atlassian.com/).
