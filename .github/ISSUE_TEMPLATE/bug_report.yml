@@ -12,7 +12,7 @@ body:
 
         Two things worth knowing first:
 
-        - Nobody watches this repo full time, so we can't promise a reply by any particular date. If you're blocked or need an answer soon, [Atlassian Support](https://support.atlassian.com/) and the [Atlassian Community](https://community.atlassian.com/) are staffed and usually quicker.
+        - Nobody watches this repo full time, so we can't promise a reply by any particular date. If you're blocked or need an answer soon, [Atlassian Support](https://support.atlassian.com/) and the [Atlassian Community](https://community.atlassian.com/forums/Atlassian-Rovo-MCP-Server/gh-p/AtlassianMCPServer) are staffed and usually quicker.
         - If the bug is in the hosted server itself (something `mcp.atlassian.com` does, sign-in, tool behavior, permissions), Support is the better route. Not sure which it is? File here anyway and we'll point you the right way.
   - type: checkboxes
     id: dedup
