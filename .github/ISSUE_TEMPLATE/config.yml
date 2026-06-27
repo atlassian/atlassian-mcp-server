@@ -13,8 +13,6 @@ contact_links:
   - name: 👩‍💻 Developer and API questions
     url: https://community.developer.atlassian.com/
     about: For Atlassian developer platform and API questions, try the Developer Community.
-  - name: 🔒 Report a security vulnerability
-    url: https://www.atlassian.com/trust/security/report-a-vulnerability
-    about: >-
-      Found a security problem? Report it privately to the Atlassian security
-      team. Please don't open a public issue.
+# Note: GitHub automatically adds a "Report a security vulnerability" entry to
+# this chooser because the repo has a SECURITY.md. We intentionally do not add a
+# second one here to avoid a duplicate.
