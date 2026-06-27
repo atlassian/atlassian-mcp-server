@@ -1,12 +1,13 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 🛠️ Product, server, or authentication problem
+  - name: 🛠️ Need a faster or guaranteed response?
     url: https://support.atlassian.com/
     about: >-
-      Issues with the hosted Atlassian Rovo MCP Server (mcp.atlassian.com) —
-      tool errors, OAuth 2.1 / API-token authentication, permissions, or
-      Atlassian product behavior — are handled by Atlassian Support, not in this
-      repository.
+      This repository isn't actively monitored and has no response-time
+      commitment. For anything time-sensitive, or for problems with the hosted
+      server (mcp.atlassian.com behavior, OAuth 2.1 / API-token auth,
+      permissions, or Atlassian product behavior), Atlassian Support is a
+      managed channel and will usually be faster.
   - name: 💬 Questions & usage help
     url: https://community.atlassian.com/
     about: Ask how-to questions and share tips on the Atlassian Community.

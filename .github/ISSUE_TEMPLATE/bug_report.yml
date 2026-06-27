@@ -1,23 +1,22 @@
-name: 🐞 Bug report (this repository)
-description: Report a problem with this repository's contents — README/docs, client manifests, MCP registry metadata, or skills.
+name: 🐞 Bug report
+description: "Report a problem with this repository's contents: README/docs, client manifests, server.json, or skills."
 title: "[Bug]: "
 labels: ["bug", "needs-triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to file a report! 🙏
+        Thanks for filing a bug. We welcome reports about this repository's contents: the README and docs, the client manifests (`.mcp.json`, `.claude-plugin/`, `.cursor-plugin/`, `gemini-extension.json`), the MCP registry entry (`server.json`), and the [skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills).
 
-        **This tracker is for the _contents of this repository_** — the README and docs, the client manifests (`.mcp.json`, `.claude-plugin/`, `.cursor-plugin/`, `gemini-extension.json`), the MCP registry entry (`server.json`), and the [skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills).
+        A couple of honest notes so you know what to expect:
 
-        ⚠️ **Problems with the hosted server itself** — errors from `mcp.atlassian.com`, OAuth 2.1 / API-token authentication, tool behavior, permissions, or any Atlassian product — are handled by **[Atlassian Support](https://support.atlassian.com/)**, not here. See the links on the "New issue" page.
+        - This repo isn't actively monitored, and we don't offer a response-time commitment here. If you're blocked or need a timely answer, [Atlassian Support](https://support.atlassian.com/) and the [Atlassian Community](https://community.atlassian.com/) are managed channels and will usually be faster.
+        - Bugs in the hosted server itself (errors from `mcp.atlassian.com`, authentication, tool behavior, permissions) are best raised with Support. If you're not sure, file here anyway and we'll help point you to the right place.
   - type: checkboxes
-    id: scope
+    id: dedup
     attributes:
-      label: Confirm scope
+      label: Before you start
       options:
-        - label: This is about the contents of this repository, not the hosted server or an Atlassian product.
-          required: true
         - label: I searched [existing issues](https://github.com/atlassian/atlassian-mcp-server/issues) and didn't find a duplicate.
           required: true
   - type: dropdown
@@ -29,7 +28,7 @@ body:
         - Client manifest (Claude / Cursor / Gemini / .mcp.json)
         - MCP registry entry (server.json)
         - Skill
-        - Other
+        - Not sure / other
     validations:
       required: true
   - type: input
