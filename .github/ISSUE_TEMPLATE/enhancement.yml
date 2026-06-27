@@ -12,7 +12,7 @@ body:
 
         Two things worth knowing first:
 
-        - Nobody watches this repo full time, so there's no guaranteed reply time here. If you need an answer soon, the [Atlassian Community](https://community.atlassian.com/forums/Atlassian-Rovo-MCP-Server/gh-p/AtlassianMCPServer) is staffed and usually quicker.
+        - We don't watch this repo full time, so we can't promise a quick reply here. If you need an answer soon, the [Atlassian Community](https://community.atlassian.com/forums/Atlassian-Rovo-MCP-Server/gh-p/AtlassianMCPServer) is staffed and usually quicker.
         - Want a new tool or product capability in the hosted Atlassian Rovo MCP Server itself? Raise it through [Atlassian Support](https://support.atlassian.com/) or the [Atlassian Community](https://community.atlassian.com/forums/Atlassian-Rovo-MCP-Server/gh-p/AtlassianMCPServer) so it actually reaches the product team.
   - type: checkboxes
     id: dedup
