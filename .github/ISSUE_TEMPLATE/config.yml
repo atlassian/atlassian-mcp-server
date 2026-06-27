@@ -1,21 +1,20 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 🛠️ Need a faster or guaranteed response?
+  - name: 🛠️ Need a faster reply, or hit a product issue?
     url: https://support.atlassian.com/
     about: >-
-      This repository isn't actively monitored and has no response-time
-      commitment. For anything time-sensitive, or for problems with the hosted
-      server (mcp.atlassian.com behavior, OAuth 2.1 / API-token auth,
-      permissions, or Atlassian product behavior), Atlassian Support is a
-      managed channel and will usually be faster.
-  - name: 💬 Questions & usage help
+      Heads up: nobody watches this repo full time, so there's no guaranteed
+      reply time. If you're stuck, or the problem is with the hosted server
+      itself (mcp.atlassian.com, sign-in, API tokens, permissions, or any
+      Atlassian product), Atlassian Support is staffed and usually faster.
+  - name: 💬 Questions and usage help
     url: https://community.atlassian.com/
-    about: Ask how-to questions and share tips on the Atlassian Community.
-  - name: 👩‍💻 Developer & API questions
+    about: Ask how-to questions and swap tips on the Atlassian Community.
+  - name: 👩‍💻 Developer and API questions
     url: https://community.developer.atlassian.com/
-    about: For Atlassian developer platform and API questions, use the Developer Community.
+    about: For Atlassian developer platform and API questions, try the Developer Community.
   - name: 🔒 Report a security vulnerability
     url: https://www.atlassian.com/trust/security/report-a-vulnerability
     about: >-
-      Please report security vulnerabilities privately to the Atlassian security
-      team. Do not open a public issue.
+      Found a security problem? Report it privately to the Atlassian security
+      team. Please don't open a public issue.

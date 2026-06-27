@@ -1,17 +1,19 @@
 name: 🐞 Bug report
-description: "Report a problem with this repository's contents: README/docs, client manifests, server.json, or skills."
+description: "Something wrong in this repo's contents: README/docs, client manifests, server.json, or skills."
 title: "[Bug]: "
 labels: ["bug", "needs-triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for filing a bug. We welcome reports about this repository's contents: the README and docs, the client manifests (`.mcp.json`, `.claude-plugin/`, `.cursor-plugin/`, `gemini-extension.json`), the MCP registry entry (`server.json`), and the [skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills).
+        Thanks for taking the time to report a bug.
 
-        A couple of honest notes so you know what to expect:
+        This is the right place for problems with what lives in this repo: the README and docs, the client manifests (`.mcp.json`, `.claude-plugin/`, `.cursor-plugin/`, `gemini-extension.json`), the MCP registry entry (`server.json`), and the [skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills).
 
-        - This repo isn't actively monitored, and we don't offer a response-time commitment here. If you're blocked or need a timely answer, [Atlassian Support](https://support.atlassian.com/) and the [Atlassian Community](https://community.atlassian.com/) are managed channels and will usually be faster.
-        - Bugs in the hosted server itself (errors from `mcp.atlassian.com`, authentication, tool behavior, permissions) are best raised with Support. If you're not sure, file here anyway and we'll help point you to the right place.
+        Two things worth knowing first:
+
+        - Nobody watches this repo full time, so we can't promise a reply by any particular date. If you're blocked or need an answer soon, [Atlassian Support](https://support.atlassian.com/) and the [Atlassian Community](https://community.atlassian.com/) are staffed and usually quicker.
+        - If the bug is in the hosted server itself (something `mcp.atlassian.com` does, sign-in, tool behavior, permissions), Support is the better route. Not sure which it is? File here anyway and we'll point you the right way.
   - type: checkboxes
     id: dedup
     attributes:
@@ -34,26 +36,26 @@ body:
   - type: input
     id: skill-name
     attributes:
-      label: Skill name (if applicable)
+      label: Skill name (if it's about a skill)
       placeholder: e.g. triage-issue
   - type: textarea
     id: what-happened
     attributes:
       label: What happened?
-      description: A clear description of the bug, including what is wrong and where you found it.
+      description: Tell us what's wrong and where you ran into it.
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: What did you expect to happen?
+      label: What did you expect instead?
     validations:
       required: true
   - type: textarea
     id: repro
     attributes:
       label: Steps to reproduce
-      description: If relevant, include exact steps and any error output.
+      description: If you can, list the steps and paste any error output.
       placeholder: |
         1. ...
         2. ...
@@ -61,10 +63,10 @@ body:
   - type: input
     id: client
     attributes:
-      label: MCP client & version (if relevant)
+      label: MCP client and version (if it's relevant)
       placeholder: e.g. Claude Desktop 1.2.3, Cursor 0.42, VS Code Copilot
   - type: textarea
     id: extra
     attributes:
       label: Anything else?
-      description: Links, screenshots, or additional context.
+      description: Links, screenshots, or anything else that helps.

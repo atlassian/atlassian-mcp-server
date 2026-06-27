@@ -1,17 +1,19 @@
-name: 💡 Enhancement / feature request
-description: "Suggest an improvement to this repository: a new or improved skill, client manifest, docs, or registry metadata."
+name: 💡 Enhancement or feature request
+description: "An idea to improve this repo: a new or better skill, client manifest, docs, or registry metadata."
 title: "[Enhancement]: "
 labels: ["enhancement", "needs-triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for the suggestion. We welcome ideas for this repository's contents: skills, client manifests, docs, and registry metadata.
+        Thanks for the idea.
 
-        Two honest notes:
+        This is the place for improvements to what's in this repo: skills, client manifests, docs, and registry metadata.
 
-        - This repo isn't actively monitored and has no response-time commitment. If you need a timely answer, the [Atlassian Community](https://community.atlassian.com/) is a faster, managed channel.
-        - To request new tools or product capabilities in the hosted Atlassian Rovo MCP Server, please use [Atlassian Support](https://support.atlassian.com/) or the [Atlassian Community](https://community.atlassian.com/) so it reaches the product team.
+        Two things worth knowing first:
+
+        - Nobody watches this repo full time, so there's no guaranteed reply time here. If you need an answer soon, the [Atlassian Community](https://community.atlassian.com/) is staffed and usually quicker.
+        - Want a new tool or product capability in the hosted Atlassian Rovo MCP Server itself? Raise it through [Atlassian Support](https://support.atlassian.com/) or the [Atlassian Community](https://community.atlassian.com/) so it actually reaches the product team.
   - type: checkboxes
     id: dedup
     attributes:
@@ -36,19 +38,19 @@ body:
     id: problem
     attributes:
       label: What problem does this solve?
-      description: What are you trying to do, and what is missing or awkward today?
+      description: What are you trying to do, and what's missing or awkward today?
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
-      label: Proposed solution
+      label: What would you like to see?
     validations:
       required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
+      label: Anything you've already tried or considered?
   - type: textarea
     id: extra
     attributes:
