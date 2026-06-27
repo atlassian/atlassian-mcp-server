@@ -1,0 +1,57 @@
+name: 💡 Enhancement or feature request
+description: "An idea to improve this repo: a new or better skill, client manifest, docs, or registry metadata."
+title: "[Enhancement]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea.
+
+        This is the place for improvements to what's in this repo: skills, client manifests, docs, and registry metadata.
+
+        Two things worth knowing first:
+
+        - We don't watch this repo full time, so we can't promise a quick reply here. If you need an answer soon, the [Atlassian Community](https://community.atlassian.com/forums/Atlassian-Rovo-MCP-Server/gh-p/AtlassianMCPServer) is staffed and usually quicker.
+        - Want a new tool or product capability in the hosted Atlassian Rovo MCP Server itself? Raise it through [Atlassian Support](https://support.atlassian.com/) or the [Atlassian Community](https://community.atlassian.com/forums/Atlassian-Rovo-MCP-Server/gh-p/AtlassianMCPServer) so it actually reaches the product team.
+  - type: checkboxes
+    id: dedup
+    attributes:
+      label: Before you start
+      options:
+        - label: I searched [existing issues](https://github.com/atlassian/atlassian-mcp-server/issues) and didn't find a duplicate.
+          required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: What would you like to improve?
+      options:
+        - New skill
+        - Existing skill
+        - Client manifest / new client support
+        - README / documentation
+        - MCP registry entry (server.json)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What are you trying to do, and what's missing or awkward today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to see?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Anything you've already tried or considered?
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?

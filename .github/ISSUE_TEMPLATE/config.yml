@@ -1,0 +1,20 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🛠️ Need a faster reply, or hit a product issue?
+    url: https://support.atlassian.com/
+    about: >-
+      Heads up: we don't watch this repo full time, so we can't promise a
+      reply here. If you're stuck, or the problem is with the hosted server
+      itself (mcp.atlassian.com, sign-in, API tokens, permissions, or any
+      Atlassian product), Atlassian Support is staffed and usually faster.
+  - name: 💬 Questions and usage help
+    url: https://community.atlassian.com/forums/Atlassian-Rovo-MCP-Server/gh-p/AtlassianMCPServer
+    about: Ask how-to questions and swap tips in the Atlassian Rovo MCP Server community.
+  - name: 👩‍💻 Developer and API questions
+    url: https://community.developer.atlassian.com/
+    about: For Atlassian developer platform and API questions, try the Developer Community.
+  - name: 🔒 Report a security vulnerability
+    url: https://www.atlassian.com/trust/security/report-a-vulnerability
+    about: >-
+      Found a security problem? Report it privately to the Atlassian security
+      team. Please don't open a public issue.

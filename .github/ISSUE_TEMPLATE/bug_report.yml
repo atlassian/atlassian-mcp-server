@@ -1,0 +1,72 @@
+name: 🐞 Bug report
+description: "Something wrong in this repo's contents: README/docs, client manifests, server.json, or skills."
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+
+        This is the right place for problems with what lives in this repo: the README and docs, the client manifests (`.mcp.json`, `.claude-plugin/`, `.cursor-plugin/`, `gemini-extension.json`), the MCP registry entry (`server.json`), and the [skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills).
+
+        Two things worth knowing first:
+
+        - We don't watch this repo full time, so we can't promise a reply by a set date. If you're blocked or need an answer soon, [Atlassian Support](https://support.atlassian.com/) and the [Atlassian Community](https://community.atlassian.com/forums/Atlassian-Rovo-MCP-Server/gh-p/AtlassianMCPServer) are staffed and usually quicker.
+        - If the bug is in the hosted server itself (something `mcp.atlassian.com` does, sign-in, tool behavior, permissions), Support is the better route. Not sure which it is? File here anyway and we'll point you the right way.
+  - type: checkboxes
+    id: dedup
+    attributes:
+      label: Before you start
+      options:
+        - label: I searched [existing issues](https://github.com/atlassian/atlassian-mcp-server/issues) and didn't find a duplicate.
+          required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - README / documentation
+        - Client manifest (Claude / Cursor / Gemini / .mcp.json)
+        - MCP registry entry (server.json)
+        - Skill
+        - Not sure / other
+    validations:
+      required: true
+  - type: input
+    id: skill-name
+    attributes:
+      label: Skill name (if it's about a skill)
+      placeholder: e.g. triage-issue
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell us what's wrong and where you ran into it.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: If you can, list the steps and paste any error output.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+  - type: input
+    id: client
+    attributes:
+      label: MCP client and version (if it's relevant)
+      placeholder: e.g. Claude Desktop 1.2.3, Cursor 0.42, VS Code Copilot
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Links, screenshots, or anything else that helps.
