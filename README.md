@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/atlassian-atlassian-mcp-server-badge.png)](https://mseep.ai/app/atlassian-atlassian-mcp-server)
+
 <p align="center">
   <img src="images/atlassian_logo_brand_RGB.svg" alt="Atlassian" width="320">
 </p>
