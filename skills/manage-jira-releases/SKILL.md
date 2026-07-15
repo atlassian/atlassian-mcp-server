@@ -5,6 +5,20 @@ description: "Create and manage Jira project versions (releases) to organize wor
 
 # Manage Jira Releases
 
+> [!IMPORTANT]
+> **Preview endpoint required.** The Jira project version tools this skill relies
+> on (`createJiraVersion`, `getJiraProjectVersions`, `updateJiraVersion`) are
+> currently available **only on the preview endpoint** (Atlassian Rovo MCP v2),
+> **not** on the default `https://mcp.atlassian.com/v1/mcp/authv2` /
+> `/v1/mcp` endpoints.
+>
+> Before using this skill, confirm the client is connected to the preview
+> endpoint and that these tools are present. See the compatibility check in
+> [Prerequisites](#prerequisites) below.
+>
+> - **Preview endpoint:** `https://mcp.atlassian.com/v1/mcp/preview`
+> - **Preview details:** https://community.atlassian.com/forums/Atlassian-Remote-MCP-Server/Preview-Atlassian-Rovo-MCP-v2/ba-p/3255431
+
 ## Keywords
 create version, create release, new version, new release, jira version, jira release, project version, fix version, release version, manage versions, manage releases, ship release, mark released, update version, update release, list versions, list releases, version management, release management, set fix version, plan release
 
@@ -16,10 +30,45 @@ Create and manage Jira project versions (releases) to organize issues into shipp
 
 ---
 
+## Prerequisites
+
+**CRITICAL: The version tools are preview-only.** Before running any workflow in
+this skill, confirm the required tools are available on the connected endpoint.
+
+### Compatibility check
+
+The tools `createJiraVersion`, `getJiraProjectVersions`, and `updateJiraVersion`
+ship on the **Atlassian Rovo MCP v2 preview endpoint**
+(`https://mcp.atlassian.com/v1/mcp/preview`), not the default production
+endpoints (`https://mcp.atlassian.com/v1/mcp/authv2` or `/v1/mcp`).
+
+Before Step 4 (or any tool call below), verify that these tools are present in
+the current session's available tools. **If they are not available**, stop and
+tell the user:
+
+```
+Managing Jira releases requires the preview Atlassian MCP endpoint (Rovo MCP v2).
+The version tools (createJiraVersion, getJiraProjectVersions, updateJiraVersion)
+are not available on the default endpoint your client is connected to.
+
+To use this skill, point your MCP client at the preview endpoint:
+  https://mcp.atlassian.com/v1/mcp/preview
+
+More details:
+  https://community.atlassian.com/forums/Atlassian-Remote-MCP-Server/Preview-Atlassian-Rovo-MCP-v2/ba-p/3255431
+
+Once connected, I can create and manage versions for you.
+```
+
+Do **not** attempt the tool calls when they are absent — they will fail.
+
+---
+
 ## Core Workflow
 
 **CRITICAL: Always follow this sequence for version creation:**
 
+0. **Check Compatibility** → Confirm version tools are available (see [Prerequisites](#prerequisites))
 1. **Identify Project** → Determine target Jira project
 2. **Gather Version Details** → Collect name, description, dates
 3. **Present Plan** → Show user what will be created
@@ -297,6 +346,15 @@ Shall I proceed with the release?
 
 ## Edge Cases & Troubleshooting
 
+### Version Tools Not Available (Wrong Endpoint)
+
+If `createJiraVersion` / `getJiraProjectVersions` / `updateJiraVersion` are not
+in the available tools, the client is on the default endpoint rather than the
+preview (Rovo MCP v2) endpoint. Do not attempt the calls:
+1. Explain that these tools are preview-only (see [Prerequisites](#prerequisites))
+2. Point the user to the preview endpoint connection instructions
+3. Do not fall back to unavailable tools
+
 ### Version Name Already Exists
 
 If the version name conflicts:
@@ -478,6 +536,7 @@ This skill is for **managing Jira project versions/releases only**.
 - Suggest next steps after creation
 
 **Remember:**
+- These tools are **preview-only** (Rovo MCP v2) — confirm availability first (see [Prerequisites](#prerequisites))
 - Version names must be unique within a project
 - Releasing a version doesn't automatically move unresolved issues
 - Version management requires "Administer Projects" permission
