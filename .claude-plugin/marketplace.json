@@ -9,6 +9,7 @@
   "plugins": [
     {
       "name": "atlassian",
+      "displayName": "Atlassian MCP",
       "description": "Connect to Atlassian products including Jira and Confluence. Search and create issues, access documentation, manage sprints, and integrate your development workflow with Atlassian's collaboration tools.",
       "version": "1.0.0",
       "author": {

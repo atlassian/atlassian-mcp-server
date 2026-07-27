@@ -1,6 +1,6 @@
 {
   "name": "atlassian",
-  "displayName": "Atlassian",
+  "displayName": "Atlassian MCP",
   "description": "Atlassian plugin for Cursor with MCP and skills for Jira, Confluence, triage, backlogs, status reports, and more.",
   "version": "0.1.0",
   "author": {
