@@ -1,3 +1,5 @@
+[![MCP Toplist](https://mcptoplist.com/badge/com.atlassian%2Fatlassian-mcp-server.svg)](https://mcptoplist.com/server/com.atlassian%2Fatlassian-mcp-server)
+
 <p align="center">
   <img src="images/atlassian_logo_brand_RGB.svg" alt="Atlassian" width="320">
 </p>
