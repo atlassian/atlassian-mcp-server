@@ -94,6 +94,7 @@ Pick your AI client below to install the official Atlassian Rovo MCP Server. Eac
 
 * [One-click setup](#one-click-setup)
 * [Supported clients](#supported-clients)
+* [Plugin packaging and compatibility](#plugin-packaging-and-compatibility)
 * [Supported products and tools](#supported-products-and-tools)
 * [Before you start](#before-you-start)
 * [Data and security](#data-and-security)
@@ -119,12 +120,31 @@ The Atlassian Rovo MCP Server works with a growing list of MCP-compatible client
 | Visual Studio Code (GitHub Copilot) | [VS Code MCP docs](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) |
 | GitHub Copilot CLI | [About Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) |
 | Google Gemini CLI | [Gemini CLI MCP docs](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md) |
+| Kiro and other Agent Plugins clients | [Kiro Powers documentation](https://kiro.dev/docs/powers/create/) |
 | Amazon Quick Suite | [MCP integration guide](https://docs.aws.amazon.com/quicksuite/latest/userguide/mcp-integration.html) |
 
 The Atlassian Rovo MCP Server also supports any **local MCP-compatible client** that can run on `localhost` and connect to the server via the [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) proxy. This enables custom or third-party integrations that follow the MCP specification.
 
 > [!TIP]
 > For the current, canonical list of supported clients and step-by-step setup, see [Getting started with the Atlassian Rovo MCP Server](https://support.atlassian.com/atlassian-rovo-mcp-server/docs/getting-started-with-the-atlassian-remote-mcp-server/). You can also refer to your client's own MCP documentation or built-in assistant.
+
+---
+
+## Plugin packaging and compatibility
+
+This repository publishes the same MCP server and skills in several package formats so clients can use their native discovery and installation flows:
+
+| Format | Manifest and configuration | Shared components |
+| --- | --- | --- |
+| [Agent Plugins v1](https://agent-plugins.org/) | [`plugin.json`](plugin.json) and [`mcp.json`](mcp.json) | [`skills/`](skills/) |
+| Claude Code plugin | [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) | [`.mcp.json`](.mcp.json) and [`skills/`](skills/) |
+| Cursor plugin | [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json) | [`.mcp.json`](.mcp.json) and [`skills/`](skills/) |
+| Gemini extension | [`gemini-extension.json`](gemini-extension.json) | MCP server configuration embedded in the manifest |
+| MCP Registry | [`server.json`](server.json) | Remote server metadata |
+
+Both `mcp.json` and `.mcp.json` are intentional. Agent Plugins requires the root `mcp.json` filename and its portable transport vocabulary; existing clients continue to use `.mcp.json` and their native configuration vocabulary. Keep their endpoint settings aligned when changing either file.
+
+The root package can be imported by clients that implement Agent Plugins, including Kiro Powers. Client-specific manifests remain available and are not replaced by the portable package.
 
 ---
 
