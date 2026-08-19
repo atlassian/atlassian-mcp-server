@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
 import { promises as fs } from "node:fs";
+import { validateHeaderName, validateHeaderValue } from "node:http";
 import path from "node:path";
 import process from "node:process";
+import { parseDocument } from "yaml";
 
 const repoRoot = process.cwd();
 const errors = [];
 const warnings = [];
+const validatedAgentSkillDirectories = new Set();
 
 const pluginNamePattern = /^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/;
 const marketplaceNamePattern = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
@@ -82,85 +85,34 @@ function normalizeNewlines(content) {
 function parseFrontmatter(content) {
   const normalized = normalizeNewlines(content);
   if (!normalized.startsWith("---\n")) {
-    return null;
+    return { fields: null, error: "is missing YAML frontmatter" };
   }
 
-  const closingIndex = normalized.indexOf("\n---\n", 4);
-  if (closingIndex === -1) {
-    return null;
+  const lines = normalized.split("\n");
+  const closingIndex = lines.findIndex((line, index) => index > 0 && /^---[\t ]*$/.test(line));
+  if (closingIndex < 0) {
+    return { fields: null, error: "has unterminated YAML frontmatter" };
   }
 
-  const frontmatterBlock = normalized.slice(4, closingIndex);
-  const fields = {};
-
-  for (const line of frontmatterBlock.split("\n")) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) {
-      continue;
-    }
-    const separator = line.indexOf(":");
-    if (separator === -1) {
-      continue;
-    }
-    const key = line.slice(0, separator).trim();
-    const value = line.slice(separator + 1).trim();
-    fields[key] = value;
+  const document = parseDocument(lines.slice(1, closingIndex).join("\n"), {
+    uniqueKeys: true,
+  });
+  if (document.errors.length > 0) {
+    const detail = document.errors[0].message.replace(/\s+/g, " ").trim();
+    return { fields: null, error: `contains invalid YAML frontmatter (${detail})` };
   }
 
-  return fields;
-}
-
-function parseFrontmatterString(content, targetKey) {
-  const normalized = normalizeNewlines(content);
-  if (!normalized.startsWith("---\n")) {
-    return null;
+  let fields;
+  try {
+    fields = document.toJS();
+  } catch (error) {
+    return { fields: null, error: `contains invalid YAML frontmatter (${error.message})` };
+  }
+  if (!isPlainObject(fields)) {
+    return { fields: null, error: "has YAML frontmatter that must be a mapping" };
   }
 
-  const closingIndex = normalized.indexOf("\n---\n", 4);
-  if (closingIndex === -1) {
-    return null;
-  }
-
-  const lines = normalized.slice(4, closingIndex).split("\n");
-  for (let index = 0; index < lines.length; index += 1) {
-    const line = lines[index];
-    if (/^\s/.test(line)) {
-      continue;
-    }
-    const separator = line.indexOf(":");
-    if (separator === -1 || line.slice(0, separator).trim() !== targetKey) {
-      continue;
-    }
-
-    const rawValue = line.slice(separator + 1).trim();
-    if (/^[>|][+-]?$/.test(rawValue)) {
-      const blockLines = [];
-      for (let childIndex = index + 1; childIndex < lines.length; childIndex += 1) {
-        const childLine = lines[childIndex];
-        if (childLine.length > 0 && !/^\s/.test(childLine)) {
-          break;
-        }
-        blockLines.push(childLine.replace(/^\s+/, ""));
-      }
-      return rawValue.startsWith(">")
-        ? blockLines.join(" ").replace(/\s+/g, " ").trim()
-        : blockLines.join("\n").trim();
-    }
-
-    if (rawValue.startsWith('"') && rawValue.endsWith('"')) {
-      try {
-        return JSON.parse(rawValue);
-      } catch {
-        return null;
-      }
-    }
-    if (rawValue.startsWith("'") && rawValue.endsWith("'")) {
-      return rawValue.slice(1, -1).replace(/''/g, "'");
-    }
-    return rawValue;
-  }
-
-  return null;
+  return { fields, error: null };
 }
 
 async function walkFiles(dirPath) {
@@ -241,16 +193,16 @@ async function validateReferencedPath(pluginDir, fieldName, pathValue, pluginNam
 
 async function validateFrontmatterFile(filePath, componentName, requiredKeys, pluginName) {
   const content = await fs.readFile(filePath, "utf8");
-  const parsed = parseFrontmatter(content);
+  const { fields, error } = parseFrontmatter(content);
   const relativeFile = path.relative(repoRoot, filePath);
 
-  if (!parsed) {
-    addError(`${pluginName}: ${componentName} file missing YAML frontmatter: ${relativeFile}`);
+  if (error) {
+    addError(`${pluginName}: ${componentName} file ${error}: ${relativeFile}`);
     return;
   }
 
   for (const key of requiredKeys) {
-    if (!parsed[key] || parsed[key].length === 0) {
+    if (typeof fields[key] !== "string" || fields[key].length === 0) {
       addError(`${pluginName}: ${componentName} file missing "${key}" in frontmatter: ${relativeFile}`);
     }
   }
@@ -264,16 +216,6 @@ async function validateComponentFrontmatter(pluginDir, pluginName) {
       const ext = path.extname(file).toLowerCase();
       if (ext === ".md" || ext === ".mdc" || ext === ".markdown") {
         await validateFrontmatterFile(file, "rule", ["description"], pluginName);
-      }
-    }
-  }
-
-  const skillsDir = path.join(pluginDir, "skills");
-  if (await pathExists(skillsDir)) {
-    const files = await walkFiles(skillsDir);
-    for (const file of files) {
-      if (path.basename(file) === "SKILL.md") {
-        await validateFrontmatterFile(file, "skill", ["name", "description"], pluginName);
       }
     }
   }
@@ -306,6 +248,10 @@ async function validateAgentSkills(pluginDir) {
   if (!(await pathExists(skillsDir))) {
     return;
   }
+  if (validatedAgentSkillDirectories.has(skillsDir)) {
+    return;
+  }
+  validatedAgentSkillDirectories.add(skillsDir);
 
   let entries;
   try {
@@ -332,9 +278,15 @@ async function validateAgentSkills(pluginDir) {
     }
 
     const content = await fs.readFile(skillPath, "utf8");
-    const name = parseFrontmatterString(content, "name");
-    const description = parseFrontmatterString(content, "description");
     const relativeSkill = path.relative(repoRoot, skillPath);
+    const { fields, error } = parseFrontmatter(content);
+
+    if (error) {
+      addError(`Agent Plugins: skill ${error} in ${relativeSkill}.`);
+      continue;
+    }
+
+    const { name, description } = fields;
 
     if (typeof name !== "string" || name.length > 64 || !agentSkillNamePattern.test(name)) {
       addError(`Agent Plugins: invalid Agent Skill name in ${relativeSkill}.`);
@@ -379,13 +331,28 @@ function validateRemoteMcpServer(server, context) {
     } else {
       const normalizedHeaderNames = new Set();
       for (const [headerName, headerValue] of Object.entries(server.headers)) {
+        let headerNameIsValid = true;
         const normalizedName = headerName.toLowerCase();
         if (normalizedHeaderNames.has(normalizedName)) {
           addError(`${context}.headers contains duplicate header "${headerName}" with different casing.`);
         }
         normalizedHeaderNames.add(normalizedName);
+
+        try {
+          validateHeaderName(headerName);
+        } catch {
+          headerNameIsValid = false;
+          addError(`${context}.headers contains invalid HTTP header name "${headerName}".`);
+        }
+
         if (typeof headerValue !== "string") {
           addError(`${context}.headers.${headerName} must be a string.`);
+        } else if (headerNameIsValid) {
+          try {
+            validateHeaderValue(headerName, headerValue);
+          } catch {
+            addError(`${context}.headers.${headerName} contains an invalid HTTP header value.`);
+          }
         }
       }
     }
@@ -397,6 +364,8 @@ function validateStdioMcpServer(server, context) {
 
   if (typeof server.command !== "string" || server.command.length === 0) {
     addError(`${context}.command must be a non-empty string.`);
+  } else if (!server.command.startsWith("./") && /\s/.test(server.command)) {
+    addError(`${context}.command must be a single executable token; put arguments in .args.`);
   } else if (server.command.includes("/") && !server.command.startsWith("./")) {
     addError(`${context}.command must be a bare executable name or a path beginning with "./".`);
   } else if (server.command.startsWith("./") && !isSafeRelativePath(server.command)) {
@@ -582,6 +551,7 @@ async function validateOnePlugin(pluginDir, pluginName) {
   }
 
   await validateComponentFrontmatter(pluginDir, pluginName);
+  await validateAgentSkills(pluginDir);
 
   const hooksPath = path.join(pluginDir, "hooks", "hooks.json");
   if (!(await pathExists(hooksPath))) {

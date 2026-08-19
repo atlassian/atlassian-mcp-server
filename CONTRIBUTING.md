@@ -15,7 +15,7 @@ A few things that make review easier:
 - Keep each pull request focused on one change. Split unrelated work into separate PRs.
 - Match the existing style and structure of the file you're editing.
 - If you touch a manifest (`plugin.json`, `mcp.json`, `.mcp.json`, `server.json`, or a client-specific plugin file), keep equivalent names, endpoints, and shared component paths aligned.
-- Run `node scripts/validate-template.mjs` after changing a manifest or skill. It validates the Agent Plugins package, Agent Skills metadata, and the existing Claude, Cursor, Gemini, and native MCP client files.
+- Run `npm ci` once to install the validation tooling. After changing a manifest or skill, run `npm run validate` and `npm test`. These commands validate the Agent Plugins package, Agent Skills metadata, and the existing Claude, Cursor, Gemini, and native MCP client files, including malformed-input regression cases.
 - For a larger change, open an issue first so we can talk it through before you put in the work.
 
 ## Contributor License Agreement

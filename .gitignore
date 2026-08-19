@@ -10,3 +10,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Local Node.js validation dependencies
+node_modules/
