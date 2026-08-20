@@ -59,14 +59,14 @@ export async function readJsonFile(validation, filePath, context) {
     raw = await fs.readFile(filePath, "utf8");
   } catch {
     addError(validation, `${context} is missing: ${filePath}`);
-    return null;
+    return undefined;
   }
 
   try {
     return JSON.parse(raw);
   } catch (error) {
     addError(validation, `${context} contains invalid JSON (${filePath}): ${error.message}`);
-    return null;
+    return undefined;
   }
 }
 

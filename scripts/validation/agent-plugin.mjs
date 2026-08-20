@@ -107,11 +107,13 @@ export function validateStdioMcpServer(validation, server, context) {
   }
 
   if (server.cwd !== undefined) {
+    const normalizedCwd =
+      typeof server.cwd === "string" ? server.cwd.replace(/\\/g, "/") : null;
     const validPrefix =
-      typeof server.cwd === "string" &&
-      /^(?:\.\/|\$\{PLUGIN_ROOT\}(?:\/|$)|\$\{PLUGIN_DATA\}(?:\/|$))/.test(server.cwd);
+      normalizedCwd !== null &&
+      /^(?:\.\/|\$\{PLUGIN_ROOT\}(?:\/|$)|\$\{PLUGIN_DATA\}(?:\/|$))/.test(normalizedCwd);
     const escapesRoot =
-      typeof server.cwd === "string" && server.cwd.split("/").some((segment) => segment === "..");
+      normalizedCwd !== null && normalizedCwd.split("/").some((segment) => segment === "..");
     if (!validPrefix || escapesRoot) {
       addError(validation, `${context}.cwd must remain within the plugin root or plugin data directory.`);
     }
@@ -124,7 +126,7 @@ export async function validateAgentPluginPackage(validation, pluginDir) {
     path.join(pluginDir, "plugin.json"),
     "Agent Plugins manifest"
   );
-  if (manifest) {
+  if (manifest !== undefined) {
     if (!isPlainObject(manifest)) {
       addError(validation, "Agent Plugins manifest must contain a JSON object.");
     } else {
@@ -199,7 +201,7 @@ export async function validateAgentPluginPackage(validation, pluginDir) {
     path.join(pluginDir, "mcp.json"),
     "Agent Plugins MCP configuration"
   );
-  if (mcpConfig) {
+  if (mcpConfig !== undefined) {
     if (!isPlainObject(mcpConfig)) {
       addError(validation, "Agent Plugins mcp.json must contain a JSON object.");
     } else {
