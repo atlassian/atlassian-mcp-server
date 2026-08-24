@@ -1,5 +1,5 @@
 name: 💡 Enhancement or feature request
-description: "An idea to improve this repo: a new or better skill, client manifest, docs, or registry metadata."
+description: "An idea to improve this repo: a new or better skill, plugin manifest, docs, or registry metadata."
 title: "[Enhancement]: "
 labels: ["enhancement", "needs-triage"]
 body:
@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for the idea.
 
-        This is the place for improvements to what's in this repo: skills, client manifests, docs, and registry metadata.
+        This is the place for improvements to what's in this repo: skills, the portable Agent Plugins package, client-specific manifests, docs, and registry metadata.
 
         Two things worth knowing first:
 
@@ -28,6 +28,7 @@ body:
       options:
         - New skill
         - Existing skill
+        - Agent Plugins package
         - Client manifest / new client support
         - README / documentation
         - MCP registry entry (server.json)

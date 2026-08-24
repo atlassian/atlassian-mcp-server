@@ -1,5 +1,5 @@
 name: 🐞 Bug report
-description: "Something wrong in this repo's contents: README/docs, client manifests, server.json, or skills."
+description: "Something wrong in this repo's contents: README/docs, plugin manifests, server.json, or skills."
 title: "[Bug]: "
 labels: ["bug", "needs-triage"]
 body:
@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for taking the time to report a bug.
 
-        This is the right place for problems with what lives in this repo: the README and docs, the client manifests (`.mcp.json`, `.claude-plugin/`, `.cursor-plugin/`, `gemini-extension.json`), the MCP registry entry (`server.json`), and the [skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills).
+        This is the right place for problems with what lives in this repo: the README and docs, the Agent Plugins files (`plugin.json`, `mcp.json`), the client-specific manifests (`.mcp.json`, `.claude-plugin/`, `.cursor-plugin/`, `gemini-extension.json`), the MCP registry entry (`server.json`), and the [skills](https://github.com/atlassian/atlassian-mcp-server/tree/main/skills).
 
         Two things worth knowing first:
 
@@ -27,6 +27,7 @@ body:
       label: Affected area
       options:
         - README / documentation
+        - Agent Plugins package (plugin.json / mcp.json)
         - Client manifest (Claude / Cursor / Gemini / .mcp.json)
         - MCP registry entry (server.json)
         - Skill

@@ -1,0 +1,12 @@
+{
+  "name": "atlassian-mcp-server-package",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test scripts/*.test.mjs scripts/validation/*.test.mjs",
+    "validate": "node scripts/validate-template.mjs"
+  },
+  "devDependencies": {
+    "yaml": "2.9.0"
+  }
+}
