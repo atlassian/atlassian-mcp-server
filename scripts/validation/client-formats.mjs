@@ -107,6 +107,10 @@ async function validateOnePlugin(validation, pluginDir, pluginName) {
     );
   }
 
+  if (typeof pluginManifest.mcpServers !== "string") {
+    addError(validation, `${pluginName}: Cursor plugin.json.mcpServers must be a relative path string.`);
+  }
+
   const manifestFields = ["logo", "rules", "skills", "agents", "commands", "hooks", "mcp", "mcpServers"];
   for (const field of manifestFields) {
     const values = extractPathValues(pluginManifest[field]);
