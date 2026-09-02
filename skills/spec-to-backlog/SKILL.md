@@ -60,7 +60,8 @@ Call `getConfluenceContent` with the cloudId and content ID:
 getConfluenceContent(
   cloudId="...",
   content_id="123456",
-  content_format="markdown"
+  content_format="markdown",
+  detail="full"
 )
 ```
 

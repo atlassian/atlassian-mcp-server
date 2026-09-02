@@ -1,31 +1,33 @@
 # Atlassian Rovo MCP Server skills
 
-These skills are published in two versions, matching the two generations of the Atlassian Rovo
-MCP Server. Pick the directory that matches the server endpoint your client is configured with.
+The skills in this directory target the **Atlassian Rovo MCP v2** endpoint,
+`https://mcp.atlassian.com/v2/mcp`. They are what every packaged plugin installs, and each one
+lives at `skills/<name>/SKILL.md` per the [Agent Skills](https://agent-plugins.org/) convention.
 
-| Directory | For server endpoint | Status |
-| --- | --- | --- |
-| [`v1/`](v1/) | `https://mcp.atlassian.com/v1/mcp/authv2` or `https://mcp.atlassian.com/v1/mcp` | Maintained for existing setups |
-| [`v2/`](v2/) | `https://mcp.atlassian.com/v2/mcp` | Recommended |
+The previous generation is archived in [`v1/`](v1/), unchanged, for anyone still pointed at a v1
+endpoint (`/v1/mcp/authv2` or `/v1/mcp`). **No plugin installs the archived skills** — plugin
+discovery only looks one level deep for a `SKILL.md`, so `v1/` is skipped. Set them up manually if
+you need them.
 
-Both directories contain the same six skills. They differ only in the tool names, parameters, and
-call conventions they instruct the agent to use.
+## What changed between v1 and v2
 
-## Why the split
-
-v2 renamed and reshaped a number of tools, and a skill written for one generation will fail
-against the other. The most consequential differences:
+A skill written for one generation will fail against the other. The most consequential differences:
 
 * **Not every tool is directly callable.** v2 exposes a small set of *primary* tools in the
-  client's tool list; the rest are reached through the `discover` and `execute` meta-tools. The
-  v2 skills call those operations through `execute` and explain the convention.
+  client's tool list; the rest are reached through the `discover` and `execute` meta-tools. Each
+  skill that needs one explains the convention in its **Calling non-primary tools** section.
 * **Confluence tools were renamed** from `*Page` to `*Content` — `getConfluencePage` →
   `getConfluenceContent`, `createConfluencePage` → `createConfluenceContent`,
   `updateConfluencePage` → `updateConfluenceContent`, and `searchConfluenceUsingCql` →
-  `searchConfluence`.
+  `searchConfluence`. The v1 names survive only as search-recall synonyms, not callable operations.
+* **Confluence read and write contracts changed.** Reads default to a summary and need
+  `detail="full"` for the body; document edits require a `snapshotToken` from the preceding read;
+  writes must honor space instructions via `getConfluenceSpace`; and create/update take a `parent`
+  object plus a required `contentType`, with `body` as `{format, value}`.
 * **Some Jira tools were renamed** — `getVisibleJiraProjects` → `listJiraProjects`,
-  `getJiraProjectIssueTypesMetadata` → `listJiraProjectIssueTypesMetadata`, `addCommentToJiraIssue` →
-  `addOrEditJiraIssueComment`.
+  `getJiraProjectIssueTypesMetadata` → `listJiraProjectIssueTypesMetadata`, `addCommentToJiraIssue` → `addOrEditJiraIssueComment`.
+* **Jira create parameters differ** — `createJiraIssue` takes `issueType` and `assignee`, not
+  `issueTypeName` and `assignee_account_id`.
 
 For the current tool reference, see
 [Supported tools](https://support.atlassian.com/atlassian-rovo-mcp-server/docs/supported-tools/).

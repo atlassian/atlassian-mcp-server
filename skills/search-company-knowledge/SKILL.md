@@ -138,7 +138,8 @@ When search results reference Confluence pages:
 getConfluenceContent(
   cloudId="...",
   content_id="[page ID from search results]",
-  content_format="markdown"
+  content_format="markdown",
+  detail="full"
 )
 ```
 
@@ -160,7 +161,20 @@ getJiraIssue(
 )
 ```
 
-**Returns:** Full issue details including description, comments, status
+**Returns:** Full issue details including description and status.
+
+**`getJiraIssue` does not return comment bodies** — it only reports how many comments the issue
+has. When the discussion matters, fetch the comments separately. `listJiraIssueComments` is not a
+primary tool, so run it through `execute`, and paginate with `startAt`/`maxResults` until you have
+the comments you need:
+
+```
+executeRead(   # or execute(...) if your client exposes a single execute tool
+  name="listJiraIssueComments",
+  cloudId="...",
+  inputs={"issueIdOrKey": "PROJ-123", "maxResults": 50}
+)
+```
 
 **When to fetch:**
 - Need to understand a reported bug or issue
@@ -559,7 +573,7 @@ This skill is for **internal company knowledge only**. Do NOT use for:
 **Primary tool:** `search(cloudId, query)` - Use this first, always
 
 **Follow-up tools:**
-- `getConfluenceContent(cloudId, content_id, content_format)` - Get full page content
+- `getConfluenceContent(cloudId, content_id, content_format, detail="full")` - Get full page content
 - `getJiraIssue(cloudId, issueIdOrKey)` - Get full issue details
 - `searchConfluence(cloudId, cql)` - Targeted Confluence search
 - `searchJiraIssuesUsingJql(cloudId, jql)` - Targeted Jira search

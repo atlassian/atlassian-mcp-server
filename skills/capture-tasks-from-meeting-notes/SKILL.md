@@ -32,7 +32,8 @@ If user provides a Confluence URL:
 getConfluenceContent(
   cloudId="...",
   content_id="[extracted from URL]",
-  content_format="markdown"
+  content_format="markdown",
+  detail="full"
 )
 ```
 

@@ -182,6 +182,27 @@ executeRead(   # or execute(...) if your client exposes a single execute tool
 
 Never skip the body because the guidance failed to load — load it first, then build a real body.
 
+**Then load the space instructions.** Spaces can carry durable authoring guidance that is
+authoritative and overrides authoring defaults on conflict. Apply this decision rule:
+
+1. Skip this step only if a `getConfluenceContent` call for content in the target space returned
+   `metadata.hasSpaceInstructions=false`.
+2. Otherwise — true or unknown — call `getConfluenceSpace` once before authoring:
+
+```
+executeRead(   # or execute(...) if your client exposes a single execute tool
+    name="getConfluenceSpace",
+    cloudId="...",
+    inputs={"spaceIdOrKey": "[space ID or key]"}
+)
+```
+
+3. Apply any returned `spaceInstructions`. If a successful response omits them, no instructions
+   are configured — author with defaults and do not block.
+
+Reuse the result for the rest of the task: do not call `getConfluenceSpace` again for the same
+space, and do not follow it with a separate `getConfluenceSpaceInstructions` call.
+
 **Page creation:**
 ```
 createConfluenceContent(
@@ -233,12 +254,16 @@ If the user doesn't specify a Confluence space:
 
 If updating an existing page instead of creating new:
 
-1. Get the current page content:
+1. Get the current page content. `detail="full"` returns the body (the default `summary` returns
+   only a title, excerpt, and counts), and the doc-type response carries the `snapshotToken` you
+   must pass back on the update, plus `metadata.hasSpaceInstructions` for step 3:
 ```
 getConfluenceContent(
     cloudId="...",
     content_id="123456",
-    content_format="markdown"
+    content_format="markdown",
+    detail="full",
+    include_metadata=True
 )
 ```
 
@@ -250,15 +275,30 @@ executeRead(   # or execute(...) if your client exposes a single execute tool
 )
 ```
 
-3. Update the page with new content:
+3. Load the space instructions unless step 1 returned `metadata.hasSpaceInstructions=false`. Reuse
+   the result if you already loaded it for this space during this task:
+```
+executeRead(   # or execute(...) if your client exposes a single execute tool
+    name="getConfluenceSpace",
+    cloudId="...",
+    inputs={"spaceIdOrKey": "[space ID or key]"}
+)
+```
+
+4. Update the page with new content. **`snapshotToken` is required for document edits** — pass the
+   value from the step 1 response. Omitting it will fail the update:
 ```
 updateConfluenceContent(
     cloudId="...",
     contentId="123456",
+    snapshotToken="[snapshotToken from the step 1 response]",
     body={"format": "markdown", "value": "[updated report content]"},
     versionMessage="Updated with latest status - Dec 8, 2025"
 )
 ```
+
+> Concurrency note: the `snapshotToken` ties your edit to the version you read. Do not reuse a
+> stale token across edits — re-read the content with `getConfluenceContent` before each update.
 
 ## Complete Example Workflow
 
@@ -316,6 +356,9 @@ executeRead(name="listConfluenceSpaces", cloudId="...")
 
 # Load authoring guidance before composing the body
 executeRead(name="getContentFormatGuide", inputs={"toolName": "createConfluencePage"})
+
+# Load space instructions (skip only if hasSpaceInstructions was false for this space)
+executeRead(name="getConfluenceSpace", cloudId="...", inputs={"spaceIdOrKey": "PHX"})
 
 # Create page
 createConfluenceContent(
