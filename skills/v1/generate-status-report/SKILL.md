@@ -166,58 +166,18 @@ If user hasn't specified Confluence details yet, ask:
 - "Which Confluence space should I use?"
 - "Should this be nested under a specific parent page?"
 
-Use the `createConfluenceContent` tool to publish the report.
-
-**Before authoring the body**, load the authoring guidance. `getContentFormatGuide` is not a
-primary tool, so run it through `execute` (see [Calling non-primary tools](#calling-non-primary-tools)).
-Note that `toolName` takes the
-content key `createConfluencePage`, **not** the name of the tool you are about to call:
-
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-    name="getContentFormatGuide",
-    inputs={"toolName": "createConfluencePage"}
-)
-```
-
-Never skip the body because the guidance failed to load — load it first, then build a real body.
-
-**Then load the space instructions.** Spaces can carry durable authoring guidance that is
-authoritative and overrides authoring defaults on conflict. Apply this decision rule:
-
-1. Skip this step only if a `getConfluenceContent` call for content in the target space returned
-   `metadata.hasSpaceInstructions=false`.
-2. Otherwise — true or unknown — call `getConfluenceSpace` once before authoring:
-
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-    name="getConfluenceSpace",
-    cloudId="...",
-    inputs={"spaceIdOrKey": "[space ID or key]"}
-)
-```
-
-3. Apply any returned `spaceInstructions`. If a successful response omits them, no instructions
-   are configured — author with defaults and do not block.
-
-Reuse the result for the rest of the task: do not call `getConfluenceSpace` again for the same
-space, and do not follow it with a separate `getConfluenceSpaceInstructions` call.
+Use the `createConfluencePage` tool to publish the report.
 
 **Page creation:**
 ```
-createConfluenceContent(
-    cloudId="[obtained from listConfluenceSpaces or URL]",
-    parent={"spaceId": "[numerical space ID]"},
-    contentType="page",
+createConfluencePage(
+    cloudId="[obtained from getConfluenceSpaces or URL]",
+    spaceId="[numerical space ID]",
     title="[Project Name] - Status Report - [Date]",
-    body={"format": "markdown", "value": "[formatted report]"}
+    body="[formatted report in Markdown]",
+    contentFormat="markdown",
+    parentId="[optional - parent page ID if nesting under another page]"
 )
-```
-
-To nest the report under an existing page, add `parentContentId` to `parent`:
-
-```
-    parent={"spaceId": "[numerical space ID]", "parentContentId": "[parent page ID]"},
 ```
 
 **Title format examples:**
@@ -226,8 +186,7 @@ To nest the report under an existing page, add `parentContentId` to `parent`:
 - "Q4 Initiatives - Status Update - Week 49"
 
 **Body formatting:**
-Write the report content in Markdown and pass it as `body={"format": "markdown", "value": ...}`,
-following the spec returned by `getContentFormatGuide`. Use:
+Write the report content in Markdown. The tool will convert it to Confluence format. Use:
 - Headers (`#`, `##`, `###`) for structure
 - Bullet points for lists
 - Bold (`**text**`) for emphasis
@@ -244,8 +203,7 @@ following the spec returned by `getContentFormatGuide`. Use:
 
 If the user doesn't specify a Confluence space:
 
-1. Use `listConfluenceSpaces` to list available spaces. This is not a primary tool, so run it
-   through `execute`: `executeRead(name="listConfluenceSpaces", cloudId="...")`
+1. Use `getConfluenceSpaces` to list available spaces
 2. Look for spaces related to the project (matching project name or key)
 3. If unsure, ask the user which space to use
 4. Default to creating in the most relevant team or project space
@@ -254,51 +212,25 @@ If the user doesn't specify a Confluence space:
 
 If updating an existing page instead of creating new:
 
-1. Get the current page content. `detail="full"` returns the body (the default `summary` returns
-   only a title, excerpt, and counts), and the doc-type response carries the `snapshotToken` you
-   must pass back on the update, plus `metadata.hasSpaceInstructions` for step 3:
+1. Get the current page content:
 ```
-getConfluenceContent(
+getConfluencePage(
     cloudId="...",
-    content_id="123456",
-    content_format="markdown",
-    detail="full",
-    include_metadata=True
+    pageId="123456",
+    contentFormat="markdown"
 )
 ```
 
-2. Load the authoring guidance for the edit (`toolName` is the content key, not the tool you call):
+2. Update the page with new content:
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-    name="getContentFormatGuide",
-    inputs={"toolName": "updateConfluencePage"}
-)
-```
-
-3. Load the space instructions unless step 1 returned `metadata.hasSpaceInstructions=false`. Reuse
-   the result if you already loaded it for this space during this task:
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-    name="getConfluenceSpace",
+updateConfluencePage(
     cloudId="...",
-    inputs={"spaceIdOrKey": "[space ID or key]"}
-)
-```
-
-4. Update the page with new content. **`snapshotToken` is required for document edits** — pass the
-   value from the step 1 response. Omitting it will fail the update:
-```
-updateConfluenceContent(
-    cloudId="...",
-    contentId="123456",
-    snapshotToken="[snapshotToken from the step 1 response]",
-    body={"format": "markdown", "value": "[updated report content]"},
+    pageId="123456",
+    body="[updated report content]",
+    contentFormat="markdown",
     versionMessage="Updated with latest status - Dec 8, 2025"
 )
 ```
-
-> Concurrency note: the `snapshotToken` ties your edit to the version you read. Do not reuse a
-> stale token across edits — re-read the content with `getConfluenceContent` before each update.
 
 ## Complete Example Workflow
 
@@ -351,22 +283,16 @@ Use Executive Summary Format from templates. Create concise report with metrics,
 
 **Step 5 - Publish:**
 ```python
-# Find appropriate space (not a primary tool - run it through execute)
-executeRead(name="listConfluenceSpaces", cloudId="...")
-
-# Load authoring guidance before composing the body
-executeRead(name="getContentFormatGuide", inputs={"toolName": "createConfluencePage"})
-
-# Load space instructions (skip only if hasSpaceInstructions was false for this space)
-executeRead(name="getConfluenceSpace", cloudId="...", inputs={"spaceIdOrKey": "PHX"})
+# Find appropriate space
+getConfluenceSpaces(cloudId="...")
 
 # Create page
-createConfluenceContent(
+createConfluencePage(
     cloudId="...",
-    parent={"spaceId": "12345"},
-    contentType="page",
+    spaceId="12345",
     title="Project Phoenix - Weekly Status - Dec 3, 2025",
-    body={"format": "markdown", "value": "[formatted markdown report]"}
+    body="[formatted markdown report]",
+    contentFormat="markdown"
 )
 ```
 
@@ -407,36 +333,3 @@ Quick reference of common JQL query patterns for status reports. Use this for st
 
 ### references/report-templates.md
 Detailed templates for different report types and audiences. Reference this to select the appropriate format and structure for your report.
-
----
-
-## Calling non-primary tools
-
-The Atlassian Rovo MCP server exposes only a small set of **primary** tools directly in your tool
-list. Everything else lives in the catalog and is reached through meta-tools:
-
-- **`discover`** — describe the goal in natural language when you do not know an operation's name.
-  It returns the exact `name` and `inputs` to use. Do not call `discover` for an operation you
-  already have as a primary tool.
-- **An execute-family tool** — run a catalog operation by name. Check your tool list: some clients
-  expose a single **`execute`**, others expose **`executeRead`** / **`executeWrite`** /
-  **`executeDestructive`** and expect the tier matching the operation. The arguments are identical:
-
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="<operationName>",
-  cloudId="...",
-  inputs={"param": "value"}
-)
-```
-
-Rules that matter:
-
-- **`cloudId` is a top-level argument**, a sibling of `name` and `inputs` — never put it inside
-  `inputs`. Operations declared `omitCloudId` (such as `getContentFormatGuide`) take no `cloudId`.
-- **`inputs` is a flat object.** The server routes each parameter to path, query, or body itself.
-- **Use the exact parameter names from the live tool schema.** Unrecognized parameters are dropped
-  rather than reported as an error, so a wrong name fails silently — the call succeeds and your
-  value is simply ignored. When in doubt, read the schema or `discover` result first.
-- If the call reports an unknown operation, run `discover` with different keywords and use the
-  name it returns rather than guessing.

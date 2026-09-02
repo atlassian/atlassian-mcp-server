@@ -248,7 +248,7 @@ getJiraIssue(
 
 **Then add the comment:**
 ```
-addOrEditJiraIssueComment(
+addCommentToJiraIssue(
   cloudId="...",
   issueIdOrKey="PROJ-456",
   commentBody="[formatted comment - see below]"
@@ -281,13 +281,11 @@ addOrEditJiraIssueComment(
 
 If user wants to create new issue:
 
-**First, check available issue types.** `listJiraProjectIssueTypesMetadata` is not a primary tool,
-so run it through `execute` (see [Calling non-primary tools](#calling-non-primary-tools)):
+**First, check available issue types:**
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="listJiraProjectIssueTypesMetadata",
+getJiraProjectIssueTypesMetadata(
   cloudId="...",
-  inputs={"projectIdOrKey": "PROJ"}
+  projectIdOrKey="PROJ"
 )
 ```
 
@@ -301,10 +299,12 @@ executeRead(   # or execute(...) if your client exposes a single execute tool
 createJiraIssue(
   cloudId="...",
   projectKey="PROJ",
-  issueType="Bug",
+  issueTypeName="Bug",
   summary="[Clear, specific summary - see below]",
   description="[Detailed description - see below]",
-  priority="Medium"  # Adjust based on the severity assessment
+  additional_fields={
+    "priority": {"name": "Medium"}  # Adjust based on user input severity assessment
+  }
 )
 ```
 
@@ -502,13 +502,12 @@ Should I create a new issue with this context?
 
 If creating an issue fails due to required fields:
 
-1. **Check what fields are required.** `getJiraIssueTypeMetaWithFields` is not a primary tool, so
-   run it through `execute`:
+1. **Check what fields are required:**
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="getJiraIssueTypeMetaWithFields",
+getJiraIssueTypeMetaWithFields(
   cloudId="...",
-  inputs={"projectIdOrKey": "PROJ", "issueTypeId": "10001"}
+  projectIdOrKey="PROJ",
+  issueTypeId="10001"
 )
 ```
 
@@ -525,8 +524,8 @@ Please provide these values so I can create the issue.
 ```
 createJiraIssue(
   ...existing parameters...,
-  priority="High",
   additional_fields={
+    "priority": {"name": "High"},
     "customfield_10001": {"value": "Production"}
   }
 )
@@ -688,11 +687,10 @@ This skill is for **triaging bugs and errors only**. Do NOT use for:
 **Search tool:** `searchJiraIssuesUsingJql(cloudId, jql, fields, maxResults)`
 
 **Action tools:**
-- `addOrEditJiraIssueComment(cloudId, issueIdOrKey, commentBody)` - Add to existing
-- `createJiraIssue(cloudId, projectKey, issueType, summary, description)` - Create new
+- `addCommentToJiraIssue(cloudId, issueIdOrKey, commentBody)` - Add to existing
+- `createJiraIssue(cloudId, projectKey, issueTypeName, summary, description)` - Create new
 
-**Issue type:** Always prefer "Bug" for error reports, check with
-`executeRead(name="listJiraProjectIssueTypesMetadata", ...)` (not a primary tool)
+**Issue type:** Always prefer "Bug" for error reports, check with `getJiraProjectIssueTypesMetadata`
 
 **Remember:**
 - Multiple searches catch more duplicates
@@ -700,36 +698,3 @@ This skill is for **triaging bugs and errors only**. Do NOT use for:
 - Include error details and context
 - Reference related issues
 - Use "Bug" issue type when available
-
----
-
-## Calling non-primary tools
-
-The Atlassian Rovo MCP server exposes only a small set of **primary** tools directly in your tool
-list. Everything else lives in the catalog and is reached through meta-tools:
-
-- **`discover`** — describe the goal in natural language when you do not know an operation's name.
-  It returns the exact `name` and `inputs` to use. Do not call `discover` for an operation you
-  already have as a primary tool.
-- **An execute-family tool** — run a catalog operation by name. Check your tool list: some clients
-  expose a single **`execute`**, others expose **`executeRead`** / **`executeWrite`** /
-  **`executeDestructive`** and expect the tier matching the operation. The arguments are identical:
-
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="<operationName>",
-  cloudId="...",
-  inputs={"param": "value"}
-)
-```
-
-Rules that matter:
-
-- **`cloudId` is a top-level argument**, a sibling of `name` and `inputs` — never put it inside
-  `inputs`. Operations declared `omitCloudId` (such as `getContentFormatGuide`) take no `cloudId`.
-- **`inputs` is a flat object.** The server routes each parameter to path, query, or body itself.
-- **Use the exact parameter names from the live tool schema.** Unrecognized parameters are dropped
-  rather than reported as an error, so a wrong name fails silently — the call succeeds and your
-  value is simply ignored. When in doubt, read the schema or `discover` result first.
-- If the call reports an unknown operation, run `discover` with different keywords and use the
-  name it returns rather than guessing.

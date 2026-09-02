@@ -119,11 +119,6 @@ project = "SPACE_KEY" AND updated >= -60d ORDER BY updated DESC
 Use a 60-day recent movement window by default unless the user asks for another
 period.
 
-Not every board supports sprints. Team-managed boards of type `simple` have no
-sprints at all: `sprint in openSprints()` returns nothing and a board-sprint
-lookup fails with "The board does not support sprints". Treat that as a signal to
-go straight to snapshot mode rather than an error worth retrying.
-
 ## Query Jira
 
 Use read-only Jira search. Request only fields needed for the dashboard and
@@ -133,13 +128,6 @@ Useful fields: `key`, `summary`, `status`, `statusCategory`, `assignee`,
 `priority`, `issuetype`, `created`, `updated`, `resolutiondate`, `duedate`,
 `parent`, `issuelinks`, `labels`, `components`, `fixVersions`, `sprint`, and any
 available estimate/story point field.
-
-**Sprint and story points live in custom fields, which the default response omits.**
-Jira search defaults to a compact view, so a sprint dashboard built from it will
-look sprint-less even when the sprint is active. To get them, either pass
-`view: "evidence"` (or `"full"`), or request this site's `customfield_*` IDs
-explicitly — the IDs differ per Cloud site. Custom field values come back under
-`fields.customFields`, not as top-level `customfield_*` keys.
 
 Start with `maxResults: 100`. For complete sprint, board, or filter dashboards,
 paginate until the scope is complete or too large for useful work-item-level

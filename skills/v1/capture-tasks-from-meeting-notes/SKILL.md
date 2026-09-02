@@ -29,11 +29,10 @@ Obtain the meeting notes from the user.
 If user provides a Confluence URL:
 
 ```
-getConfluenceContent(
+getConfluencePage(
   cloudId="...",
-  content_id="[extracted from URL]",
-  content_format="markdown",
-  detail="full"
+  pageId="[extracted from URL]",
+  contentFormat="markdown"
 )
 ```
 
@@ -149,24 +148,16 @@ Before looking up users or creating tasks, identify the Jira project.
 
 #### If User is Unsure
 
-Call `listJiraProjects` to show options. It is not a primary tool, so run it through `execute`
-(see [Calling non-primary tools](#calling-non-primary-tools)):
+Call `getVisibleJiraProjects` to show options:
 
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="listJiraProjects",
+getVisibleJiraProjects(
   cloudId="...",
-  inputs={"action": "create"}
+  action="create"
 )
 ```
 
 Present: "I found these projects you can create tasks in: PROJ (Project Alpha), PRODUCT (Product Team), ENG (Engineering)"
-
-#### If the Notes Name a Project
-
-Meeting notes often name a project key that doesn't exist on the site, or that the user can't
-create in. Validate the key against `listJiraProjects` before creating anything — if it isn't
-there, say so and offer the closest matches rather than failing on the first create call.
 
 ---
 
@@ -176,13 +167,10 @@ For each assignee name, find their Jira account ID.
 
 #### Lookup Process
 
-`lookupJiraAccountId` is not a primary tool, so run it through `execute`:
-
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="lookupJiraAccountId",
+lookupJiraAccountId(
   cloudId="...",
-  inputs={"query": "[assignee name]"}
+  searchString="[assignee name]"
 )
 ```
 
@@ -273,13 +261,10 @@ Once confirmed, create each Jira task.
 
 Before creating tasks, check what issue types are available in the project:
 
-`listJiraProjectIssueTypesMetadata` is not a primary tool, so run it through `execute`:
-
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="listJiraProjectIssueTypesMetadata",
+getJiraProjectIssueTypesMetadata(
   cloudId="...",
-  inputs={"projectIdOrKey": "PROJ"}
+  projectIdOrKey="PROJ"
 )
 ```
 
@@ -295,10 +280,10 @@ executeRead(   # or execute(...) if your client exposes a single execute tool
 createJiraIssue(
   cloudId="...",
   projectKey="PROJ",
-  issueType="[Task or available type]",
+  issueTypeName="[Task or available type]",
   summary="[Task description]",
   description="[Full description with context]",
-  assignee="[looked up account ID]"
+  assignee_account_id="[looked up account ID]"
 )
 ```
 
@@ -670,9 +655,9 @@ Action Items:
 
 ## Quick Reference
 
-**Primary tool:** `getConfluenceContent` (if URL) or use pasted text  
-**Account lookup:** `executeRead(name="lookupJiraAccountId", inputs={"query": ...})` (not a primary tool)  
-**Task creation:** `createJiraIssue` with `assignee` (the account ID)  
+**Primary tool:** `getConfluencePage` (if URL) or use pasted text  
+**Account lookup:** `lookupJiraAccountId(searchString)`  
+**Task creation:** `createJiraIssue` with `assignee_account_id`  
 
 **Action patterns to look for:**
 - `@Name to/will/should X`
@@ -692,36 +677,3 @@ Action Items:
 - Name lookup can fail (have fallback)
 - Be flexible with pattern matching
 - Context preservation is important
-
----
-
-## Calling non-primary tools
-
-The Atlassian Rovo MCP server exposes only a small set of **primary** tools directly in your tool
-list. Everything else lives in the catalog and is reached through meta-tools:
-
-- **`discover`** — describe the goal in natural language when you do not know an operation's name.
-  It returns the exact `name` and `inputs` to use. Do not call `discover` for an operation you
-  already have as a primary tool.
-- **An execute-family tool** — run a catalog operation by name. Check your tool list: some clients
-  expose a single **`execute`**, others expose **`executeRead`** / **`executeWrite`** /
-  **`executeDestructive`** and expect the tier matching the operation. The arguments are identical:
-
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="<operationName>",
-  cloudId="...",
-  inputs={"param": "value"}
-)
-```
-
-Rules that matter:
-
-- **`cloudId` is a top-level argument**, a sibling of `name` and `inputs` — never put it inside
-  `inputs`. Operations declared `omitCloudId` (such as `getContentFormatGuide`) take no `cloudId`.
-- **`inputs` is a flat object.** The server routes each parameter to path, query, or body itself.
-- **Use the exact parameter names from the live tool schema.** Unrecognized parameters are dropped
-  rather than reported as an error, so a wrong name fails silently — the call succeeds and your
-  value is simply ignored. When in doubt, read the schema or `discover` result first.
-- If the call reports an unknown operation, run `discover` with different keywords and use the
-  name it returns rather than guessing.

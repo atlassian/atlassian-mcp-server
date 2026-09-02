@@ -178,6 +178,11 @@ This repository publishes the same MCP server and skills in several package form
 | Gemini extension | [`gemini-extension.json`](gemini-extension.json) | MCP server configuration embedded in the manifest |
 | MCP Registry | [`server.json`](server.json) | Remote server metadata |
 
+The skills in [`skills/`](skills/) target the `/v2/mcp` endpoint and are what every packaged plugin
+installs. The previous generation is archived in [`skills/v1/`](skills/v1/) for anyone still on a v1
+endpoint; it is not installed by any plugin and is set up manually. See
+[`skills/README.md`](skills/README.md) for the differences.
+
 Both `mcp.json` and `.mcp.json` are intentional. Agent Plugins requires the root `mcp.json` filename and its portable transport vocabulary; existing clients continue to use `.mcp.json` and their native configuration vocabulary. Keep their endpoint settings aligned when changing either file.
 
 The root package can be imported by clients that implement Agent Plugins, including Kiro Powers. Client-specific manifests remain available and are not replaced by the portable package.

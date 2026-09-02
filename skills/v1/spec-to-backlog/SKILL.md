@@ -38,30 +38,24 @@ Extract the cloud ID and page ID from the URL pattern:
 
 ### If user provides only a page title or description:
 
-Use `searchConfluence` with a CQL query to find the page by title:
+Use the `search` tool to find the page:
 ```
-searchConfluence(
+search(
   cloudId="...",
-  cql="type=page AND title ~ '[search terms]'"
+  query="type=page AND title~'[search terms]'"
 )
 ```
-
-> **Do not put CQL into `search`.** The `search` tool is Rovo semantic search and takes natural
-> language, not query syntax — passing CQL to it will miss the page. Use `search` only for
-> natural-language discovery (`query="one-click checkout spec"`), and `searchConfluence` when you
-> want a title or type filter.
 
 If multiple pages match, ask the user to clarify which one to use.
 
 ### Fetch the page:
 
-Call `getConfluenceContent` with the cloudId and content ID:
+Call `getConfluencePage` with the cloudId and pageId:
 ```
-getConfluenceContent(
+getConfluencePage(
   cloudId="...",
-  content_id="123456",
-  content_format="markdown",
-  detail="full"
+  pageId="123456",
+  contentFormat="markdown"
 )
 ```
 
@@ -77,26 +71,22 @@ This returns the page content in Markdown format, which you'll analyze in Step 3
 "Which Jira project should I create these tickets in? Please provide the project key (e.g., PROJ, ENG, PRODUCT)."
 
 ### If user is unsure:
-Call `listJiraProjects` to show available projects. It is not a primary tool, so run it through
-`execute` (see [Calling non-primary tools](#calling-non-primary-tools)):
+Call `getVisibleJiraProjects` to show available projects:
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="listJiraProjects",
+getVisibleJiraProjects(
   cloudId="...",
-  inputs={"action": "create"}
+  action="create"
 )
 ```
 
 Present the list: "I found these projects you can create issues in: PROJ (Project Alpha), ENG (Engineering), PRODUCT (Product Team)."
 
 ### Once you have the project key:
-Call `listJiraProjectIssueTypesMetadata` to understand what issue types are available. This is
-also not a primary tool:
+Call `getJiraProjectIssueTypesMetadata` to understand what issue types are available:
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="listJiraProjectIssueTypesMetadata",
+getJiraProjectIssueTypesMetadata(
   cloudId="...",
-  inputs={"projectIdOrKey": "PROJ"}
+  projectIdOrKey="PROJ"
 )
 ```
 
@@ -234,7 +224,7 @@ Call `createJiraIssue` with:
 createJiraIssue(
   cloudId="...",
   projectKey="PROJ",
-  issueType="Epic",
+  issueTypeName="Epic",
   summary="[Epic Summary from Step 3]",
   description="[Epic Description - see below]"
 )
@@ -302,7 +292,7 @@ Call `createJiraIssue` with:
 createJiraIssue(
   cloudId="...",
   projectKey="PROJ",
-  issueType="[Story/Task/Bug based on task content]",
+  issueTypeName="[Story/Task/Bug based on task content]",
   summary="[Task Summary]",
   description="[Task Description - see below]",
   parent="PROJ-123"  # The Epic key from Step 5
@@ -430,23 +420,22 @@ https://yoursite.atlassian.net/browse/PROJ-123
 ### Custom Required Fields
 
 **If ticket creation fails due to required fields:**
-1. Use `getJiraIssueTypeMetaWithFields` to identify what fields are required. It is not a primary
-   tool, so run it through `execute`:
+1. Use `getJiraIssueTypeMetaWithFields` to identify what fields are required:
    ```
-   executeRead(   # or execute(...) if your client exposes a single execute tool
-     name="getJiraIssueTypeMetaWithFields",
+   getJiraIssueTypeMetaWithFields(
      cloudId="...",
-     inputs={"projectIdOrKey": "PROJ", "issueTypeId": "10001"}
+     projectIdOrKey="PROJ",
+     issueTypeId="10001"
    )
    ```
 
 2. Ask user for values: "This project requires a 'Priority' field. What priority should I use? (e.g., High, Medium, Low)"
 
-3. Pass native parameters directly — `priority` is a top-level string, not an
-   `additional_fields` entry. Reserve `additional_fields` for custom fields:
+3. Include in `additional_fields` when creating:
    ```
-   priority="High",
-   additional_fields={"customfield_10001": {"value": "Production"}}
+   additional_fields={
+     "priority": {"name": "High"}
+   }
    ```
 
 ### Large Specifications
@@ -474,7 +463,7 @@ https://yoursite.atlassian.net/browse/PROJ-123
 
 **If `createJiraIssue` fails:**
 1. Check the error message for specific issues (permissions, required fields, invalid values)
-2. Use `executeRead(name="listJiraProjectIssueTypesMetadata", ...)` to verify issue type availability
+2. Use `getJiraProjectIssueTypesMetadata` to verify issue type availability
 3. Inform user: "I encountered an error creating tickets: [error message]. This might be due to project permissions or required fields."
 
 ---
@@ -552,36 +541,3 @@ https://yoursite.atlassian.net/browse/PROJ-123
 5. [Task] Add deployment rollback mechanism
 6. [Task] Create deployment runbook and documentation
 
-
----
-
-## Calling non-primary tools
-
-The Atlassian Rovo MCP server exposes only a small set of **primary** tools directly in your tool
-list. Everything else lives in the catalog and is reached through meta-tools:
-
-- **`discover`** — describe the goal in natural language when you do not know an operation's name.
-  It returns the exact `name` and `inputs` to use. Do not call `discover` for an operation you
-  already have as a primary tool.
-- **An execute-family tool** — run a catalog operation by name. Check your tool list: some clients
-  expose a single **`execute`**, others expose **`executeRead`** / **`executeWrite`** /
-  **`executeDestructive`** and expect the tier matching the operation. The arguments are identical:
-
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="<operationName>",
-  cloudId="...",
-  inputs={"param": "value"}
-)
-```
-
-Rules that matter:
-
-- **`cloudId` is a top-level argument**, a sibling of `name` and `inputs` — never put it inside
-  `inputs`. Operations declared `omitCloudId` (such as `getContentFormatGuide`) take no `cloudId`.
-- **`inputs` is a flat object.** The server routes each parameter to path, query, or body itself.
-- **Use the exact parameter names from the live tool schema.** Unrecognized parameters are dropped
-  rather than reported as an error, so a wrong name fails silently — the call succeeds and your
-  value is simply ignored. When in doubt, read the schema or `discover` result first.
-- If the call reports an unknown operation, run `discover` with different keywords and use the
-  name it returns rather than guessing.
