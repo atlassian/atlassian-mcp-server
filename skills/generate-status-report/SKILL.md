@@ -10,7 +10,7 @@ status report, project status, weekly update, daily standup, Jira report, projec
 
 Automatically query Jira for project status, analyze issues, and generate formatted status reports published to Confluence.
 
-**CRITICAL**: This skill should be **interactive**. Always clarify scope (time period, audience, Confluence destination) with the user before or after generating the report. Do not silently skip Confluence publishing—always offer it.
+This skill is interactive: clarify scope (time period, audience, Confluence destination) with the user, and offer Confluence publishing rather than skipping it silently.
 
 ## Workflow
 
@@ -24,7 +24,7 @@ Generating a status report follows these steps:
 
 ## Step 1: Identify Scope
 
-**IMPORTANT**: If the user's request is missing key information, ASK before proceeding with queries. Do not assume defaults without confirmation for Confluence publishing.
+If the request is missing key information, ask before running queries. Confirm the Confluence destination rather than assuming one.
 
 Clarify these details:
 
@@ -43,7 +43,7 @@ Clarify these details:
 - **Daily standup**: Brief update on yesterday/today/blockers
 
 **Report destination:**
-- **ALWAYS ASK** if not specified: "Would you like me to publish this report to Confluence? If so, which space should I use?"
+- If not specified, ask: "Would you like me to publish this report to Confluence? If so, which space should I use?"
 - If user says yes: Ask for space name or offer to list available spaces
 - Determine: New page or update existing page?
 - Ask about parent page if creating under a specific section
@@ -159,7 +159,7 @@ Use **Daily Standup Format**:
 
 ## Step 5: Publish to Confluence
 
-**After generating the report, ALWAYS offer to publish to Confluence** (unless user explicitly said not to).
+After generating the report, offer to publish to Confluence unless the user said not to.
 
 If user hasn't specified Confluence details yet, ask:
 - "Would you like me to publish this report to Confluence?"
