@@ -5,9 +5,6 @@ description: "Generate project status reports from Jira issues and publish to Co
 
 # Generate Status Report
 
-## Keywords
-status report, project status, weekly update, daily standup, Jira report, project summary, blockers, progress update, Confluence report, sprint report, project update, publish to Confluence, write to Confluence, post report
-
 Automatically query Jira for project status, analyze issues, and generate formatted status reports published to Confluence.
 
 **CRITICAL**: This skill should be **interactive**. Always clarify scope (time period, audience, Confluence destination) with the user before or after generating the report. Do not silently skip Confluence publishing—always offer it.

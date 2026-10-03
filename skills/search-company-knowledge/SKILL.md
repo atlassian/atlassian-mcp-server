@@ -5,9 +5,6 @@ description: "Search across company knowledge bases (Confluence, Jira, internal 
 
 # Search Company Knowledge
 
-## Keywords
-find information, search company knowledge, look up, what is, explain, company docs, internal documentation, Confluence search, Jira search, our documentation, internal knowledge, knowledge base, search for, tell me about, get information about, company systems, terminology, find everything about, what do we know about, deployment, authentication, infrastructure, processes, procedures, how to, how does, our systems, our processes, internal systems, company processes, technical documentation, engineering docs, architecture, configuration, search our docs, search internal docs, find in our docs
-
 ## Overview
 
 Search across siloed company knowledge systems (Confluence, Jira, internal documentation) to find comprehensive answers to questions about internal concepts, systems, and terminology. This skill performs parallel searches across multiple sources and synthesizes results with proper citations.

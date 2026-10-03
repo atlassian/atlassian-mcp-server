@@ -5,9 +5,6 @@ description: "Analyze meeting notes to find action items and create Jira tasks f
 
 # Capture Tasks from Meeting Notes
 
-## Keywords
-meeting notes, action items, create tasks, create tickets, extract tasks, parse notes, analyze notes, assigned work, assignees, from meeting, post-meeting, capture tasks, generate tasks, turn into tasks, convert to tasks, action item, to-do, task list, follow-up, assigned to, create Jira tasks, create Jira tickets, meeting action items, extract action items, find action items, analyze meeting
-
 ## Overview
 
 Automatically extract action items from meeting notes and create Jira tasks with proper assignees. This skill parses unstructured meeting notes (from Confluence or pasted text), identifies action items with assignees, looks up Jira account IDs, and creates tasks—eliminating the tedious post-meeting ticket creation process.

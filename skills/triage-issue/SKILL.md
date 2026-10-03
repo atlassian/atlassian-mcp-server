@@ -5,9 +5,6 @@ description: "Intelligently triage bug reports and error messages by searching f
 
 # Triage Issue
 
-## Keywords
-triage bug, check duplicate, is this a duplicate, search for similar issues, create bug ticket, file a bug, report this error, triage this error, bug report, error message, similar issues, duplicate bug, who fixed this, has this been reported, search bugs, find similar bugs, create issue, file issue
-
 ## Overview
 
 Automatically triage bug reports and error messages by searching Jira for duplicates, identifying similar past issues, and helping create well-structured bug tickets or add context to existing issues. This skill eliminates manual duplicate checking and ensures bugs are properly documented with relevant historical context.
