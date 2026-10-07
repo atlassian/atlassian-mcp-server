@@ -408,6 +408,7 @@ If you're an admin preparing your organization to use the Atlassian MCP Server, 
   Use the **Rovo MCP server** settings page in Atlassian Administration to control which external AI tools and domains are allowed to connect. By default, Atlassian-supported domains are allowed; you can add trusted domains or block supported ones. Domain controls apply to OAuth 2.1 connections. For details, see [Available Atlassian MCP server domains](https://support.atlassian.com/security-and-access-policies/docs/available-atlassian-rovo-mcp-server-domains/).
 * **IP controls:**
   If your organization uses IP allowlisting for Atlassian Cloud apps, requests made through the Atlassian MCP Server must originate from an IP address allowed by your organization's IP allowlist for the relevant app. For configuration details, see [Specify IP addresses for product access](https://support.atlassian.com/security-and-access-policies/docs/specify-ip-addresses-for-product-access/).
+  Bitbucket Cloud IP restrictions are configured separately by workspace administrators under **Workspace settings → Access controls**. See [Control access to private content in a workspace](https://support.atlassian.com/bitbucket-cloud/docs/control-access-to-private-content-in-a-workspace/).
 * **End-user controls:**
   Individual users can revoke their own app authorizations from their profile settings.
 * **Audit logging:**
@@ -416,7 +417,11 @@ If you're an admin preparing your organization to use the Atlassian MCP Server, 
 ### Troubleshooting common issues
 
 * **"You don't have permission to connect from this IP address. Please ask your admin for access."**
-  This usually indicates that IP allowlisting is enabled and the user's current IP address isn't allowed to access Jira, Confluence, Jira Service Management, Bitbucket, or Compass via the Atlassian MCP Server. Ask your site or organization admin to review the IP allowlist configuration and add the relevant network or VPN IP ranges if appropriate.
+  This usually indicates that IP allowlisting is enabled and the request's source IP address isn't allowed to access the relevant app via the Atlassian MCP Server. Ask your site, organization, or Bitbucket workspace administrator to review the applicable IP allowlist.
+
+  Hosted AI clients can send requests from the AI provider's outbound IP addresses rather than the user's corporate network or VPN. Being on an allowed VPN may therefore be insufficient. Ask your administrator to review the provider's published outbound IP ranges and approve the required access. For OpenAI-hosted connectors, see [OpenAI's IP egress guidance](https://developers.openai.com/api/docs/guides/ip-addresses). Local MCP connections can use the local network's outbound IP address. See [how IP allowlisting works with Atlassian MCP](https://support.atlassian.com/security-and-access-policies/docs/control-atlassian-mcp-server-settings/#How-IP-allowlisting-works-with-Atlassian-MCP).
+* **OAuth sign-in succeeds, but tool calls return 403.**
+  Successful sign-in does not guarantee that tool calls will pass IP restrictions. A 403 can also indicate insufficient scopes, app permissions, or another access policy. Confirm the denial reason before changing an IP allowlist.
 
 ---
 
