@@ -1,0 +1,27 @@
+# atlassian-mcp-server
+
+> A cloud-hosted Model Context Protocol server that gives AI tools secure, real-time access to Jira, Confluence, Jira Service Management, Bitbucket, Compass, Loom, and Atlassian platform data.
+
+Official Atlassian MCP server, cloud-based, connecting to Atlassian Cloud via OAuth 2.1 or API tokens. Install through one-click links for clients like Cursor, VS Code, ChatGPT, and Claude, or via the v2 endpoint https://mcp.atlassian.com/v2/mcp. Tools are organized by product and intent, with some tools like delete_jira and manage_jira disabled by default and requiring admin enablement.
+
+## Docs
+
+- [atlassian-mcp-server README](https://raw.githubusercontent.com/atlassian/atlassian-mcp-server/main/README.md): Overview of the official cloud-hosted MCP server bridging AI tools to Jira, Confluence, Bitbucket, Loom, and the Teamwork Graph.
+- [One-click setup](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#one-click-setup): One-click install buttons for Cursor, VS Code, ChatGPT, and Claude, plus agent-driven setup prompts.
+- [Supported clients](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#supported-clients): List of MCP-compatible clients, including local clients connecting via the mcp-remote proxy.
+- [Plugin packaging and compatibility](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#plugin-packaging-and-compatibility): Package formats for plugins and skills, v1 versus v2 skills, and mcp.json versus .mcp.json compatibility.
+- [Supported products and tools](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#supported-products-and-tools): Tools grouped by product and intent, with admin permission groups and product-specific access conditions.
+- [How the server exposes tools](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#how-the-server-exposes-tools): How Primary tools are exposed at connection time with on-demand discovery, keeping client context free.
+- [MCP gateways](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#mcp-gateways): Exposing all tools as a paginated flat list with the tools=all override for MCP gateways.
+- [Before you start](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#before-you-start): Prerequisites for supported clients and IDE setups, including Atlassian Cloud site, Node.js v18+, and authentication options.
+- [Data and security](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#data-and-security): Security controls: HTTPS TLS 1.2+, OAuth 2.1 and API token authentication, user permissions, and IP allowlisting.
+- [How it works](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#how-it-works): Architecture, recommended v2 endpoint, OAuth and API token flows, SSE deprecation, and permission management.
+- [Example workflows](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#example-workflows): Example prompts for Jira, Confluence, Compass, Loom, Projects and Goals, and combined tasks.
+- [Tips and tricks](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#tips-and-tricks): Setting default CloudId, Jira project, and Confluence space in AGENTS.md, and using skills in Claude or Cursor.
+- [Admin notes: managing access](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#admin-notes-managing-access): Admin controls for managing, monitoring, and revoking MCP access, plus domain, IP allowlist, and end-user controls.
+- [Security](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#security): Security risks of MCP, prompt injection attacks, and mitigation through trusted clients, least privilege, and audit logs.
+- [Support and feedback](https://github.com/atlassian/atlassian-mcp-server/blob/main/README.md#support-and-feedback): Where to report bugs, feature requests, and feedback: Atlassian Support Portal, communities, and Ecosystem Developer Portal.
+
+## Optional
+
+- [Contributing to the Atlassian Rovo MCP Server](https://raw.githubusercontent.com/atlassian/atlassian-mcp-server/main/CONTRIBUTING.md): How to open issues and send pull requests, what lives in the repo, and manifest validation commands.
