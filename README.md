@@ -119,6 +119,7 @@ Or add the server manually with your client's own command:
 | VS Code / GitHub Copilot | Extensions view → search `@mcp Atlassian` → **Install** |
 | Cursor | [Atlassian plugin for Cursor with MCP](https://cursor.com/marketplace/atlassian) → **Add to Cursor** |
 | Windsurf | **Cascade → MCP servers → Add Server → Add custom server**, with `serverUrl` set to `https://mcp.atlassian.com/v2/mcp` |
+| Neotask | `neotask construct install atlassian`, which uses your Atlassian connection in Neotask |
 | Any other MCP client | Use the server URL `https://mcp.atlassian.com/v2/mcp` |
 
 ## Contents
@@ -158,6 +159,7 @@ The Atlassian MCP Server works with a growing list of MCP-compatible clients:
 | Docker | [Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) |
 | Kiro and other Agent Plugins clients | [Kiro Powers documentation](https://kiro.dev/docs/powers/create/) |
 | Amazon Quick Suite | [MCP integration guide](https://docs.aws.amazon.com/quicksuite/latest/userguide/mcp-integration.html) |
+| Neotask | [Atlassian on Neotask Construct](https://construct.neotask.ai/p/atlassian) |
 
 The Atlassian MCP Server also supports any **local MCP-compatible client** that can run on `localhost` and connect to the server via the [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) proxy. This enables custom or third-party integrations that follow the MCP specification.
 
