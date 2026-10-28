@@ -24,26 +24,7 @@ The Atlassian MCP covers code as well as Jira and Confluence. In the default v2
 tool list, code search is reached through `discover` and `execute`. This skill
 teaches that workflow; it does not register additional MCP tools.
 
-## Calling The Tools
-
-1. Check the available tools or toolsets for an Atlassian MCP connection. If the
-   host exposes tools through a toolset interface, inspect that interface first.
-   If code operations and discovery are unavailable, report the missing capability.
-   Loading this skill alone does not connect the server.
-2. If the operation is listed directly by your client, use its advertised schema.
-   Resolve `cloudId` only if that schema requires it. For execution calls that
-   require `cloudId`, reuse a known value or call `getAccessibleAtlassianResources`
-   and select the relevant site. Pass `cloudId` at the top level, outside `inputs`.
-3. Operation names and inputs come from `discover`. If the required schema is
-   unknown, call `discover` with a goal such as "search source code". Read the
-   returned matches and reuse their contracts. Discover additional code navigation
-   operations as needed; one query may not return all four operations.
-4. For operations absent from the client's tool list, use
-   `executeRead({ name, cloudId, inputs })`, or
-   `execute({ name, cloudId, inputs })` if the client exposes a single `execute`
-   tool. Follow the returned operation schema. These operations are read-only.
-
-Operations:
+## Operations
 
 - `searchCode`: `query` plus optional `mode` (`hybrid` default, `semantic`,
   `lexical`), `namespace` (GitHub organization or Bitbucket workspace), `repo`
