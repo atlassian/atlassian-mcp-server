@@ -90,7 +90,7 @@ override any of them.
 | In progress, no owner | `statusCategory = "In Progress"` and `assignee` empty | `assignee` | assign (only to a person the user names) |
 | In sprint, no owner | in an active sprint and `assignee` empty | `sprint`, `assignee` | assign, or flag for a human to move it out of the sprint |
 | In sprint, no estimate | in an active sprint and estimate empty | estimate field | add label `needs-estimate` |
-| No priority | `priority` empty, or every item in scope carries the project default | `priority` | set priority |
+| No priority | `priority` empty | `priority` | set priority |
 | No parent | story or task in an active sprint with no `parent` | `parent` | set parent |
 | Overdue | `duedate` before today and not done | `duedate` | move due date, or comment |
 | Blocked too long | status is Blocked, or label `blocked`, and `updated` older than 10 days | `status`, `labels`, `updated` | nudge comment |
@@ -112,7 +112,10 @@ or a query listed in the appendix.
 
 1. **Scope line**: project or filter, JQL, item count, query time, thresholds.
 2. **Totals**: items scanned, items with at least one finding, and a count per
-   check. A check that was skipped shows `skipped (field not used)`.
+   check. A check that was skipped shows `skipped (field not used)`. When every
+   item in scope carries the same priority, say so here once as an observation:
+   the field does not show whether a value was chosen or inherited, so it is
+   not a finding.
 3. **One table per check with findings**: key, summary (short), owner or
    `Unassigned`, age or date that triggered the rule, and the evidence field
    value. Show at most 10 rows per check; state the total when there are more.
