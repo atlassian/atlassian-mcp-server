@@ -11,7 +11,7 @@
 <!-- Line 1 · Project -->
 <p align="center">
   <a href="https://github.com/atlassian/atlassian-mcp-server"><img src="https://img.shields.io/badge/Official-Atlassian-0052CC?logo=atlassian&logoColor=white" alt="Official Atlassian Server"></a>
-  <a href="https://github.com/atlassian/atlassian-mcp-server/stargazers"><img src="https://img.shields.io/github/stars/atlassian/atlassian-mcp-server?style=flat&logo=github&label=Stars&color=0052CC" alt="GitHub stars"></a>
+  <a href="https://github.com/atlassian/atlassian-mcp-server"><img src="https://img.shields.io/github/stars/atlassian/atlassian-mcp-server?style=flat&logo=github&label=Stars&color=0052CC" alt="GitHub stars"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/atlassian/atlassian-mcp-server?label=License&color=0052CC" alt="License: Apache 2.0"></a>
   <a href="https://www.atlassian.com/blog/announcements/remote-mcp-server"><img src="https://img.shields.io/badge/Status-Generally_Available-2EBC4F" alt="Status: Generally Available"></a>
 </p>
