@@ -1,16 +1,12 @@
 ---
-name: atlassian-mcp-code-search
+name: search-code
 description: >
-  Find source, callers, and API consumers outside the local workspace using the
-  Atlassian MCP code search operations (searchCode, getCodeFile, scanCodeRepo,
-  listCodeDirectory). Use whenever an answer needs code that is not checked out
-  locally, even without an explicit search request or a known repository.
+  Search connected repositories through Atlassian MCP to find implementations,
+  callers, API consumers, and dependencies when the required source is unavailable
+  locally. Use for repository-specific questions, including follow-ups.
 ---
 
 # Code Search And Navigation With The Atlassian MCP
-
-Adapted from the TWG CLI `code-search.md` reference, for agents that reach code
-search through the Atlassian MCP server instead of `twg search-code`.
 
 ## When To Use
 
@@ -19,10 +15,6 @@ questions without an explicit search request. Start from the known service,
 behavior, error, API, or symbol; discover the repository if unknown. Verify
 implementation claims against source. Skip when local code, supplied context,
 or general knowledge answers the question.
-
-The Atlassian MCP covers code as well as Jira and Confluence. In the default v2
-tool list, code search is reached through `discover` and `execute`. This skill
-teaches that workflow; it does not register additional MCP tools.
 
 ## Operations
 
