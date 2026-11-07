@@ -81,7 +81,7 @@ Pick your AI client below to install the official Atlassian MCP Server. Each but
       <br><sub>Search and create Jira issues via GitHub Copilot.</sub>
     </td>
     <td align="center" width="180">
-      <a href="https://chatgpt.com/apps/atlassian-rovo/connector_692de805e3ec8191834719067174a384">
+      <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a83901dde988191b3f3cefdcc19acfa">
         <img src="https://img.shields.io/badge/ChatGPT-10A37F?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTEyIDIgMyA3djEwbDkgNSA5LTVWN3ptMCAyLjMgNi41IDMuNkwxMiAxMS41IDUuNSA3Ljl6TTUgOS42bDYgMy4zdjYuOGwtNi0zLjN6bTE0IDB2Ni44bC02IDMuM3YtNi44eiIvPjwvc3ZnPg==&logoColor=white" alt="Add to ChatGPT"><br>
         <b>Add to ChatGPT</b>
       </a>
