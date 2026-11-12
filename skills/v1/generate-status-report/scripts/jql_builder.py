@@ -23,8 +23,9 @@ def sanitize_jql_value(value: str) -> str:
         return value
     
     # Remove or escape potentially dangerous characters
-    # Allow alphanumeric, spaces, hyphens, underscores, dots, @
-    safe_pattern = re.compile(r'^[a-zA-Z0-9\s\-_.@]+$')
+    # Allow alphanumeric, spaces, hyphens, underscores, dots, @, commas
+    # (comma is needed for ORDER BY clauses like "priority DESC, updated DESC")
+    safe_pattern = re.compile(r'^[a-zA-Z0-9\s\-_.@,]+$')
     
     if not safe_pattern.match(value):
         raise ValueError(
