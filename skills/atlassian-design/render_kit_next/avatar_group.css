@@ -1,0 +1,18 @@
+/* ADS AvatarGroup's stack at size small: 24px circles 24px apart, each with a 2px surface ring over its neighbour */
+.avatar-group{display:flex}
+.avatar-group > *{box-shadow:0 0 0 var(--ds-border-width-selected) var(--ds-surface)}
+.initials{flex:none;display:grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:var(--ds-radius-full);font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-bold)}
+/* Each person's hue from the kit's avatar_hue(), as the kit's avatar draws it */
+.initials--blue{background:var(--ds-background-accent-blue-subtler);color:var(--ds-text-accent-blue-bolder)}
+.initials--teal{background:var(--ds-background-accent-teal-subtler);color:var(--ds-text-accent-teal-bolder)}
+.initials--green{background:var(--ds-background-accent-green-subtler);color:var(--ds-text-accent-green-bolder)}
+.initials--orange{background:var(--ds-background-accent-orange-subtler);color:var(--ds-text-accent-orange-bolder)}
+.initials--purple{background:var(--ds-background-accent-purple-subtler);color:var(--ds-text-accent-purple-bolder)}
+.initials--magenta{background:var(--ds-background-accent-magenta-subtler);color:var(--ds-text-accent-magenta-bolder)}
+.avatar-group__more{flex:none;display:grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:var(--ds-radius-full);
+  background:linear-gradient(var(--ds-background-neutral),var(--ds-background-neutral)),var(--ds-surface-overlay);
+  font:var(--ds-font-body-small);font-size:0.625rem;line-height:1;color:var(--ds-text-subtle)}   /* 10px, as frame 6:2977 draws "+N": no token holds it */
+/* In the panel: ADS Avatar at medium, 32px, and a 12px icon 2px before the status, as frame 19:161 draws them */
+.hover-panel__row > .initials{width:2rem;height:2rem}
+.avatar-group__status{display:inline-flex;align-items:center;gap:var(--ds-space-025);white-space:nowrap}
+.avatar-group__status .glyph{width:0.75rem;height:0.75rem}

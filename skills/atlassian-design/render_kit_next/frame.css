@@ -1,0 +1,26 @@
+/* The page as frame 6:2977 draws it: 48px above the header, 32px between the header and the cards */
+.wrap{padding-top:var(--ds-space-600);gap:var(--ds-space-400)}
+.mockup-badge{position:absolute;top:10px;right:10px;display:flex}          /* the frame's corner: no space token is 10px */
+/* The header: the title 24px under the skill tag, then 8px below it the meta line, with the aside at its right, centred on it */
+.page-title{margin:var(--ds-space-300) 0 var(--ds-space-100);font:var(--ds-font-heading-large);font-weight:var(--ds-font-weight-medium);
+  color:var(--ds-text);text-wrap:pretty}
+.page-header__row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--ds-space-100) var(--ds-space-200)}
+.page-header__meta{margin:0;font:var(--ds-font-body-large);color:var(--ds-text-subtle)}
+.section-card{background:var(--ds-surface);border:var(--ds-border-width) solid var(--ds-border);border-radius:var(--ds-radius-large);padding:var(--ds-space-200)}
+.section-card__title{margin:0 0 var(--ds-space-200);font:var(--ds-font-body);font-weight:var(--ds-font-weight-semibold);
+  line-height:1.3125rem;color:var(--ds-text)}          /* 21px, Figma's 1.5 line height: no token holds it */
+.paragraph{margin:0;max-width:none;font:var(--ds-font-body-large);color:var(--ds-text-subtle);text-wrap:pretty}
+.paragraph + .paragraph{margin-top:var(--ds-space-200)}
+/* Small text: body in subtlest across the card, 16px under what's above it but the card's title */
+.small-text{margin:var(--ds-space-200) 0 0;max-width:none;font:var(--ds-font-body);color:var(--ds-text-subtlest)}
+.small-text:first-child,.section-card__title + .small-text{margin-top:0}
+/* The footer: 40px under the last card (the page's 32px gap and 8px), "Created" at 14px on a 21px line, the app stack at the right */
+.page-footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--ds-space-100) var(--ds-space-200);
+  margin-top:var(--ds-space-100);padding:0}
+.page-footer__created{margin:0;font:var(--ds-font-body);line-height:1.3125rem;color:var(--ds-text-subtle)}
+/* The sources footer: 40px under the last card, like the footer, its tags 4px apart, then 12px below them its lines in the footer's
+   14px on a 21px line, 4px apart */
+.sources-footer{margin-top:var(--ds-space-100);padding:0;font:var(--ds-font-body);line-height:1.3125rem;color:var(--ds-text-subtle)}
+.sources-footer__tags{display:flex;flex-wrap:wrap;gap:var(--ds-space-050)}
+.sources-footer__lines{display:grid;gap:var(--ds-space-050);margin:0;padding-left:var(--ds-space-250)}
+.sources-footer__tags + .sources-footer__lines{margin-top:var(--ds-space-150)}

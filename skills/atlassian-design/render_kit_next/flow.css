@@ -1,0 +1,19 @@
+/* The flow, laid out by flow.py: nodes in columns on the card's surface, a sunken frame with raised nodes in it, dashed outside nodes
+   after it, and labelled edges between them. It scales down with the card to 80%, then scrolls sideways inside it. Sizes are px, as the
+   layout's text estimates are */
+.flow{margin:0;overflow-x:auto}
+.flow__svg{display:block;width:100%;height:auto}
+.flow__svg text{font-family:var(--ds-font-family-body)}
+.flow__label{font-size:12px;font-weight:var(--ds-font-weight-bold);fill:var(--ds-text-subtle)}
+.flow__frame rect{fill:var(--ds-surface-sunken);stroke:var(--ds-border)}
+.flow__frame-title{font-size:14px;font-weight:var(--ds-font-weight-semibold);fill:var(--ds-text)}
+.flow__frame-sub{font-size:12px;fill:var(--ds-text-subtlest)}
+.flow__node rect{fill:var(--ds-surface);stroke:var(--ds-border)}
+.flow__node--grouped rect{fill:var(--ds-surface-raised)}
+.flow__node--outside rect{stroke:var(--ds-border-bold);stroke-dasharray:4 3}
+.flow__title{font-size:14px;font-weight:var(--ds-font-weight-medium);fill:var(--ds-text)}
+.flow__sub{font-size:12px;fill:var(--ds-text-subtlest)}
+.flow__node--grouped .flow__sub{font-family:var(--ds-font-family-code)}
+.flow__edge{fill:none;stroke:var(--ds-border-bold);stroke-width:1.5}
+.flow__edge-label{font-size:12px;fill:var(--ds-text-subtle)}
+.flow__head{fill:var(--ds-border-bold)}

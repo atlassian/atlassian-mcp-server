@@ -1,0 +1,2 @@
+.source-row{display:grid;gap:var(--ds-space-100)}
+.source-row__meta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--ds-space-100);font:var(--ds-font-body);color:var(--ds-text-subtlest)}

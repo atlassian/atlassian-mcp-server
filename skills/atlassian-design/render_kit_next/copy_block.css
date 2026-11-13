@@ -1,0 +1,14 @@
+.copy-block{display:grid;justify-items:start;gap:var(--ds-space-150);margin-top:var(--ds-space-200)}
+.copy-block:first-child{margin-top:0}
+/* The quote: body-large text 12px inside a 2px border line */
+.copy-block__text{justify-self:stretch;margin:0;padding-left:var(--ds-space-150);border-left:var(--ds-border-width-selected) solid var(--ds-border);
+  font:var(--ds-font-body-large);color:var(--ds-text);overflow-wrap:anywhere}
+/* ADS Button (@atlaskit/button 25.6.1) in its default appearance: 32px, 6px 12px of padding, radius.medium, body medium in text.subtle on
+   neutral.subtle, a 1px border drawn over it, the icon 6px from the label, and neutral.subtle hover and press */
+.copy-block__button{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:var(--ds-space-075);box-sizing:border-box;
+  height:2rem;max-width:100%;padding:var(--ds-space-075) var(--ds-space-150);border:0;border-radius:var(--ds-radius-medium);
+  background:var(--ds-background-neutral-subtle);font:var(--ds-font-body);font-weight:var(--ds-font-weight-medium);color:var(--ds-text-subtle);
+  cursor:pointer;white-space:nowrap;transition:background .1s ease-out}
+.copy-block__button::after{content:"";position:absolute;inset:0;border:var(--ds-border-width) solid var(--ds-border);border-radius:inherit;pointer-events:none}
+.copy-block__button:hover{background:var(--ds-background-neutral-subtle-hovered)}
+.copy-block__button:active{background:var(--ds-background-neutral-subtle-pressed)}

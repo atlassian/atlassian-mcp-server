@@ -1,0 +1,20 @@
+.checklist{display:grid;gap:var(--ds-space-100);margin:var(--ds-space-200) 0 0;padding:0;list-style:none}
+.checklist:first-child{margin-top:0}
+/* ADS Checkbox (@atlaskit/checkbox 19.3.1): a 24px icon holding a 13px box with a 1.5px radius, its 1px border.input border on background.input,
+   background.selected.bold with the icon.inverse tick when checked, a 2px border.focused outline inset 2px on focus, and the label 4px from it.
+   The label is the card's body-large subtle text */
+.checkbox{display:grid;grid-template-columns:min-content minmax(0,1fr);column-gap:var(--ds-space-050);align-items:start;
+  font:var(--ds-font-body-large);color:var(--ds-text-subtle);
+  --checkbox-background:var(--ds-background-input);--checkbox-border:var(--ds-border-input);--checkbox-tick:transparent}
+.checkbox:hover{--checkbox-background:var(--ds-background-input-hovered)}
+.checkbox:has(:checked){--checkbox-background:var(--ds-background-selected-bold);--checkbox-border:var(--ds-background-selected-bold);--checkbox-tick:var(--ds-icon-inverse)}
+.checkbox:hover:has(:checked){--checkbox-background:var(--ds-background-selected-bold-hovered);--checkbox-border:var(--ds-background-selected-bold-hovered)}
+.checkbox__control{display:grid}
+.checkbox__control > *{grid-area:1/1}
+.checkbox__input{width:1.5rem;height:1.5rem;margin:0;opacity:0;cursor:pointer}
+.checkbox__icon{display:block;pointer-events:none;border-radius:var(--ds-radius-small)}
+.checkbox__icon rect{fill:var(--checkbox-background);stroke:var(--checkbox-border);stroke-width:var(--ds-border-width)}
+.checkbox__tick{fill:var(--checkbox-tick)}
+.checkbox__input:focus-visible + .checkbox__icon{outline:var(--ds-border-width-focused) solid var(--ds-border-focused);outline-offset:calc(-1 * var(--ds-space-025))}
+.checkbox__icon,.checkbox__icon *{transition:fill var(--ds-duration-short) var(--ds-easing-out-practical),stroke var(--ds-duration-short) var(--ds-easing-out-practical)}
+@media (prefers-reduced-motion:reduce){.checkbox__icon,.checkbox__icon *{transition:none}}

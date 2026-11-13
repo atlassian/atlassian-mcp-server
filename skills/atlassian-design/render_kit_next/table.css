@@ -1,0 +1,22 @@
+/* After ADS DynamicTable (@atlaskit/dynamic-table 19.3.8): full width, headers in body.small bold text.subtle over a 2px border line,
+   cells padded 8px either side but none at the table's edges, a 2px border line at the bottom, and a neutral hover on rows.
+   Cells have 8px above and below, not 4px, and sit at the top, since they hold sentences */
+.table{width:100%;border-collapse:separate;border-spacing:0;border-bottom:var(--ds-border-width-selected) solid var(--ds-border);
+  font:var(--ds-font-body);color:var(--ds-text)}
+.table th{padding:var(--ds-space-050) var(--ds-space-100);border-bottom:var(--ds-border-width-selected) solid var(--ds-border);
+  font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-bold);color:var(--ds-text-subtle);text-align:left;vertical-align:middle}
+.table td{padding:var(--ds-space-100);text-align:left;vertical-align:top;overflow-wrap:break-word}
+.table code{overflow-wrap:normal}          /* a setting's name breaks only at its hyphens, so its column keeps room for it */
+.table :is(th,td):first-child{padding-left:0}
+.table :is(th,td):last-child{padding-right:0}
+.table tbody tr:hover{background:var(--ds-background-neutral-subtle-hovered)}
+.table__sub{margin-top:var(--ds-space-025);font:var(--ds-font-body-small);color:var(--ds-text-subtlest)}
+@media (max-width:600px){
+  .table thead{display:none}
+  .table,.table tbody,.table tr,.table td{display:block;width:100%}
+  .table{border-bottom:0}
+  .table tr + tr{margin-top:var(--ds-space-100);padding-top:var(--ds-space-100);border-top:var(--ds-border-width) solid var(--ds-border)}
+  .table td{box-sizing:border-box;padding:var(--ds-space-050) 0}
+  .table code{overflow-wrap:anywhere}
+  .table td::before{content:attr(data-label);display:block;font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-bold);color:var(--ds-text-subtle)}
+}

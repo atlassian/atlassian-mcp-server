@@ -12,12 +12,20 @@
   "license": "Apache-2.0",
   "keywords": ["atlassian", "rovo", "mcp", "jira", "confluence", "skills"],
   "skills": [
+    "./skills/assess-release/SKILL.md",
+    "./skills/atlassian-design/SKILL.md",
     "./skills/atlassian-mcp-code-search/SKILL.md",
+    "./skills/before-you-start/SKILL.md",
     "./skills/capture-tasks-from-meeting-notes/SKILL.md",
+    "./skills/catch-up/SKILL.md",
+    "./skills/decision-trace/SKILL.md",
+    "./skills/dependency-map/SKILL.md",
     "./skills/generate-status-report/SKILL.md",
+    "./skills/how-it-works/SKILL.md",
     "./skills/jira-sprint-dashboard/SKILL.md",
     "./skills/search-company-knowledge/SKILL.md",
     "./skills/spec-to-backlog/SKILL.md",
+    "./skills/teamwork-graph-context/SKILL.md",
     "./skills/triage-issue/SKILL.md"
   ],
   "mcpServers": "./.mcp.json"

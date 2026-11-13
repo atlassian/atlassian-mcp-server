@@ -1,0 +1,15 @@
+/* The page's element rules and the page element, from render_kit's always-loaded ads.css, layout.css and links.css:
+   only the rules that reach this kit's markup */
+body{background:var(--ds-surface-sunken);color:var(--ds-text);font:var(--ds-font-body);margin:0}
+a{color:var(--ds-link)} a:active{color:var(--ds-link-pressed)}
+:focus-visible{outline:var(--ds-border-width-focused) solid var(--ds-border-focused);outline-offset:2px}
+p{margin:0 0 var(--ds-space-100);max-width:68ch;text-wrap:pretty}
+code{font:var(--ds-font-code);background:var(--ds-background-neutral);padding:0 var(--ds-space-050);border-radius:var(--ds-radius-small);overflow-wrap:anywhere}
+footer{padding:0 var(--ds-space-050);font:var(--ds-font-body-small);color:var(--ds-text-subtlest)}
+footer ul{margin:0;padding-left:var(--ds-space-200);display:grid;gap:var(--ds-space-050)}
+.wrap{margin:0 auto;padding:var(--ds-space-400) var(--ds-space-200) var(--ds-space-600);display:grid;gap:var(--ds-space-200)}
+.wrap>*{min-width:0}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:640px){
+  .wrap{padding:var(--ds-space-200) var(--ds-space-200) var(--ds-space-400)}
+}

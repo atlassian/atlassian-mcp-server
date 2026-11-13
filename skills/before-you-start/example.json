@@ -1,0 +1,213 @@
+{
+  "mockup": true,
+  "headline": "4 efforts to know about",
+  "verdict": {
+    "text": "Someone's already on this",
+    "tone": "warning"
+  },
+  "idea": "Your idea: a self-serve check that tells each team which of its dashboards will break in the Search migration.",
+  "efforts": [
+    {
+      "link": {
+        "title": "Search migration readiness checker",
+        "url": "https://home.atlassian.com/project/example-readiness",
+        "icon": "project"
+      },
+      "class": {
+        "text": "Same",
+        "tone": "warning"
+      },
+      "status": "Projects · On track",
+      "does": "A self-serve check that lists which dashboards and saved filters will break when a team moves to the new search index.",
+      "facets": "Same outcome and audience · Main difference: none found",
+      "owner": {
+        "name": "Riley Novak",
+        "label": "Owner",
+        "team": "Platform"
+      },
+      "contributors": [
+        "Jo Okafor"
+      ],
+      "move": {
+        "label": "Join",
+        "why": "In progress, with an update 3 days ago and the same outcome and audience"
+      },
+      "linked": [
+        {
+          "title": "PLAT-260 Readiness checker",
+          "url": "https://example.atlassian.net/browse/PLAT-260",
+          "icon": "task",
+          "status": {
+            "text": "In progress",
+            "tone": "information"
+          }
+        },
+        {
+          "title": "Readiness checker design",
+          "url": "https://example.atlassian.net/wiki/spaces/PLAT/pages/example-design",
+          "icon": "page"
+        }
+      ],
+      "found": [
+        {
+          "title": "#search-migration",
+          "url": "https://example.slack.com/archives/C0EXAMPLE",
+          "icon": "hashtag",
+          "app": "Slack",
+          "found": true
+        }
+      ]
+    },
+    {
+      "link": {
+        "title": "Beacon query compatibility report",
+        "url": "https://home.atlassian.com/project/example-query-report",
+        "icon": "project"
+      },
+      "class": {
+        "text": "Partial overlap",
+        "tone": "information"
+      },
+      "status": "Projects · At risk",
+      "does": "A report of Beacon queries that use syntax the new index drops, sent to Beacon team leads each week.",
+      "facets": "Same outcome, different audience · Main difference: Beacon queries only",
+      "owner": {
+        "name": "Amara Lindqvist",
+        "label": "Owner",
+        "team": "Beacon"
+      },
+      "move": {
+        "label": "Differentiate",
+        "why": "It covers Beacon queries only. Agree where the readiness check for other teams starts"
+      },
+      "linked": [
+        {
+          "title": "Query compatibility rules",
+          "url": "https://docs.google.com/document/d/example-rules",
+          "icon": "doc",
+          "app": "Google Docs"
+        }
+      ],
+      "found": [
+        {
+          "title": "beacon-query-lint",
+          "url": "https://github.com/example/beacon-query-lint",
+          "icon": "repo",
+          "app": "GitHub",
+          "found": true
+        }
+      ]
+    },
+    {
+      "link": {
+        "title": "LEDG-88 Ledger report audit",
+        "url": "https://example.atlassian.net/browse/LEDG-88",
+        "icon": "epic",
+        "status": {
+          "text": "Done",
+          "tone": "success"
+        }
+      },
+      "class": {
+        "text": "Done before",
+        "tone": "success"
+      },
+      "status": "Jira · Done, Aug 2026",
+      "does": "Audited every Ledger report against the new index before Ledger moved, with a script that flags unsupported fields.",
+      "facets": "Same outcome, in part · Main difference: one team, already moved",
+      "owner": {
+        "name": "Marco Ricci",
+        "label": "Owner",
+        "team": "Team Ledger"
+      },
+      "move": {
+        "label": "Reuse",
+        "why": "The audit script and its field list are linked from the epic"
+      },
+      "linked": [
+        {
+          "title": "Ledger report audit walkthrough",
+          "url": "https://www.loom.com/share/example-audit",
+          "icon": "video",
+          "app": "Loom"
+        },
+        {
+          "title": "Ledger audit results",
+          "url": "https://example.atlassian.net/wiki/spaces/PLAT/pages/example-audit-results",
+          "icon": "page"
+        }
+      ]
+    },
+    {
+      "link": {
+        "title": "Dashboard health bot",
+        "url": "https://home.atlassian.com/project/example-health-bot",
+        "icon": "project"
+      },
+      "class": "Cancelled",
+      "status": "Projects · Cancelled, Jun 2026",
+      "does": "A chat bot that warned dashboard owners about broken widgets after an index change.",
+      "facets": "Same audience, mechanism in part · Main difference: warns after the change, not before",
+      "owner": {
+        "name": "Sana Khoury",
+        "label": "Owner",
+        "team": "Team Atlas"
+      },
+      "move": {
+        "label": "Talk",
+        "why": "Ask what happened before building a second warning bot"
+      },
+      "linked": [
+        {
+          "title": "Dashboard health bot one-pager",
+          "url": "https://example.atlassian.net/wiki/spaces/PLAT/pages/example-one-pager",
+          "icon": "page"
+        }
+      ],
+      "note": "Closed as inactive. The record doesn't say why."
+    }
+  ],
+  "message": "Hi Riley, I was about to start a dashboard check for the Search migration and saw the Search migration readiness checker in Projects. Could I help with it rather than start a second one?",
+  "unchecked": [
+    {
+      "link": {
+        "title": "PLAT-199 Migration checker spike",
+        "url": "https://example.atlassian.net/browse/PLAT-199",
+        "icon": "task",
+        "status": "To do"
+      },
+      "meta": "Title matches only. We couldn't read what it does."
+    }
+  ],
+  "footer": {
+    "tags": [
+      {
+        "text": "Projects"
+      },
+      {
+        "text": "Jira"
+      },
+      {
+        "text": "Confluence"
+      },
+      {
+        "text": "Loom"
+      },
+      {
+        "text": "Slack"
+      },
+      {
+        "text": "GitHub"
+      },
+      {
+        "text": "Google Drive"
+      }
+    ],
+    "lines": [
+      "Searched for \"dashboard check\", \"readiness checker\", \"broken dashboards\" and \"migration compatibility\", plus 1 echo search for \"query compatibility\".",
+      "Looked at 7 candidates and showed 4. 3 of your own items were left out. Some results weren't used.",
+      "Items with a dashed border were found by search. Owners come from each effort's record.",
+      "Prepared today, Oct 21, 10:05 AM PT."
+    ]
+  }
+}

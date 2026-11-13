@@ -4,6 +4,29 @@ The skills in this directory target the **Atlassian Rovo MCP v2** endpoint,
 `https://mcp.atlassian.com/v2/mcp`. They are what every packaged plugin installs, and each one
 lives at `skills/<name>/SKILL.md` per the [Agent Skills](https://agent-plugins.org/) convention.
 
+## Teamwork Graph workflows
+
+These workflows answer in the conversation first. They offer an HTML report when requested,
+and check whether Atlassian Artifacts is available before offering publication. Results depend
+on the user's permissions, available Atlassian apps, and connected sources.
+
+| Skill | Use it to |
+| --- | --- |
+| [`assess-release`](assess-release/SKILL.md) | Assess release readiness, blockers, and outstanding conditions. |
+| [`before-you-start`](before-you-start/SKILL.md) | Find similar efforts and their recorded owners before starting work. |
+| [`catch-up`](catch-up/SKILL.md) | Review decisions, changes, and work needing attention during a specified period. |
+| [`decision-trace`](decision-trace/SKILL.md) | Trace a decision, its alternatives, and later changes to source records. |
+| [`dependency-map`](dependency-map/SKILL.md) | Map dependencies, their direction, and blocked or at-risk work. |
+| [`how-it-works`](how-it-works/SKILL.md) | Explain product behavior from connected source code and supporting records. |
+
+The workflows share [`teamwork-graph-context`](teamwork-graph-context/SKILL.md) for context
+gathering and [`atlassian-design`](atlassian-design/SKILL.md) for optional report exports.
+Both dependencies are included in the package, along with the report renderers, examples,
+and design assets. The included live-artifact adapter applies only to its named host;
+other hosts use their documented capabilities or the static report fallback.
+
+## Archived v1 skills
+
 The previous generation is archived in [`v1/`](v1/), unchanged, for anyone still pointed at a v1
 endpoint (`/v1/mcp/authv2` or `/v1/mcp`). **No plugin installs the archived skills** — plugin
 discovery only looks one level deep for a `SKILL.md`, so `v1/` is skipped. Set them up manually if

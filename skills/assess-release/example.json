@@ -1,0 +1,78 @@
+{
+  "mockup": true,
+  "version": "Ledger 2.4",
+  "meta": {
+    "project": {"title": "Ledger", "url": "#", "icon": "project"},
+    "releaseDate": "Nov 14, 2026",
+    "driver": "Sana Khoury"
+  },
+  "verdict": {"text": "Not ready", "tone": "danger"},
+  "blockerCount": 2,
+  "tiles": [
+    {"label": "Open items", "value": "14 of 41", "sub": "3 descoped"},
+    {"label": "Blockers", "value": "2", "tone": "danger"},
+    {"label": "Open pull requests", "value": "5", "sub": "of 8 items checked", "tone": "warning"},
+    {"label": "Open checks", "value": "5", "sub": "2 testing, 3 rollout", "tone": "warning"}
+  ],
+  "summary": [
+    {"text": "Not ready: 2 blockers are open, and Work, Code and Dependencies are not ready {0}.", "links": [{"title": "Ledger 2.4", "url": "#", "icon": "task"}]},
+    {"text": "The search cutover waits on a Platform quota change that is still in progress {0}, and the import screen is blocked on a design sign-off {1}.", "links": [{"title": "PLAT-221 Raise search index quota", "url": "#", "icon": "task", "status": {"text": "In progress", "tone": "information"}}, {"title": "LEDGER-482 Import screen states", "url": "#", "icon": "task", "status": {"text": "Blocked", "tone": "danger"}}]},
+    {"text": "14 of 41 items are open, 5 of them testing and rollout checks, with 23 days to the recorded release date."}
+  ],
+  "generatedFrom": "Jira, Projects, Confluence, Bitbucket and Slack",
+  "blockers": [
+    {"text": "The search cutover is waiting on the Platform team's index quota change, which is in progress with a due date of Nov 20, after the release date {0}.", "links": [{"title": "PLAT-221 Raise search index quota", "url": "#", "icon": "task"}], "waiting": [{"title": "LEDGER-470 Cut over to the Platform search service", "url": "#", "icon": "task"}, {"title": "LEDGER-475 Remove the old search index", "url": "#", "icon": "task"}], "source": [{"title": "LEDGER-470 is blocked by PLAT-221", "url": "#", "icon": "task"}]},
+    {"text": "The import screen is in a Blocked status, waiting on design sign-off for its empty and error states, according to its latest comment {0}.", "links": [{"title": "LEDGER-482 Import screen states", "url": "#", "icon": "task"}], "source": [{"title": "Import screen states", "url": "#", "icon": "page"}], "when": "Blocked since Oct 15"}
+  ],
+  "areas": [
+    {"name": "Work", "state": {"text": "Not ready", "tone": "danger"}, "text": "14 of 41 items open: 1 blocked, 3 in review, 5 in progress and 5 to do. 5 of the open items are release checks."},
+    {"name": "Code", "state": {"text": "Not ready", "tone": "danger"}, "text": "Of 8 items checked, 4 have merged pull requests, 3 in review have 4 open pull requests, and done item LEDGER-466 has 1 open pull request.", "evidence": [{"title": "Ledger web", "url": "#", "icon": "repo", "app": "Bitbucket"}]},
+    {"name": "Testing", "state": {"text": "Conditions", "tone": "warning"}, "text": "A test plan is in the release's related work, and 6 of 7 merged pull requests describe their testing. The load test and the E2E pass are still open.", "evidence": [{"title": "Ledger 2.4 test plan", "url": "#", "icon": "page"}]},
+    {"name": "Dependencies", "state": {"text": "Not ready", "tone": "danger"}, "text": "1 open upstream item in another team (Platform), due after the release date. The Beacon project dependency is on track.", "evidence": [{"title": "PLAT-221 Raise search index quota", "url": "#", "icon": "task"}, {"title": "Beacon", "url": "#", "icon": "project", "status": {"text": "On track", "tone": "success"}}]},
+    {"name": "Rollout", "state": {"text": "Conditions", "tone": "warning"}, "text": "The rollout plan is in review, 3 rollout checks are open, and the checked items have reached staging. 1 of 2 approvers has approved.", "evidence": [{"title": "Ledger 2.4 rollout plan", "url": "#", "icon": "page", "status": {"text": "In review", "tone": "information"}}]}
+  ],
+  "conditions": [
+    {"id": "LEDGER-461", "areas": ["Work", "Code"], "type": {"text": "In review", "tone": "warning"}, "text": "Search result ranking flags are still in review.", "source": [{"title": "LEDGER-461 Search result ranking flags", "url": "#", "icon": "task"}]},
+    {"id": "LEDGER-470", "areas": ["Work", "Code"], "type": {"text": "In review", "tone": "warning"}, "text": "The search cutover work is still in review.", "source": [{"title": "LEDGER-470 Cut over to the Platform search service", "url": "#", "icon": "task"}]},
+    {"id": "LEDGER-474", "areas": ["Work", "Code"], "type": {"text": "In review", "tone": "warning"}, "text": "The search telemetry change is still in review.", "source": [{"title": "LEDGER-474 Search telemetry", "url": "#", "icon": "task"}]},
+    {"id": "LEDGER-490", "areas": ["Work", "Testing"], "type": {"text": "Open check", "tone": "warning"}, "text": "The peak-traffic load test has not started.", "source": [{"title": "LEDGER-490 Load test search at peak traffic", "url": "#", "icon": "task"}]},
+    {"id": "LEDGER-491", "areas": ["Work", "Testing"], "type": {"text": "Open check", "tone": "warning"}, "text": "The import E2E pass remains open.", "source": [{"title": "LEDGER-491 E2E pass on import", "url": "#", "icon": "task"}]},
+    {"id": "LEDGER-488", "areas": ["Work", "Rollout"], "type": {"text": "Open check", "tone": "warning"}, "text": "The cutover runbook is still in progress.", "source": [{"title": "LEDGER-488 Write the search cutover runbook", "url": "#", "icon": "task"}]},
+    {"id": "LEDGER-489", "areas": ["Work", "Rollout"], "type": {"text": "Open check", "tone": "warning"}, "text": "The search cutover alert check remains open.", "source": [{"title": "LEDGER-489 Search cutover alerts", "url": "#", "icon": "task"}]},
+    {"id": "LEDGER-492", "areas": ["Work", "Rollout"], "type": {"text": "Open check", "tone": "warning"}, "text": "The rollback drill remains open.", "source": [{"title": "LEDGER-492 Search cutover rollback drill", "url": "#", "icon": "task"}]},
+    {"id": "pending-version-approval", "areas": ["Rollout"], "type": {"text": "Pending approval", "tone": "warning"}, "text": "One of the two version approvals is still pending.", "source": [{"title": "Ledger 2.4", "url": "#", "icon": "task"}]},
+    {"id": "deployment-coverage", "areas": ["Rollout"], "type": {"text": "Gap", "tone": "neutral"}, "text": "Deployments were checked for 3 items only; the remaining deployment coverage is unknown.", "source": [{"title": "Ledger deployment checks", "url": "#", "icon": "repo"}]},
+    {"id": "beacon-project", "areas": ["Dependencies"], "type": {"text": "Dependency", "tone": "warning"}, "text": "The Beacon project dependency is on track but still open.", "source": [{"title": "Beacon", "url": "#", "icon": "project"}]}
+  ],
+  "findings": [
+    {"type": {"text": "Unmerged code", "tone": "warning"}, "text": "LEDGER-466 is done in Jira, but its pull request is still open {0}.", "links": [{"title": "Add import progress events", "url": "#", "icon": "pull-request", "app": "Bitbucket", "status": {"text": "Open", "tone": "information"}}], "source": [{"title": "LEDGER-466 Import progress events", "url": "#", "icon": "task"}]},
+    {"type": {"text": "Open check", "tone": "warning"}, "text": "2 testing checks are open, and the load test hasn't started: {0}, {1}.", "links": [{"title": "LEDGER-490 Load test search at peak traffic", "url": "#", "icon": "task"}, {"title": "LEDGER-491 E2E pass on import", "url": "#", "icon": "task"}]}, {"type": {"text": "Open check", "tone": "warning"}, "text": "3 rollout checks are open: {0}, {1} and 1 more.", "links": [{"title": "LEDGER-488 Write the search cutover runbook", "url": "#", "icon": "task"}, {"title": "LEDGER-489 Search cutover alerts", "url": "#", "icon": "task"}]},
+    {"type": {"text": "Stalled", "tone": "warning"}, "text": "LEDGER-461 has been in review with no update for 12 working days {0}.", "links": [{"title": "LEDGER-461 Search result ranking flags", "url": "#", "icon": "task"}]},
+    {"type": {"text": "Gap", "tone": "neutral"}, "text": "Deployments were checked for 3 items only, so the furthest environment for the rest is not known."}
+  ],
+  "work": [
+    {"status": {"text": "Blocked", "tone": "danger"}, "link": {"title": "LEDGER-482 Import screen states", "url": "#", "icon": "task"}, "assignee": "Marco Diaz"},
+    {"status": {"text": "In review", "tone": "information"}, "link": {"title": "LEDGER-461 Search result ranking flags", "url": "#", "icon": "task"}, "assignee": "Priya Nair"},
+    {"status": {"text": "In review", "tone": "information"}, "link": {"title": "LEDGER-470 Cut over to the Platform search service", "url": "#", "icon": "task"}, "assignee": "Jun Park", "due": "Nov 7"},
+    {"status": {"text": "In progress", "tone": "neutral"}, "link": {"title": "LEDGER-488 Write the search cutover runbook", "url": "#", "icon": "task"}, "check": "Rollout", "byTitle": true, "assignee": "Jun Park"},
+    {"status": {"text": "To do", "tone": "neutral"}, "link": {"title": "LEDGER-490 Load test search at peak traffic", "url": "#", "icon": "task"}, "check": "Testing", "assignee": "Unassigned"},
+    {"status": {"text": "To do", "tone": "neutral"}, "link": {"title": "LEDGER-491 E2E pass on import", "url": "#", "icon": "task"}, "check": "Testing", "byTitle": true, "assignee": "Priya Nair"}
+  ],
+  "workMore": {"text": "8 more open items {0}", "links": [{"title": "All open work in Ledger 2.4", "url": "#", "icon": "search"}]},
+  "done": "Done: 27 (3 descoped)",
+  "decisions": [
+    {"text": "Wait for the Platform quota change, or ship Ledger 2.4 without the search cutover.", "holder": "Sana Khoury, release driver", "holderSource": [{"title": "Ledger 2.4", "url": "#", "icon": "task"}]},
+    {"text": "Sign off the import screen's empty and error states.", "holder": "Elena Petrova, design approver", "holderSource": [{"title": "Import screen states", "url": "#", "icon": "page"}]},
+    {"text": "Ship with the load test open, or hold the release until it passes."}
+  ],
+  "footer": {
+    "tags": [{"text": "Jira"}, {"text": "Projects"}, {"text": "Confluence"}, {"text": "Bitbucket"}, {"text": "Slack"}, {"text": "No results from GitHub", "muted": true}, {"text": "Compass: Not available on this site", "muted": true}],
+    "lines": [
+      {"text": "Scope: the 38 items with the fix version Ledger 2.4, plus 3 children of its epics. 2 children of release epics are in other versions."},
+      {"text": "Checked pull requests for 5 of 14 open items and 3 recently done ones (8 items in total). Deployments checked for 3 items."},
+      {"text": "Third-party pass: Slack and GitHub for \"Ledger 2.4 blocked\" and \"Ledger 2.4 go no-go\", kept from the last 14 days. One search warned that some sources could not be queried."},
+      {"text": "No forecast: the release date is shown as recorded on the version."},
+      {"text": "Prepared just now, Oct 22, 2026, 9:10 AM AEDT."}
+    ]
+  }
+}

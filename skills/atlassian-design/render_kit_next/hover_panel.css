@@ -1,0 +1,21 @@
+.hover-panel{position:relative;display:inline-block}
+.hover-panel__trigger{display:block;padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;border-radius:var(--ds-radius-full)}
+/* The panel: surface.overlay with shadow.overlay, radius.large, 200px to 320px and never wider than the screen less 32px, on ADS's popup layer */
+.hover-panel__panel{position:absolute;top:calc(100% + var(--ds-space-100));right:0;z-index:400;box-sizing:border-box;
+  width:max-content;min-width:12.5rem;max-width:min(20rem,calc(100vw - 2rem));padding:var(--ds-space-100) 0;
+  background:var(--ds-surface-overlay);box-shadow:var(--ds-shadow-overlay);border-radius:var(--ds-radius-large);
+  animation:hover-panel-in var(--ds-duration-short) var(--ds-easing-out-practical)}
+.hover-panel__panel[hidden]{display:none}
+.hover-panel--above .hover-panel__panel{top:auto;bottom:calc(100% + var(--ds-space-100))}
+.hover-panel--start .hover-panel__panel{right:auto;left:0}
+@keyframes hover-panel-in{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){.hover-panel__panel{animation:none}}
+@media print{.hover-panel__panel{display:none !important}}
+/* Inside, as frames 19:161 and 23:430 draw it: the heading padded 4px 16px and 8px above the rows, the rows 4px apart, each lead 12px from its text.
+   The heading is semibold, not the frame's bold, which Chrome draws heavier than Figma does. */
+.hover-panel__heading{margin:0 0 var(--ds-space-100);padding:var(--ds-space-050) var(--ds-space-200);font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-semibold);color:var(--ds-text-subtle)}
+.hover-panel__rows{display:flex;flex-direction:column;gap:var(--ds-space-050);list-style:none;margin:0;padding:0}
+.hover-panel__row{display:flex;align-items:center;gap:var(--ds-space-150);padding:var(--ds-space-100) var(--ds-space-200);text-align:left}
+.hover-panel__title{display:block;font:var(--ds-font-body);font-weight:var(--ds-font-weight-medium);color:var(--ds-text)}
+.hover-panel__line{display:flex;flex-wrap:wrap;align-items:center;column-gap:var(--ds-space-050);font:var(--ds-font-body-small);color:var(--ds-text-subtle)}
+.hover-panel__dot{font-weight:100}   /* thin, as the frame draws it: no token holds it */

@@ -1,0 +1,23 @@
+/* The trace: steps divided by lines with 16px on each side, each number 12px from its step, the step's parts 8px apart */
+.trace{list-style:none;margin:0;padding:0}
+.trace__step{display:flex;align-items:flex-start;gap:var(--ds-space-150);font:var(--ds-font-body-large)}   /* the number's 14px, as in a numbered list */
+.trace__step + .trace__step{margin-top:var(--ds-space-200);padding-top:var(--ds-space-200);border-top:var(--ds-border-width) solid var(--ds-border)}
+.trace__body{flex:1;min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:var(--ds-space-100)}
+/* "Show the code": a native disclosure, its chevron at the 12px ADS gives a control's chevron, turning down when open */
+.code-excerpt{font:var(--ds-font-body)}          /* ADS CodeBlock's code font is 0.875em of 14px */
+.code-excerpt__toggle{display:inline-flex;align-items:center;gap:var(--ds-space-050);border-radius:var(--ds-radius-small);
+  font-weight:var(--ds-font-weight-medium);color:var(--ds-text-subtle);cursor:pointer;list-style:none}
+.code-excerpt__toggle::-webkit-details-marker{display:none}
+.code-excerpt__toggle .glyph{width:0.75rem;height:0.75rem;transition:transform var(--ds-duration-short) var(--ds-easing-out-practical)}
+.code-excerpt[open] > .code-excerpt__toggle .glyph{transform:rotate(90deg)}
+@media (prefers-reduced-motion:reduce){.code-excerpt__toggle .glyph{transition:none}}
+/* The code block after ADS CodeBlock (@atlaskit/code 20.0.0): background.neutral, radius.large, the code font on a 20px line, 8px above and
+   below, line numbers right-aligned in subtlest text in a column 8px either side of them with a second neutral layer, scrolling inside */
+.code-block{margin-top:var(--ds-space-100);overflow-x:auto;border-radius:var(--ds-radius-large);background:var(--ds-background-neutral);color:var(--ds-text)}
+.code-block pre{display:inline-block;box-sizing:border-box;min-width:100%;margin:0;padding:var(--ds-space-100) var(--ds-space-100) var(--ds-space-100) 0;
+  background:linear-gradient(to right,var(--ds-background-neutral) calc(var(--code-block-digits) + 2 * var(--ds-space-100)),transparent 0);
+  font:var(--ds-font-code);line-height:1.25rem;white-space:pre;tab-size:4}
+.code-block code{padding:0;background:none;border-radius:0;font:inherit;overflow-wrap:normal}
+.code-block__number{display:inline-block;width:var(--code-block-digits);margin-right:var(--ds-space-100);padding:0 var(--ds-space-100);
+  text-align:right;color:var(--ds-text-subtlest);user-select:none}
+.code-block__gap{color:var(--ds-text-subtlest)}
