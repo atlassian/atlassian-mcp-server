@@ -2,7 +2,7 @@
   "name": "atlassian",
   "displayName": "Atlassian MCP",
   "version": "1.0.0",
-  "description": "Search Jira, Confluence, and source code, triage bugs, turn meeting notes and specs into Jira work, and build project reports and sprint dashboards.",
+  "description": "The Atlassian MCP Server connects Gemini to your Atlassian workspace, so you can work with Jira, Confluence, Bitbucket, Loom, and more directly from your conversation.\n\nFind and summarize Jira issues, create and update tickets, transition statuses, and add comments without switching tabs. Search, read, draft, and edit Confluence pages with full context.",
   "author": {
     "name": "Atlassian",
     "url": "https://www.atlassian.com"
