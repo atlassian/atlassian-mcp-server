@@ -175,7 +175,8 @@ This repository publishes the same MCP server and skills in several package form
 | [Agent Plugins v1](https://agent-plugins.org/) | [`plugin.json`](plugin.json) and [`mcp.json`](mcp.json) | [`skills/`](skills/) |
 | Claude Code plugin | [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) | [`.mcp.json`](.mcp.json) and [`skills/`](skills/) |
 | Cursor plugin | [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json) | [`.mcp.json`](.mcp.json) and [`skills/`](skills/) |
-| Gemini extension | [`gemini-extension.json`](gemini-extension.json) | MCP server configuration embedded in the manifest |
+| Gemini Agent plugin | [`.gemini-plugin/plugin.json`](.gemini-plugin/plugin.json) | [`.mcp.json`](.mcp.json) and the listed [`skills/`](skills/) |
+| Gemini CLI extension | [`gemini-extension.json`](gemini-extension.json) | MCP server configuration embedded in the manifest |
 | MCP Registry | [`server.json`](server.json) | Remote server metadata |
 
 The skills in [`skills/`](skills/) target the `/v2/mcp` endpoint and are what every packaged plugin

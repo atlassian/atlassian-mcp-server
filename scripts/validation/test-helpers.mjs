@@ -11,6 +11,7 @@ const validatorPath = path.join(repoRoot, "scripts", "validate-template.mjs");
 const fixtureEntries = [
   ".claude-plugin",
   ".cursor-plugin",
+  ".gemini-plugin",
   ".mcp.json",
   "assets",
   "gemini-extension.json",
