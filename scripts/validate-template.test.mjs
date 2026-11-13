@@ -43,3 +43,31 @@ test("the CLI rejects falsy primitive Agent Plugin root documents", async (t) =>
   assert.match(result.stderr, /Agent Plugins manifest must contain a JSON object\./);
   assert.match(result.stderr, /Agent Plugins mcp\.json must contain a JSON object\./);
 });
+
+test("the CLI rejects Gemini Agent configuration drift and invalid skill paths", async (t) => {
+  const fixtureRoot = await createFixture(t);
+  const manifestPath = path.join(fixtureRoot, ".gemini-plugin", "plugin.json");
+  const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
+  manifest.name = "different-plugin";
+  manifest.mcpServers = { atlassian: { url: "https://example.com/mcp" } };
+  manifest.skills = ["../outside/SKILL.md", "./skills/not-present/SKILL.md"];
+  await fs.writeFile(manifestPath, JSON.stringify(manifest), "utf8");
+
+  const result = await runValidator(fixtureRoot);
+
+  assert.equal(result.exitCode, 1);
+  assert.match(result.stderr, /Gemini Agent and Claude plugin names must match/);
+  assert.match(result.stderr, /mcpServers must reference/);
+  assert.match(result.stderr, /Gemini Agent skills must reference root-level/);
+  assert.match(result.stderr, /references missing path/);
+});
+
+test("the CLI rejects a non-object Gemini Agent manifest", async (t) => {
+  const fixtureRoot = await createFixture(t);
+  await fs.writeFile(path.join(fixtureRoot, ".gemini-plugin", "plugin.json"), "null\n", "utf8");
+
+  const result = await runValidator(fixtureRoot);
+
+  assert.equal(result.exitCode, 1);
+  assert.match(result.stderr, /Gemini Agent plugin manifest must contain a JSON object/);
+});

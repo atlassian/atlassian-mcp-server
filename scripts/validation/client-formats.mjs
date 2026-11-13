@@ -52,6 +52,40 @@ export async function validateOtherClientManifests(validation, pluginDir) {
     addError(validation, "Claude marketplace manifest.plugins must be a non-empty array.");
   }
 
+  const geminiPlugin = await readJsonFile(
+    validation,
+    path.join(pluginDir, ".gemini-plugin", "plugin.json"),
+    "Gemini Agent plugin manifest"
+  );
+  if (geminiPlugin !== undefined) {
+    if (!isPlainObject(geminiPlugin)) {
+      addError(validation, "Gemini Agent plugin manifest must contain a JSON object.");
+    } else {
+      for (const field of ["name", "displayName", "version", "description"]) {
+        if (typeof geminiPlugin[field] !== "string" || geminiPlugin[field].trim().length === 0) {
+          addError(validation, `Gemini Agent plugin manifest.${field} must be a non-empty string.`);
+        }
+      }
+      if (geminiPlugin.name !== claudeManifest?.name) {
+        addError(validation, "Gemini Agent and Claude plugin names must match.");
+      }
+      if (geminiPlugin.mcpServers !== "./.mcp.json") {
+        addError(validation, "Gemini Agent plugin manifest.mcpServers must reference ./.mcp.json.");
+      }
+      if (!Array.isArray(geminiPlugin.skills) || geminiPlugin.skills.length === 0) {
+        addError(validation, "Gemini Agent plugin manifest.skills must be a non-empty array.");
+      } else {
+        for (const skill of geminiPlugin.skills) {
+          if (typeof skill !== "string" || !/^\.\/skills\/[^/]+\/SKILL\.md$/.test(skill)) {
+            addError(validation, "Gemini Agent skills must reference root-level ./skills/<name>/SKILL.md files.");
+          } else {
+            await validateReferencedPath(validation, pluginDir, "skills", skill, "Gemini Agent plugin");
+          }
+        }
+      }
+    }
+  }
+
   const geminiManifest = await readJsonFile(
     validation,
     path.join(pluginDir, "gemini-extension.json"),

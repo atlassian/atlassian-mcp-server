@@ -1,0 +1,24 @@
+{
+  "name": "atlassian",
+  "displayName": "Atlassian MCP",
+  "version": "1.0.0",
+  "description": "The Atlassian MCP Server connects Gemini to your Atlassian workspace, so you can work with Jira, Confluence, Bitbucket, Loom, and more directly from your conversation. Find and summarize Jira issues, create and update tickets, transition statuses, and add comments without switching tabs. Search, read, draft, and edit Confluence pages with full context.",
+  "author": {
+    "name": "Atlassian",
+    "url": "https://www.atlassian.com"
+  },
+  "homepage": "https://support.atlassian.com/atlassian-rovo-mcp-server/docs/getting-started-with-the-atlassian-remote-mcp-server/",
+  "repository": "https://github.com/atlassian/atlassian-mcp-server",
+  "license": "Apache-2.0",
+  "keywords": ["atlassian", "rovo", "mcp", "jira", "confluence", "skills"],
+  "skills": [
+    "./skills/atlassian-mcp-code-search/SKILL.md",
+    "./skills/capture-tasks-from-meeting-notes/SKILL.md",
+    "./skills/generate-status-report/SKILL.md",
+    "./skills/jira-sprint-dashboard/SKILL.md",
+    "./skills/search-company-knowledge/SKILL.md",
+    "./skills/spec-to-backlog/SKILL.md",
+    "./skills/triage-issue/SKILL.md"
+  ],
+  "mcpServers": "./.mcp.json"
+}
