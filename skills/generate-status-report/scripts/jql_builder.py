@@ -49,6 +49,37 @@ def sanitize_jql_list(values: List[str]) -> List[str]:
     return [sanitize_jql_value(v) for v in values]
 
 
+def sanitize_order_by(order_by: str) -> str:
+    """
+    Sanitize an ORDER BY clause for use in JQL.
+
+    A clause is a comma-separated list of fields, each optionally
+    followed by ASC or DESC. Commas are allowed here because a
+    multi-field sort needs them; anything else outside field names
+    and the direction keywords is rejected.
+
+    Args:
+        order_by: Raw ORDER BY clause (e.g. "priority DESC, updated DESC")
+
+    Returns:
+        Normalized ORDER BY clause safe for JQL queries
+    """
+    if not order_by:
+        return order_by
+
+    field_pattern = re.compile(r'^[a-zA-Z0-9_.]+(\s+(ASC|DESC))?$', re.IGNORECASE)
+    fields = []
+    for part in order_by.split(','):
+        field = part.strip()
+        if not field_pattern.match(field):
+            raise ValueError(
+                f"Invalid ORDER BY clause: '{order_by}'. "
+                f"Expected comma-separated fields with optional ASC/DESC."
+            )
+        fields.append(field)
+    return ', '.join(fields)
+
+
 def build_project_query(
     project_key: str,
     statuses: Optional[List[str]] = None,
@@ -104,8 +135,8 @@ def build_project_query(
     query = " AND ".join(conditions)
     
     if order_by:
-        # Validate order_by contains only safe keywords
-        order_by = sanitize_jql_value(order_by)
+        # Validate order_by as a comma-separated field list with optional ASC/DESC
+        order_by = sanitize_order_by(order_by)
         query += f' ORDER BY {order_by}'
     
     return query
