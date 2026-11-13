@@ -89,7 +89,8 @@ def unfilled(out):
 
         unfilled(html)  # ["{1}"] when a text field had fewer links than placeholders
     """
-    return sorted(set(re.findall(r'\{\d+\}', re.sub(r'<style>.*?</style>|<script>.*?</script>', '', out, flags=re.S))))
+    out = re.sub(r'<(style|script)\b[^>]*>.*?</\1\s*>', '', out, flags=re.I | re.S)
+    return sorted(set(re.findall(r'\{\d+\}', out)))
 
 
 class DataError(KeyError):
