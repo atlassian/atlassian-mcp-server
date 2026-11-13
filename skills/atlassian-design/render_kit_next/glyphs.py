@@ -55,4 +55,3 @@ def symbols(body):
     """
     used = set(re.findall(r'href="#g-([\w-]+)"', body))
     return ''.join(f'<symbol id="g-{k}" viewBox="0 0 16 16">{v}</symbol>' for k, v in GLYPHS.items() if k in used)
-
