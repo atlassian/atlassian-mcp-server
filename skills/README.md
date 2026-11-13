@@ -4,7 +4,7 @@ The skills in this directory target the **Atlassian Rovo MCP v2** endpoint,
 `https://mcp.atlassian.com/v2/mcp`. They are what every packaged plugin installs, and each one
 lives at `skills/<name>/SKILL.md` per the [Agent Skills](https://agent-plugins.org/) convention.
 
-## Teamwork Graph workflows
+## Additional MCP skills
 
 These workflows answer in the conversation first. They offer an HTML report when requested,
 and check whether Atlassian Artifacts is available before offering publication. Results depend
