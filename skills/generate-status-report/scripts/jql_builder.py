@@ -23,13 +23,13 @@ def sanitize_jql_value(value: str) -> str:
         return value
     
     # Remove or escape potentially dangerous characters
-    # Allow alphanumeric, spaces, hyphens, underscores, dots, @
-    safe_pattern = re.compile(r'^[a-zA-Z0-9\s\-_.@]+$')
+    # Allow alphanumeric, spaces, hyphens, underscores, dots, commas, @
+    safe_pattern = re.compile(r'^[a-zA-Z0-9\s\-_.@,]+$')
     
     if not safe_pattern.match(value):
         raise ValueError(
             f"Invalid characters in input: '{value}'. "
-            f"Only alphanumeric characters, spaces, hyphens, underscores, dots, and @ are allowed."
+            f"Only alphanumeric characters, spaces, hyphens, underscores, dots, commas, and @ are allowed."
         )
     
     # Escape double quotes by doubling them (JQL escaping)
