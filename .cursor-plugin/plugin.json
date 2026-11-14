@@ -2,12 +2,12 @@
   "name": "atlassian",
   "displayName": "Atlassian MCP",
   "description": "Atlassian plugin for Cursor with MCP and skills for Jira, Confluence, triage, backlogs, status reports, and more.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": {
     "name": "Atlassian",
     "url": "https://atlassian.com"
   },
-  "homepage": "https://confluence.atlassian.com",
+  "homepage": "https://github.com/atlassian/atlassian-mcp-server",
   "repository": "https://github.com/atlassian/atlassian-mcp-server",
   "license": "Apache-2.0",
   "keywords": ["atlassian", "mcp", "rovo", "jira", "confluence", "skills"],
