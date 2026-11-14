@@ -1,0 +1,51 @@
+name: Validate plugin templates
+
+# Runs the repo's manifest/skill validator on changes that can affect it.
+# Prose-only doc edits (README, CONTRIBUTING, images, etc.) are filtered out so
+# the check does not run on basic documentation changes. Note: skill Markdown
+# (SKILL.md and other component frontmatter) is intentionally NOT ignored, since
+# scripts/validate-template.mjs validates that frontmatter.
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'SECURITY.md'
+      - 'LICENSE'
+      - 'CODEOWNERS'
+      - 'images/**'
+      - 'assets/**'
+      - '**/*.svg'
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'SECURITY.md'
+      - 'LICENSE'
+      - 'CODEOWNERS'
+      - 'images/**'
+      - 'assets/**'
+      - '**/*.svg'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate plugin & skill templates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate templates
+        run: node scripts/validate-template.mjs
