@@ -1,0 +1,17 @@
+.row-list{list-style:none;margin:0;padding:0}
+.row-list > li{min-width:0;overflow-wrap:anywhere}
+.row-list > li + li{margin-top:var(--ds-space-200);padding-top:var(--ds-space-200);border-top:var(--ds-border-width) solid var(--ds-border)}
+.row-list .paragraph + .link-row{margin-top:var(--ds-space-100)}
+/* Label rows sit 32px under the card title, as frame 6:2977 draws them: 16px more than the title's margin */
+.label-rows{padding-top:var(--ds-space-200)}
+.small-text + .row-list{margin-top:var(--ds-space-200)}
+.label-row{display:grid;grid-template-columns:9.375rem minmax(0,1fr);gap:var(--ds-space-150)}   /* Figma's 150px label column */
+.label-row__label{font:var(--ds-font-body-large);color:var(--ds-text-subtlest)}
+.label-row__title{font:var(--ds-font-body-large);font-weight:var(--ds-font-weight-medium);color:var(--ds-text)}
+.label-row .small-text{margin-top:var(--ds-space-100)}
+@media (max-width:640px){.label-row{grid-template-columns:minmax(0,1fr);gap:var(--ds-space-050)}}
+.numbered-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--ds-space-100)}
+.numbered-list__item{display:flex;align-items:flex-start;gap:var(--ds-space-150);font:var(--ds-font-body-large);color:var(--ds-text-subtle)}
+.numbered-list__number{flex:none;display:grid;place-items:center;box-sizing:border-box;width:1.25rem;height:1.25rem;margin-top:var(--ds-space-025);
+  border:var(--ds-border-width) solid var(--ds-text-subtlest);border-radius:var(--ds-radius-full);
+  font:var(--ds-font-code);font-weight:var(--ds-font-weight-medium);color:var(--ds-text-subtle)}   /* 14px in the item's 16px text */

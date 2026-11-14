@@ -1,0 +1,6 @@
+/* ADS Tag (@atlaskit/tag 17.0.3) in gray: 20px, a 1px border.accent.gray.subtle border inside 2px 3px of padding, radius.small,
+   body.small in text on neutral.subtle, at most 180px with an ellipsis */
+.tag{display:inline-flex;align-items:center;box-sizing:border-box;height:1.25rem;min-width:0;max-width:11.25rem;
+  padding:var(--ds-space-025) 0.1875rem;border:var(--ds-border-width) solid var(--ds-border-accent-gray-subtle);border-radius:var(--ds-radius-small);
+  background:var(--ds-background-neutral-subtle);font:var(--ds-font-body-small);color:var(--ds-text)}
+.tag__text{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}

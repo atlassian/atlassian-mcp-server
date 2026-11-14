@@ -1,0 +1,8 @@
+.evidence-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--ds-space-050)}
+.evidence-list > li{line-height:1.5rem;min-width:0;overflow-wrap:anywhere}
+.evidence-list__name{font-weight:var(--ds-font-weight-medium)}
+.evidence-list__verb{font-weight:var(--ds-font-weight-medium);color:var(--ds-text-subtle)}
+.evidence-list__date{font:var(--ds-font-body-small);color:var(--ds-text-subtlest);white-space:nowrap}
+.evidence-list + .fine{margin:var(--ds-space-100) 0 0}
+.quote-copy{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--ds-space-150)}
+.quote-copy blockquote{flex:1 1 16rem;min-width:0;margin:0;padding-left:var(--ds-space-150);border-left:var(--ds-border-width-selected) solid var(--ds-border);overflow-wrap:anywhere}

@@ -1,0 +1,4 @@
+.app-logo{display:block;flex:none}
+/* A third-party mark's tile as ADS Tile draws it for @atlassian/logo-third-party: white in dark mode too (no token holds it),
+   with a 1px border inside the box and the mark drawn within it */
+.app-logo--3p{box-sizing:border-box;border:var(--ds-border-width) solid var(--ds-border);border-radius:var(--ds-radius-tile);background:#fff}

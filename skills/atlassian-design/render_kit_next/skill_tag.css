@@ -1,0 +1,5 @@
+/* Skill tag (✦ AI Components 8046:947): 20px tall, caps and a 2px-padded middle in background.neutral, the slash in border */
+.skill-tag{display:inline-flex;align-items:center;height:1.25rem;vertical-align:top}
+.skill-tag__cap{display:block;flex:none;fill:var(--ds-background-neutral)}
+.skill-tag__cap .skill-tag__slash{fill:var(--ds-border)}
+.skill-tag__name{padding:0 var(--ds-space-025);background:var(--ds-background-neutral);font:var(--ds-font-body);color:var(--ds-text);white-space:nowrap}

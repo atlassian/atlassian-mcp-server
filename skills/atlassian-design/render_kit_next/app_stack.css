@@ -1,0 +1,7 @@
+/* App stack at small, as @atlassian/app-stack draws it: 24px tiles overlapping by 4px, turned 0, 6, 0 and -8deg in turn.
+   will-change puts a turned tile on its own layer, which smooths its edges. */
+.app-stack{display:flex;align-items:center}
+.app-stack__tile{flex:none;width:1.5rem;height:1.5rem}
+.app-stack__tile + .app-stack__tile{margin-left:calc(-1 * var(--ds-space-050))}
+.app-stack__tile:nth-child(4n+2){transform:rotate(6deg);will-change:transform}
+.app-stack__tile:nth-child(4n){transform:rotate(-8deg);will-change:transform}

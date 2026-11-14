@@ -1,0 +1,117 @@
+body { background: var(--ds-surface); color: var(--ds-text); font: var(--ds-font-body); margin: 0; }
+a { color: var(--ds-link); } a:active { color: var(--ds-link-pressed); }
+:focus-visible { outline: var(--ds-border-width-focused) solid var(--ds-border-focused); outline-offset: 2px; }
+/* Button: 32px tall (compact 24px), 12px inline padding, radius.medium, body-medium text */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--ds-space-050);height:2rem;
+  padding:0 var(--ds-space-150);border:0;border-radius:var(--ds-radius-medium);font:var(--ds-font-body);
+  font-weight:var(--ds-font-weight-medium);cursor:pointer;position:relative;white-space:nowrap;
+  transition:background-color var(--ds-duration-short) var(--ds-easing-out-practical);
+  background:var(--ds-background-neutral-subtle);color:var(--ds-text-subtle)}
+.btn::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  border:var(--ds-border-width) solid var(--ds-border)}               /* default appearance = outlined */
+.btn:hover{background:var(--ds-background-neutral-subtle-hovered)}
+.btn:active{background:var(--ds-background-neutral-subtle-pressed)}
+.btn--primary{background:var(--ds-background-brand-bold);color:var(--ds-text-inverse)}
+.btn--primary:hover{background:var(--ds-background-brand-bold-hovered)}
+.btn--primary:active{background:var(--ds-background-brand-bold-pressed)}
+.btn--danger{background:var(--ds-background-danger-bold);color:var(--ds-text-inverse)}
+.btn--danger:hover{background:var(--ds-background-danger-bold-hovered)}
+.btn--warning{background:var(--ds-background-warning-bold);color:var(--ds-text-warning-inverse)}
+.btn--warning:hover{background:var(--ds-background-warning-bold-hovered)}
+.btn--discovery{background:var(--ds-background-discovery-bold);color:var(--ds-text-inverse)}
+.btn--primary::after,.btn--danger::after,.btn--warning::after,.btn--discovery::after,.btn--subtle::after{border:0}
+.btn--subtle{background:transparent}                                     /* hover/press = neutral-subtle-* */
+.btn[aria-pressed="true"],.btn--selected{background:var(--ds-background-selected);color:var(--ds-text-selected)}
+.btn[aria-pressed="true"]::after{border-color:var(--ds-border-selected)}
+.btn:disabled{background:var(--ds-background-disabled);color:var(--ds-text-disabled);cursor:not-allowed}
+.btn:disabled::after{border-color:var(--ds-border-disabled)}
+.btn--compact{height:1.5rem;padding:0 var(--ds-space-075);border-radius:var(--ds-radius-small)}
+.btn--icon{width:2rem;padding:0}                                         /* needs aria-label */
+
+/* Lozenge (status): 20px tall, body-small medium, radius.small, subtler bg + subtle border + bolder text */
+.lozenge{display:inline-flex;align-items:center;box-sizing:border-box;height:1.25rem;padding:0 var(--ds-space-050);
+  border-radius:var(--ds-radius-small);font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-medium);
+  white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis;
+  border:var(--ds-border-width) solid var(--ds-border);background:var(--ds-background-neutral);color:var(--ds-text)}
+.lozenge--success{background:var(--ds-background-success-subtler);border-color:var(--ds-border-success-subtle);color:var(--ds-text-success-bolder)}
+.lozenge--warning{background:var(--ds-background-warning-subtler);border-color:var(--ds-border-warning-subtle);color:var(--ds-text-warning-bolder)}
+.lozenge--danger{background:var(--ds-background-danger-subtler);border-color:var(--ds-border-danger-subtle);color:var(--ds-text-danger-bolder)}
+.lozenge--information{background:var(--ds-background-information-subtler);border-color:var(--ds-border-information-subtle);color:var(--ds-text-information-bolder)}
+.lozenge--discovery{background:var(--ds-background-discovery-subtler);border-color:var(--ds-border-discovery-subtle);color:var(--ds-text-discovery-bolder)}
+/* Bold lozenge (use sparingly, e.g. workflow status): bg = <role>-bold, text = --ds-text-inverse (warning: text-warning-inverse), no border */
+
+/* Badge (counts only): radius.xsmall, 4px inline padding, body-small */
+.badge{display:inline-flex;min-width:1.5rem;justify-content:center;padding:0 var(--ds-space-050);
+  border-radius:var(--ds-radius-xsmall);font:var(--ds-font-body-small);background:var(--ds-background-accent-gray-subtler);color:var(--ds-text)}
+.badge--added{background:var(--ds-background-success-subtler)} .badge--removed{background:var(--ds-background-danger-subtler)}
+.badge--primary{background:var(--ds-background-brand-bold);color:var(--ds-text-inverse)}
+.badge--important{background:var(--ds-background-danger-bold);color:var(--ds-text-inverse)}
+
+/* Tag (categorize, not status): radius.small ("rounded" = radius.full for people), neutral or accent-subtlest */
+.tag{display:inline-flex;align-items:center;gap:var(--ds-space-050);height:1.25rem;padding:0 var(--ds-space-050);
+  border-radius:var(--ds-radius-small);border:var(--ds-border-width) solid var(--ds-border);
+  font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-medium);color:var(--ds-text);background:var(--ds-surface)}
+
+/* Section message: role background (default emphasis), 16px padding, radius.large, icon + title + body + actions */
+.section-msg{display:flex;gap:var(--ds-space-200);padding:var(--ds-space-200);border-radius:var(--ds-radius-large);
+  background:var(--ds-background-information);color:var(--ds-text)}
+.section-msg > svg{color:var(--ds-icon-information);flex:none}
+.section-msg--warning{background:var(--ds-background-warning)} .section-msg--warning > svg{color:var(--ds-icon-warning)}
+.section-msg--error{background:var(--ds-background-danger)}   .section-msg--error > svg{color:var(--ds-icon-danger)}
+.section-msg--success{background:var(--ds-background-success)} .section-msg--success > svg{color:var(--ds-icon-success)}
+.section-msg--discovery{background:var(--ds-background-discovery)} .section-msg--discovery > svg{color:var(--ds-icon-discovery)}
+.section-msg h3{font:var(--ds-font-heading-xsmall);margin:0 0 var(--ds-space-050)}
+
+/* Text field: label above (body-small bold, text-subtle), 40px tall, input tokens; focus/invalid = 2px via inset shadow */
+.field{display:flex;flex-direction:column;gap:var(--ds-space-050)}
+.field label{font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-bold);color:var(--ds-text-subtle)}
+.field input,.field textarea,.field select{font:var(--ds-font-body);color:var(--ds-text);background:var(--ds-background-input);
+  border:var(--ds-border-width) solid var(--ds-border-input);border-radius:var(--ds-radius-medium);
+  min-height:2.5rem;padding:var(--ds-space-075) var(--ds-space-100);box-sizing:border-box}
+.field input:hover{background:var(--ds-background-input-hovered)}
+.field input:focus{outline:none;border-color:var(--ds-border-focused);box-shadow:inset 0 0 0 var(--ds-border-width) var(--ds-border-focused)}
+.field input::placeholder{color:var(--ds-text-subtlest)}
+.field [aria-invalid="true"]{border-color:var(--ds-border-danger);box-shadow:inset 0 0 0 var(--ds-border-width) var(--ds-border-danger)}
+.field .helper{font:var(--ds-font-body-small);color:var(--ds-text-subtlest)}
+.field .error{font:var(--ds-font-body-small);color:var(--ds-text-danger)}
+
+/* Card: flat = surface + border; movable = raised + shadow */
+.card{background:var(--ds-surface);border:var(--ds-border-width) solid var(--ds-border);border-radius:var(--ds-radius-large);padding:var(--ds-space-200)}
+.card--raised{background:var(--ds-surface-raised);border:0;box-shadow:var(--ds-shadow-raised)}
+.card--raised:hover{background:var(--ds-surface-raised-hovered)}
+
+/* Tabs: text-subtle labels, selected = text-selected + 2px border-selected underline, divider = border */
+.tabs{display:flex;gap:var(--ds-space-050);border-bottom:var(--ds-border-width-selected) solid var(--ds-border)}
+.tabs [role=tab]{background:none;border:0;padding:var(--ds-space-075) var(--ds-space-100);margin-bottom:calc(-1*var(--ds-border-width-selected));
+  font:var(--ds-font-body);font-weight:var(--ds-font-weight-medium);color:var(--ds-text-subtle);border-bottom:var(--ds-border-width-selected) solid transparent;cursor:pointer}
+.tabs [role=tab]:hover{color:var(--ds-text)}
+.tabs [role=tab][aria-selected=true]{color:var(--ds-text-selected);border-bottom-color:var(--ds-border-selected)}
+
+/* Modal: blanket + overlay surface, radius.xlarge, header h1 heading-medium, footer primary on the right */
+.blanket{position:fixed;inset:0;background:var(--ds-blanket);z-index:500}
+.modal{position:fixed;z-index:510;background:var(--ds-surface-overlay);box-shadow:var(--ds-shadow-overlay);
+  border-radius:var(--ds-radius-xlarge);width:min(600px,calc(100vw - 32px));max-height:calc(100vh - 120px);display:flex;flex-direction:column}
+.modal header,.modal footer{padding:var(--ds-space-300)} .modal .body{padding:0 var(--ds-space-300);overflow:auto}
+.modal footer{display:flex;justify-content:flex-end;gap:var(--ds-space-100)}
+.modal h1{font:var(--ds-font-heading-medium);margin:0}
+
+/* Table: header text-subtle body-small bold, 2px bottom border on thead, rows divided by border, hover neutral-subtle-hovered */
+table{border-collapse:collapse;width:100%;font:var(--ds-font-body)}
+th{font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-bold);color:var(--ds-text-subtle);text-align:left;
+  padding:var(--ds-space-050) var(--ds-space-100);border-bottom:var(--ds-border-width-selected) solid var(--ds-border)}
+td{padding:var(--ds-space-100);border-bottom:var(--ds-border-width) solid var(--ds-border);vertical-align:top;overflow-wrap:break-word}
+tbody tr:hover{background:var(--ds-background-neutral-subtle-hovered)}
+/* A column of sentences needs a floor, or a long chip in the next column squeezes it to a few letters */
+td.prose,th.prose{min-width:12rem}
+
+/* Avatar: circle = person, square (radius.small–medium) = project/space/repo, hexagon = AI agent. Sizes 16/24/32/40/48/96 */
+.avatar{width:2rem;height:2rem;border-radius:var(--ds-radius-full);object-fit:cover;box-shadow:0 0 0 2px var(--ds-surface)}
+
+/* Progress bar: 6px track neutral, fill brand-bold (success = success-bold), radius.full */
+.progress{height:6px;border-radius:var(--ds-radius-full);background:var(--ds-background-neutral);overflow:hidden}
+.progress > span{display:block;height:100%;background:var(--ds-background-brand-bold)}
+
+/* Toggle: 32×16 track, off = neutral-bold, on = success-bold, 12px knob surface */
+/* Flag: overlay surface + shadow, radius.large, 400px wide, bottom-left, z 600; bold variant uses <role>-bold bg */
+/* Banner: full-width top, warning-bold (text-warning-inverse) / danger-bold (inverse) / neutral-bold announcement (inverse) */
+/* Skeleton: --ds-skeleton with --ds-skeleton-subtle shimmer; honor prefers-reduced-motion */

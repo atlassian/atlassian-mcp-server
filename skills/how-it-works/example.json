@@ -1,0 +1,598 @@
+{
+  "mockup": true,
+  "question": "Why does Beacon sign people out after 30 minutes, even when they’re still typing?",
+  "about": "Idle sign-out in Beacon",
+  "readFrom": {
+    "repository": "beacon-web",
+    "commit": "4f2c9a1",
+    "date": "Oct 23, 2026"
+  },
+  "askedOn": {
+    "title": "PLAT-2234 Signed out of Beacon while typing",
+    "url": "#",
+    "icon": "task",
+    "status": "Waiting for support"
+  },
+  "answer": [
+    "Typing in the editor counts as activity only when the `beacon.session.activity-heartbeat` flag is on, so with it off, someone who types without clicking or scrolling is signed out when the site’s idle timeout runs out. That’s 30 minutes unless a site admin has set another value, with a warning 2 minutes before, and clicks, scrolling and page changes always count as activity.",
+    {
+      "text": "The help article {0} still says 60 minutes, which changed to 30 in version 3.0.0. What the identity service does once Beacon asks it to end the session is outside the code we can see.",
+      "links": [
+        {
+          "title": "Why am I signed out of Beacon?",
+          "url": "#",
+          "icon": "page",
+          "app": "Beacon help centre"
+        }
+      ]
+    }
+  ],
+  "map": {
+    "trigger": "Someone using a Beacon page",
+    "parts": [
+      {
+        "path": "packages/session/src/idleTimer.ts",
+        "name": "Idle timer"
+      },
+      {
+        "path": "packages/session/src/config.ts",
+        "name": "Timeout length"
+      },
+      {
+        "path": "packages/session/src/activity.ts",
+        "name": "Editor activity"
+      },
+      {
+        "path": "packages/session/src/IdleWarningDialog.tsx",
+        "name": "Warning dialog"
+      },
+      {
+        "path": "packages/session/src/signOut.ts",
+        "name": "Sign-out"
+      }
+    ],
+    "links": [
+      {
+        "from": "packages/session/src/activity.ts",
+        "to": "packages/session/src/idleTimer.ts",
+        "verb": "restarts",
+        "step": 4
+      },
+      {
+        "from": "packages/session/src/idleTimer.ts",
+        "to": "packages/session/src/config.ts",
+        "verb": "reads",
+        "step": 2
+      },
+      {
+        "from": "packages/session/src/idleTimer.ts",
+        "to": "packages/session/src/IdleWarningDialog.tsx",
+        "verb": "shows",
+        "step": 5
+      },
+      {
+        "from": "packages/session/src/idleTimer.ts",
+        "to": "packages/session/src/signOut.ts",
+        "verb": "calls",
+        "step": 6
+      }
+    ],
+    "outside": [
+      {
+        "name": "Identity service",
+        "steps": [
+          6
+        ]
+      }
+    ]
+  },
+  "steps": [
+    {
+      "text": "When a Beacon page loads, it starts an idle timer for the signed-in session, and restarts it on every click, scroll or page change (`createIdleTimer`).",
+      "code": {
+        "path": "packages/session/src/idleTimer.ts",
+        "lines": [
+          8,
+          31
+        ],
+        "url": "#"
+      },
+      "excerpt": [
+        {
+          "n": 8,
+          "code": "const ACTIVITY_EVENTS = [\"pointerdown\", \"wheel\", \"scroll\", \"popstate\"];"
+        },
+        {
+          "gap": true
+        },
+        {
+          "n": 18,
+          "code": "export function createIdleTimer(options: IdleTimerOptions) {"
+        },
+        {
+          "n": 19,
+          "code": "  const timeoutMs = options.timeoutMinutes * 60_000;"
+        },
+        {
+          "n": 20,
+          "code": "  let timer = setTimeout(options.onIdle, timeoutMs);"
+        },
+        {
+          "n": 21,
+          "code": ""
+        },
+        {
+          "n": 22,
+          "code": "  const reset = () => {"
+        },
+        {
+          "n": 23,
+          "code": "    clearTimeout(timer);"
+        },
+        {
+          "n": 24,
+          "code": "    timer = setTimeout(options.onIdle, timeoutMs);"
+        },
+        {
+          "n": 25,
+          "code": "  };"
+        },
+        {
+          "n": 27,
+          "code": "  ACTIVITY_EVENTS.forEach((name) => window.addEventListener(name, reset, { passive: true }));"
+        },
+        {
+          "n": 28,
+          "code": "  return { reset, stop: () => clearTimeout(timer) };"
+        }
+      ]
+    },
+    {
+      "text": "It takes the length of the timer from the site’s security settings, where a site admin can set an idle timeout (`getSiteIdleTimeout`).",
+      "code": {
+        "path": "packages/session/src/config.ts",
+        "lines": [
+          22,
+          38
+        ],
+        "url": "#"
+      },
+      "excerpt": [
+        {
+          "n": 22,
+          "code": "export async function getSiteIdleTimeout(siteId: string): Promise<number> {"
+        },
+        {
+          "n": 23,
+          "code": "  const settings = await fetchSecuritySettings(siteId);"
+        },
+        {
+          "n": 24,
+          "code": ""
+        },
+        {
+          "n": 25,
+          "code": "  if (settings.idleTimeoutMinutes == null) {"
+        },
+        {
+          "n": 26,
+          "code": "    return DEFAULT_IDLE_TIMEOUT_MINUTES;"
+        },
+        {
+          "n": 27,
+          "code": "  }"
+        },
+        {
+          "n": 28,
+          "code": "  return settings.idleTimeoutMinutes;"
+        },
+        {
+          "n": 29,
+          "code": "}"
+        }
+      ]
+    },
+    {
+      "text": "If the site has no idle timeout set, the timer runs for 30 minutes (`DEFAULT_IDLE_TIMEOUT_MINUTES`).",
+      "code": {
+        "path": "packages/session/src/config.ts",
+        "lines": [
+          4,
+          9
+        ],
+        "url": "#"
+      },
+      "test": {
+        "path": "packages/session/src/config.test.ts",
+        "lines": [
+          14,
+          21
+        ],
+        "url": "#",
+        "name": "uses 30 minutes when the site has no timeout"
+      },
+      "excerpt": [
+        {
+          "n": 4,
+          "code": "// Used when the site has no idle timeout in its security settings."
+        },
+        {
+          "n": 5,
+          "code": "export const DEFAULT_IDLE_TIMEOUT_MINUTES = 30;"
+        },
+        {
+          "n": 6,
+          "code": ""
+        },
+        {
+          "n": 7,
+          "code": "// Settings outside this range are ignored and the default is used."
+        },
+        {
+          "n": 8,
+          "code": "export const MIN_IDLE_TIMEOUT_MINUTES = 5;"
+        },
+        {
+          "n": 9,
+          "code": "export const MAX_IDLE_TIMEOUT_MINUTES = 720;"
+        }
+      ]
+    },
+    {
+      "text": "Typing in the editor restarts the timer only when the `beacon.session.activity-heartbeat` flag is on. When it’s on, key presses restart it at most once every 30 seconds. When it’s off, typing doesn’t count as activity, so someone can type for the whole timeout and still be signed out (`trackEditorInput`).",
+      "code": {
+        "path": "packages/session/src/activity.ts",
+        "lines": [
+          40,
+          61
+        ],
+        "url": "#"
+      },
+      "test": {
+        "path": "packages/session/src/activity.test.ts",
+        "lines": [
+          12,
+          20
+        ],
+        "url": "#",
+        "name": "doesn’t reset the timer on key presses when the flag is off"
+      },
+      "excerpt": [
+        {
+          "n": 40,
+          "code": "export function trackEditorInput(editor: EditorView, timer: IdleTimer) {"
+        },
+        {
+          "n": 41,
+          "code": "  if (!flags.isEnabled(\"beacon.session.activity-heartbeat\")) {"
+        },
+        {
+          "n": 42,
+          "code": "    // Key presses in the editor don't reset the idle timer."
+        },
+        {
+          "n": 43,
+          "code": "    return () => {};"
+        },
+        {
+          "n": 44,
+          "code": "  }"
+        },
+        {
+          "n": 45,
+          "code": ""
+        },
+        {
+          "n": 46,
+          "code": "  const onKey = throttle(() => timer.reset(), 30_000);"
+        },
+        {
+          "n": 47,
+          "code": "  editor.dom.addEventListener(\"keydown\", onKey);"
+        },
+        {
+          "n": 48,
+          "code": "  return () => editor.dom.removeEventListener(\"keydown\", onKey);"
+        },
+        {
+          "n": 49,
+          "code": "}"
+        }
+      ]
+    },
+    {
+      "text": "Two minutes before the timer runs out, it shows a “You’ll be signed out soon” message with a Stay signed in button (`IdleWarningDialog`).",
+      "code": {
+        "path": "packages/session/src/IdleWarningDialog.tsx",
+        "lines": [
+          15,
+          29
+        ],
+        "url": "#"
+      },
+      "excerpt": [
+        {
+          "n": 15,
+          "code": "const WARNING_BEFORE_MS = 2 * 60_000;"
+        },
+        {
+          "n": 16,
+          "code": ""
+        },
+        {
+          "n": 17,
+          "code": "export function IdleWarningDialog({ msLeft, onStay }: Props) {"
+        },
+        {
+          "n": 18,
+          "code": "  if (msLeft > WARNING_BEFORE_MS) return null;"
+        },
+        {
+          "n": 19,
+          "code": ""
+        },
+        {
+          "n": 20,
+          "code": "  return ("
+        },
+        {
+          "n": 21,
+          "code": "    <Modal title=\"You'll be signed out soon\">"
+        },
+        {
+          "n": 22,
+          "code": "      <p>{formatCountdown(msLeft)} left before we sign you out.</p>"
+        },
+        {
+          "n": 23,
+          "code": "      <Button appearance=\"primary\" onClick={onStay}>Stay signed in</Button>"
+        },
+        {
+          "n": 24,
+          "code": "    </Modal>"
+        },
+        {
+          "n": 25,
+          "code": "  );"
+        },
+        {
+          "n": 26,
+          "code": "}"
+        }
+      ]
+    },
+    {
+      "text": "When the timer runs out, it asks the identity service to end the session, then opens the sign-in page (`identityClient.endSession`). We couldn’t find this service’s code.",
+      "code": {
+        "path": "packages/session/src/signOut.ts",
+        "lines": [
+          9,
+          27
+        ],
+        "url": "#"
+      },
+      "excerpt": [
+        {
+          "n": 9,
+          "code": "import { identityClient } from \"@beacon/identity-client\";"
+        },
+        {
+          "gap": true
+        },
+        {
+          "n": 18,
+          "code": "export async function signOutIdle(session: Session) {"
+        },
+        {
+          "n": 19,
+          "code": "  await identityClient.endSession(session.id, { reason: \"idle\" });"
+        },
+        {
+          "n": 20,
+          "code": ""
+        },
+        {
+          "n": 21,
+          "code": "  const next = encodeURIComponent(window.location.pathname);"
+        },
+        {
+          "n": 22,
+          "code": "  window.location.assign(`/login?reason=idle&next=${next}`);"
+        },
+        {
+          "n": 23,
+          "code": "}"
+        }
+      ]
+    }
+  ],
+  "traceNote": "All lines are from `packages/session` in `beacon-web` at commit `4f2c9a1`.",
+  "settings": [
+    {
+      "name": "beacon.session.activity-heartbeat",
+      "changes": "On: typing in the editor keeps the session active, at most one restart every 30 seconds. Off: only clicks, scrolling and page changes do.",
+      "steps": [
+        4
+      ],
+      "who": "We can’t see whether it’s on"
+    },
+    {
+      "name": "idleTimeoutMinutes",
+      "changes": "Replaces the 30 minute default with the site’s own value.",
+      "steps": [
+        2,
+        3
+      ],
+      "who": "Set by the site admin"
+    }
+  ],
+  "checkNote": "For the customer on the ticket. The code can’t answer these, so check them on the account.",
+  "checklist": [
+    "Has a site admin set an idle timeout in the site’s security settings? If so, what is it?",
+    "Is the `beacon.session.activity-heartbeat` flag on for this site?",
+    "Was the person typing in the editor without clicking, scrolling or changing page for the whole time?",
+    "Did they see the “You’ll be signed out soon” message before they were signed out?"
+  ],
+  "docs": [
+    {
+      "link": {
+        "title": "Why am I signed out of Beacon?",
+        "url": "#",
+        "icon": "page",
+        "app": "Beacon help centre"
+      },
+      "claim": "Says Beacon signs people out after 60 minutes of inactivity. The code’s default is 30 minutes (step 3).",
+      "verdict": {
+        "text": "Disagrees",
+        "tone": "danger"
+      },
+      "meta": "Support article, customer-facing · Updated Mar 3, 2026"
+    },
+    {
+      "link": {
+        "title": "Beacon support runbook: sign-in and sessions",
+        "url": "#",
+        "icon": "page"
+      },
+      "claim": "Says the default is 30 minutes and that site admins can change it in security settings (steps 2 and 3).",
+      "verdict": {
+        "text": "Matches",
+        "tone": "success"
+      },
+      "meta": "Runbook · Updated Aug 19, 2026"
+    },
+    {
+      "link": {
+        "title": "Message in #beacon-eng",
+        "url": "#",
+        "icon": "comment",
+        "app": "Slack"
+      },
+      "claim": "Says the identity service also ends every session after 12 hours. That’s in the identity service, whose code we couldn’t see (step 6).",
+      "verdict": "Can’t check",
+      "meta": "Slack, read from the search snippet · Oct 2, 2026"
+    }
+  ],
+  "questions": "Asked 5 times in Slack in the last 90 days.",
+  "bugs": [
+    {
+      "title": "BEACON-917 Typing in the editor doesn’t keep the session active",
+      "url": "#",
+      "icon": "task",
+      "status": {
+        "text": "In progress",
+        "tone": "information"
+      }
+    }
+  ],
+  "changes": [
+    {
+      "version": "3.4.0",
+      "date": "Sep 30, 2026",
+      "text": "Add the `beacon.session.activity-heartbeat` flag, so typing in the editor can keep a session active.",
+      "link": {
+        "title": "Count editor key presses as session activity",
+        "url": "#",
+        "icon": "pull-request",
+        "app": "Bitbucket"
+      }
+    },
+    {
+      "version": "3.2.0",
+      "date": "Jul 14, 2026",
+      "text": "Show a warning 2 minutes before an idle sign-out.",
+      "link": {
+        "title": "Warn before idle sign-out",
+        "url": "#",
+        "icon": "pull-request",
+        "app": "Bitbucket"
+      }
+    },
+    {
+      "version": "3.0.0",
+      "date": "Apr 2, 2026",
+      "text": "Lower the default idle timeout from 60 minutes to 30 minutes.",
+      "link": {
+        "title": "Lower the default idle timeout to 30 minutes",
+        "url": "#",
+        "icon": "pull-request",
+        "app": "Bitbucket"
+      }
+    }
+  ],
+  "changesNote": "All lines are from `packages/session` in `beacon-web` at commit `4f2c9a1`.",
+  "owners": [
+    {
+      "label": "Team",
+      "link": {
+        "title": "Team Beacon",
+        "url": "#",
+        "icon": "teams"
+      },
+      "from": "Declared in package.json (`atlassian.team`), and matched in Teams"
+    },
+    {
+      "label": "Channel",
+      "link": {
+        "title": "#beacon-eng",
+        "url": "#",
+        "icon": "hashtag",
+        "app": "Slack"
+      },
+      "from": "Declared in package.json (`atlassian.slack`)"
+    },
+    {
+      "label": "Compass component",
+      "link": {
+        "title": "beacon-web",
+        "url": "#",
+        "icon": "globe",
+        "app": "Compass"
+      },
+      "from": "Its links name the beacon-web repository. Owned by Team Beacon in Compass."
+    },
+    {
+      "label": "Identity service",
+      "text": "No owner recorded in the code we can see.",
+      "from": "To find who to ask, try `/whos-the-expert` with “identity service sessions”."
+    }
+  ],
+  "reply": "Thanks for the details. Beacon signs people out after a period with no activity, and by default that period is 30 minutes. Clicking, scrolling and moving between pages count as activity, so if you’re writing something long, clicking in the page now and then keeps you signed in. Two minutes before you’re signed out, Beacon shows a message with a Stay signed in button. Your site admin can also change how long the period is in the site’s security settings.",
+  "footer": {
+    "tags": [
+      {
+        "text": "Code search"
+      },
+      {
+        "text": "Bitbucket"
+      },
+      {
+        "text": "Confluence"
+      },
+      {
+        "text": "Jira"
+      },
+      {
+        "text": "Slack"
+      },
+      {
+        "text": "Compass"
+      },
+      {
+        "text": "Teams"
+      },
+      {
+        "text": "No results from Google Drive"
+      }
+    ],
+    "lines": [
+      "Code read: `beacon-web` (Bitbucket, beacon workspace) at commit 4f2c9a1, Oct 23, 2026. 7 files in `packages/session`, including package.json and CHANGELOG.md. config.ts was also indexed at commit 9b03e7d. This page uses 4f2c9a1.",
+      "4 code searches and 1 directory listing. 14 results from forks and vendored code left out.",
+      "Where the trace stopped: step 6, where Beacon hands the sign-out to the identity service. 1 search for `identityClient` found no code for it.",
+      "Docs and chat: 3 searches across Confluence, Jira and connected apps. 2 Confluence pages read in full. Slack read from search snippets only. Questions counted from Slack messages last modified in the last 90 days. The docs and chat were found by search.",
+      "Change history from CHANGELOG.md. Not run: a Bitbucket pull request search, because the changelog already covered the last 12 months.",
+      "No caps reached.",
+      "Prepared 5 minutes ago, Oct 23, 2026, 10:40 AM PT."
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+.link-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--ds-space-050);line-height:1.75rem}
+/* The smart link as frame 26:915 draws it: 28px, the border inside 4px of padding, a 20px logo and the lozenge 8px either side
+   of a 14/16 title */
+.inline-card{display:inline-flex;align-items:center;gap:var(--ds-space-100);box-sizing:border-box;max-width:100%;min-height:1.75rem;
+  padding:calc(var(--ds-space-050) - var(--ds-border-width));vertical-align:top;border:var(--ds-border-width) solid var(--ds-border);border-radius:var(--ds-radius-medium);
+  background:var(--ds-surface-raised);color:var(--ds-link);font:var(--ds-font-body);line-height:1rem;text-decoration:none;cursor:pointer;
+  transition:all .1s ease-in-out}
+/* A chip that ends in text, not a lozenge, ends 8px from the edge, as the text is 8px from the logo: 4px looks cramped after text */
+.inline-card:not(:has(> .status-lozenge)){padding-right:calc(var(--ds-space-100) - var(--ds-border-width))}
+a.inline-card:hover{border-color:var(--ds-border-accent-blue)}
+a.inline-card:active{background:var(--ds-background-selected)}
+.inline-card__title{min-width:0;letter-spacing:-0.1px}          /* Figma's tracking: no token holds it */
+:where(.inline-card > .glyph){color:var(--ds-icon-subtle)}          /* no weight, so a glyph's tone wins */
+.inline-card > .glyph{padding:var(--ds-space-025)}          /* an object icon at its 16px, in the logo's 20px */
+.inline-card--unlinked{color:var(--ds-text-subtle);cursor:default}
+.inline-card__none{color:var(--ds-text-subtlest);font:var(--ds-font-body-small)}

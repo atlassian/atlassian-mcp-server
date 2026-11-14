@@ -1,0 +1,88 @@
+{
+  "mockup": true,
+  "topic": "Ledger",
+  "start": "Mon, Oct 5",
+  "end": "Fri, Oct 16",
+  "startShort": "Oct 5",
+  "endShort": "Oct 16",
+  "workingDays": 10,
+  "fromCalendar": true,
+  "counts": {"changes": 17},
+  "summary": [
+    "Start with the import scope: Marco Ricci asked on Oct 14 for your approval before Thursday's Ledger review. The team decided to drop CSV import from the beta, and Ledger moved to At risk with a new target of Nov 20. 23 work items moved across Jira, Confluence, Slack and GitHub."
+  ],
+  "generatedFrom": "Jira, Confluence, Projects, Loom, Google Calendar, Slack and GitHub",
+  "needsYou": [
+    {"type": {"text": "Overdue", "tone": "danger"}, "text": "Moving account settings to the new API was due on Oct 14 and is still assigned to you.",
+     "source": {"title": "LEDGER-214 Migrate account settings to the new API", "url": "https://example.atlassian.net/browse/LEDGER-214", "icon": "task", "status": {"text": "In progress", "tone": "information"}}, "when": "due Oct 14"},
+    {"type": {"text": "Ask", "tone": "information"}, "text": "Marco Ricci asked you in Slack to approve the revised import scope before the Ledger review on Thursday.",
+     "quote": "can you sign off the revised import scope before Thursday's review?", "quoteFrom": "Slack",
+     "source": {"title": "#ledger-dev, Oct 14", "url": "https://example.slack.com/archives/C01", "icon": "hashtag", "app": "Slack", "found": true}, "when": "asked Oct 14"},
+    {"type": {"text": "Review", "tone": "information"}, "text": "Jo Okafor is waiting on your review of batch export for Ledger reports.",
+     "source": {"title": "ledger-reports #88 Batch export for reports", "url": "https://github.com/example/ledger-reports/pull/88", "icon": "pull-request", "app": "GitHub"}, "when": "open since Oct 2"},
+    {"type": "Action", "text": "From the Oct 8 sync, you're confirming the beta customer list with Sana Khoury.",
+     "source": {"title": "Ledger weekly sync - October 8, 2026", "url": "https://example.atlassian.net/wiki/pages/201", "icon": "page"}, "when": "Oct 8"}
+  ],
+  "decisions": [
+    {"text": "Amara Lindqvist decided to keep the old search index running until Nov 14, so Ledger reports switch over after the import ships.",
+     "source": {"title": "Ledger decision, Oct 9, 2026", "url": "https://example.atlassian.net/project/ATLAS-7/updates", "icon": "goal", "app": "Projects"}, "when": "Oct 9"},
+    {"text": "The Oct 12 scope review agreed to drop CSV import from the beta and ship it in November. Sana Khoury recorded it.",
+     "source": {"title": "Ledger decision log", "url": "https://example.atlassian.net/wiki/pages/202", "icon": "page"}, "when": "Oct 12"}
+  ],
+  "changes": [
+    {"link": {"title": "Ledger", "url": "https://example.atlassian.net/project/ATLAS-7", "icon": "project", "app": "Projects", "status": {"text": "At risk", "tone": "warning"}},
+     "rows": [
+       {"type": {"text": "At risk", "tone": "warning"}, "text": "Amara Lindqvist moved Ledger from On track to At risk, because the import pipeline slipped a week.",
+        "source": {"title": "Ledger update, Oct 13, 2026", "url": "https://example.atlassian.net/project/ATLAS-7/updates", "icon": "goal", "app": "Projects"}, "when": "Oct 13"},
+       {"type": {"text": "Date moved", "tone": "warning"}, "text": "In the same update, Ledger's target date moved from Nov 6 to Nov 20.",
+        "source": {"title": "Ledger update, Oct 13, 2026", "url": "https://example.atlassian.net/project/ATLAS-7/updates", "icon": "goal", "app": "Projects"}, "when": "Oct 13"}
+     ]},
+    {"link": {"title": "LEDGER-190 Import pipeline", "url": "https://example.atlassian.net/browse/LEDGER-190", "icon": "epic"},
+     "rows": [
+       {"type": {"text": "Blocked", "tone": "danger"}, "text": "Marco Ricci moved balance validation to Blocked. It's waiting on Platform's rate limit change {0}.",
+        "links": [{"title": "PLAT-88 Raise import rate limit", "url": "https://example.atlassian.net/browse/PLAT-88", "icon": "task", "status": {"text": "In progress", "tone": "information"}}],
+        "source": {"title": "LEDGER-221 Validate imported balances", "url": "https://example.atlassian.net/browse/LEDGER-221", "icon": "task", "status": {"text": "Blocked", "tone": "warning"}}, "when": "Oct 12"},
+       {"type": "Scope", "text": "Sana Khoury closed the CSV import screen as Won't do, following the Oct 12 decision.",
+        "source": {"title": "LEDGER-230 CSV import screen", "url": "https://example.atlassian.net/browse/LEDGER-230", "icon": "task", "status": {"text": "Won't do", "tone": "success"}}, "when": "Oct 12"},
+       {"type": {"text": "Shipped", "tone": "success"}, "text": "6 work items done, including the account mapping and the import dry run.",
+        "source": {"title": "6 work items done in LEDGER-190", "url": "https://example.atlassian.net/issues/?jql=parent%3DLEDGER-190", "icon": "search"}, "when": "Oct 5 to Oct 16"}
+     ]},
+    {"link": {"title": "Ledger", "url": "https://example.atlassian.net/wiki/spaces/LEDGER", "icon": "folder", "app": "Confluence space"},
+     "rows": [
+       {"text": "Marco Ricci rewrote the rollout section of the import spec, adding a two-stage rollout for EU accounts.",
+        "source": {"title": "Ledger import spec", "url": "https://example.atlassian.net/wiki/pages/203", "icon": "page"}, "when": "Oct 14"},
+       {"type": {"text": "New", "tone": "information"}, "text": "Jo Okafor created a runbook for running and rolling back the import.",
+        "source": {"title": "Ledger import runbook", "url": "https://example.atlassian.net/wiki/pages/204", "icon": "page"}, "when": "Oct 15"}
+     ]},
+    {"group": "Other",
+     "rows": [
+       {"type": {"text": "Shipped", "tone": "success"}, "text": "Jo Okafor merged retries for failed Ledger exports.",
+        "source": {"title": "ledger-reports #91 Retry failed exports", "url": "https://github.com/example/ledger-reports/pull/91", "icon": "pull-request", "app": "GitHub"}, "when": "Oct 15"},
+       {"text": "Marco Ricci said in Slack that Beacon needs the export API frozen by Oct 30.",
+        "source": {"title": "#ledger-dev, Oct 15", "url": "https://example.slack.com/archives/C01", "icon": "hashtag", "app": "Slack", "found": true}, "when": "Oct 15"}
+     ]}
+  ],
+  "meetings": [
+    {"date": "Oct 8", "title": "Ledger weekly sync", "meta": "6 people · Sana Khoury organising · weekly", "line": "Sana asked you to confirm the beta customer list.",
+     "source": {"title": "Ledger weekly sync - October 8, 2026", "url": "https://example.atlassian.net/wiki/pages/201", "icon": "page"}},
+    {"date": "Oct 12", "title": "Ledger scope review", "meta": "5 people · Amara Lindqvist organising", "line": "Agreed to drop CSV import from the beta.",
+     "source": {"title": "Notes - Ledger scope review", "url": "https://docs.google.com/document/d/example", "icon": "doc", "app": "Google Docs"}},
+    {"date": "Oct 15", "title": "Ledger weekly sync", "meta": "6 people · Sana Khoury organising · weekly"}
+  ],
+  "comingUp": [
+    {"date": "Thu, Oct 22", "text": "Ledger review. The import scope changed on Oct 12, and Marco's approval ask is still open."},
+    {"date": "Fri, Oct 23", "text": "{0} is due, and Beacon is waiting on it.",
+     "links": [{"title": "LEDGER-219 Export API contract", "url": "https://example.atlassian.net/browse/LEDGER-219", "icon": "task", "status": {"text": "To do"}}]}
+  ],
+  "footer": {
+    "tags": [{"text": "Jira"}, {"text": "Confluence"}, {"text": "Projects"}, {"text": "Loom"}, {"text": "Google Calendar"}, {"text": "Slack"}, {"text": "GitHub"}, {"text": "Google Drive"}, {"text": "No results from Gmail", "muted": true}],
+    "lines": [
+      "Window: Mon, Oct 5 to Fri, Oct 16, 2026, Pacific time, from your out-of-office event. Items are dated by when they happened, not when they were last touched.",
+      "9 items from before the window and 3 changes after Oct 16 aren't included. 4 items you'd already seen aren't shown.",
+      "Searched Slack, Google Drive and GitHub through Teamwork Graph (3 queries: \"Ledger\", \"LEDGER\", \"Ledger import\"; 14 results in the window), with your Slack ID for mentions.",
+      "Read the history of 8 of 23 changed work items. 5 lower-ranked changes aren't shown.",
+      "Slack items are excerpts from search, and full threads weren't read. Notifications aren't covered.",
+      "Prepared just now, Mon, Oct 19, 8:10 AM PT."
+    ]
+  }
+}

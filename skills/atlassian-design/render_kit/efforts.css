@@ -1,0 +1,13 @@
+.efforts{list-style:none;margin:0;padding:0}
+.effort{display:grid;gap:var(--ds-space-075);padding:var(--ds-space-200) 0;border-top:var(--ds-border-width) solid var(--ds-border);min-width:0;overflow-wrap:anywhere}
+.effort:first-child{border-top:0;padding-top:0}
+.effort:last-child{padding-bottom:0}
+.effort__top{display:flex;flex-wrap:wrap;align-items:center;gap:var(--ds-space-075)}
+.effort__status{font:var(--ds-font-body-small);color:var(--ds-text-subtle)}
+.effort__does,.effort__move{margin:0}
+.effort__owner{display:flex;align-items:center;gap:var(--ds-space-100);font:var(--ds-font-body-small);color:var(--ds-text-subtle)}
+.effort__label{font-weight:var(--ds-font-weight-bold);color:var(--ds-text)}
+.effort__team{color:var(--ds-text-subtlest)}
+.effort__evidence-label{font:var(--ds-font-body-small);font-weight:var(--ds-font-weight-bold);color:var(--ds-text-subtle)}
+.effort__evidence ul{list-style:none;margin:var(--ds-space-025) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:var(--ds-space-050) 0}
+.effort__connected{font:var(--ds-font-body-small);color:var(--ds-text-success)}

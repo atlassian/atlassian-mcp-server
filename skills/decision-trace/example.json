@@ -1,0 +1,288 @@
+{
+  "mockup": true,
+  "question": "Why did we pause new Beacon editor work, and who signed off?",
+  "verdict": {
+    "text": "Decided, later revisited",
+    "tone": "warning"
+  },
+  "traced": {
+    "records": 5,
+    "discussions": 2,
+    "date": "Oct 24, 2026"
+  },
+  "answer": [
+    "New work on the Beacon editor was paused in September 2026, after a DACI weighed three options and chose to pause and maintain. The DACI names Amara Lindqvist as approver, and was marked Approved on Sep 15, 2026. The question was reopened in October, and no new decision has been recorded yet."
+  ],
+  "generatedFrom": "Confluence, Projects, Loom, Slack and Jira",
+  "decisions": [
+    {
+      "heading": "Newest decision",
+      "status": {
+        "text": "Approved",
+        "tone": "success"
+      },
+      "decided": "“Pause new feature work on the Beacon editor from the start of Q2. Keep one engineer on fixes and security updates.”",
+      "link": {
+        "title": "Beacon editor: invest, pause or replace (DACI)",
+        "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-daci",
+        "icon": "page"
+      },
+      "when": "Marked Approved on Sep 15, 2026",
+      "whenHow": "page history, version 9",
+      "who": "Approver: Amara Lindqvist",
+      "whoHow": "DACI table",
+      "also": [
+        {
+          "title": "Decision: pause new Beacon editor work",
+          "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-decision",
+          "icon": "page"
+        }
+      ],
+      "alsoHow": "The decision page states the same outcome and names no approver."
+    },
+    {
+      "heading": "Earlier decision it revisits",
+      "status": {
+        "text": "Decided",
+        "tone": "success"
+      },
+      "decided": "“Beacon editor moves to maintenance mode once the Platform editor kit ships.”",
+      "link": {
+        "title": "Product decision register · row 31, Beacon editor to maintenance mode",
+        "url": "https://example.atlassian.net/wiki/spaces/PROD/pages/example-register",
+        "icon": "page"
+      },
+      "when": "Decided on Mar 4, 2025",
+      "whenHow": "register row",
+      "who": "Approvers: Priya Raman, Marco Ricci",
+      "whoHow": "register approvers column"
+    }
+  ],
+  "revisit": {
+    "title": "Reopened on Oct 20, 2026.",
+    "text": "{0} asks whether to restart staffing for the editor or stay in maintenance mode. No new decision is recorded.",
+    "links": [
+      {
+        "title": "Beacon editor: staffing decision required",
+        "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-staffing",
+        "icon": "page",
+        "found": true
+      }
+    ]
+  },
+  "why": [
+    {
+      "text": "“The editor serves 4% of Beacon's weekly active users, and the Platform editor kit covers the same cases.” {0}",
+      "links": [
+        {
+          "title": "Beacon editor: invest, pause or replace (DACI)",
+          "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-daci",
+          "icon": "page"
+        }
+      ]
+    },
+    {
+      "text": "“Two squads are needed for the search migration in Q2, and the editor is the only work we can stop without breaking a commitment.” {0}",
+      "links": [
+        {
+          "title": "Beacon editor: invest, pause or replace (DACI)",
+          "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-daci",
+          "icon": "page"
+        }
+      ]
+    },
+    {
+      "text": "“Fixes and security updates stay covered, so customers see no change.” {0}",
+      "links": [
+        {
+          "title": "Decision: pause new Beacon editor work",
+          "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-decision",
+          "icon": "page"
+        }
+      ]
+    }
+  ],
+  "options": {
+    "items": [
+      {
+        "name": "A. Keep investing.",
+        "text": "“Two squads continue the roadmap through Q3.”"
+      },
+      {
+        "name": "B. Pause and maintain.",
+        "text": "“Stop feature work, keep one engineer on fixes and security updates.”",
+        "chosen": true
+      },
+      {
+        "name": "C. Replace now.",
+        "text": "“Move Beacon to the Platform editor kit this quarter.”"
+      }
+    ],
+    "from": {
+      "text": "From the options section of {0}",
+      "links": [
+        {
+          "title": "Beacon editor: invest, pause or replace (DACI)",
+          "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-daci",
+          "icon": "page"
+        }
+      ]
+    }
+  },
+  "timeline": [
+    {
+      "date": "Mar 4, 2025",
+      "type": {
+        "text": "Recorded decision",
+        "tone": "success"
+      },
+      "text": "The register records moving the Beacon editor to maintenance mode once the Platform editor kit ships.",
+      "link": {
+        "title": "Product decision register · row 31, Beacon editor to maintenance mode",
+        "url": "https://example.atlassian.net/wiki/spaces/PROD/pages/example-register",
+        "icon": "page"
+      }
+    },
+    {
+      "date": "Jun 12, 2026",
+      "type": {
+        "text": "Proposed",
+        "tone": "information"
+      },
+      "text": "The DACI is created with three options and the status Pending. Its first recommendation is option C, replace now.",
+      "link": {
+        "title": "Beacon editor: invest, pause or replace (DACI)",
+        "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-daci",
+        "icon": "page"
+      }
+    },
+    {
+      "date": "Jul 3, 2026",
+      "type": {
+        "text": "Proposed",
+        "tone": "information"
+      },
+      "text": "The project update says the editor decision is “in review with Amara”.",
+      "link": {
+        "title": "BEACON-12 update, Jul 3, 2026",
+        "url": "https://home.atlassian.com/project/example-beacon-12/updates",
+        "icon": "project"
+      }
+    },
+    {
+      "date": "Aug 28, 2026",
+      "type": {
+        "text": "Proposed",
+        "tone": "information"
+      },
+      "text": "v1 to v7: the DACI’s recommendation changes from option C to option B.",
+      "link": {
+        "title": "Beacon editor: invest, pause or replace (DACI)",
+        "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-daci",
+        "icon": "page"
+      }
+    },
+    {
+      "date": "Sep 15, 2026",
+      "type": {
+        "text": "Recorded decision",
+        "tone": "success"
+      },
+      "text": "v9: the DACI’s status changes from Pending to Approved. Approver named as Amara Lindqvist.",
+      "link": {
+        "title": "Beacon editor: invest, pause or replace (DACI)",
+        "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-daci",
+        "icon": "page"
+      }
+    },
+    {
+      "date": "Sep 17, 2026",
+      "type": {
+        "text": "Recorded decision",
+        "tone": "success"
+      },
+      "text": "The decision page records the pause and the reasons, with no approver named.",
+      "link": {
+        "title": "Decision: pause new Beacon editor work",
+        "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-decision",
+        "icon": "page"
+      }
+    },
+    {
+      "date": "Sep 18, 2026",
+      "type": "Discussed",
+      "text": "According to Sana Khoury in Slack, the editor team moves to the search migration from Monday.",
+      "link": {
+        "title": "Sana Khoury in #beacon-team",
+        "url": "https://example.slack.com/archives/C0EXAMPLE/p2",
+        "icon": "hashtag",
+        "app": "Slack",
+        "found": true
+      }
+    },
+    {
+      "date": "Oct 15, 2026",
+      "type": "Meeting summary",
+      "text": "The meeting summary says the group “discussed whether to restart the editor next half”, with no outcome.",
+      "link": {
+        "title": "Beacon planning sync, Oct 15",
+        "url": "https://www.loom.com/share/example-planning",
+        "icon": "video",
+        "app": "Loom",
+        "found": true
+      }
+    },
+    {
+      "date": "Oct 20, 2026",
+      "type": {
+        "text": "Revisit",
+        "tone": "warning"
+      },
+      "text": "A new page asks for a decision on restarting staffing or staying in maintenance mode. Status: Awaiting decision.",
+      "link": {
+        "title": "Beacon editor: staffing decision required",
+        "url": "https://example.atlassian.net/wiki/spaces/BEACON/pages/example-staffing",
+        "icon": "page",
+        "found": true
+      }
+    }
+  ],
+  "notInRecords": [
+    "The decision page names no approver. The approver comes from the DACI.",
+    "No record says when the Oct 20 question will be decided, or who decides it."
+  ],
+  "footer": {
+    "tags": [
+      {
+        "text": "Confluence"
+      },
+      {
+        "text": "Projects"
+      },
+      {
+        "text": "Loom"
+      },
+      {
+        "text": "Slack"
+      },
+      {
+        "text": "Jira"
+      },
+      {
+        "text": "No results from Google Drive",
+        "muted": true
+      },
+      {
+        "text": "No decision highlights recorded",
+        "muted": true
+      }
+    ],
+    "lines": [
+      "Read 4 records and 4 discussions. Version history checked for 2 pages, with 2 diffs.",
+      "The register's dates were re-read from the page's HTML, because the markdown read leaves them out.",
+      "Related content checked for the last 90 days only. The 2025 register row was found by search.",
+      "Some results weren't used.",
+      "Prepared 2 minutes ago, on Oct 24, 2026 at 9:40 AM AEDT."
+    ]
+  }
+}

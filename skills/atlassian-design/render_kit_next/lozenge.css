@@ -1,0 +1,13 @@
+/* The new @atlaskit/lozenge 17.0.6: 20px, a border in the tone's subtle border, body-small regular, a 12px icon 4px before the text.
+   The border sits inside the 2px 4px padding, as the Figma lozenge draws it, so the text is 4px from the edge. */
+.status-lozenge{display:inline-flex;flex:none;align-items:center;gap:var(--ds-space-050);box-sizing:border-box;height:1.25rem;max-width:100%;
+  padding:calc(var(--ds-space-025) - var(--ds-border-width)) calc(var(--ds-space-050) - var(--ds-border-width));overflow:hidden;white-space:nowrap;
+  border:var(--ds-border-width) solid var(--ds-border);border-radius:var(--ds-radius-small);
+  background:var(--ds-background-neutral);font:var(--ds-font-body-small);color:var(--ds-text)}
+.status-lozenge .glyph{width:0.75rem;height:0.75rem}
+.status-lozenge--success{background:var(--ds-background-success-subtler);border-color:var(--ds-border-success-subtle);color:var(--ds-text-success-bolder)}
+.status-lozenge--warning{background:var(--ds-background-warning-subtler);border-color:var(--ds-border-warning-subtle);color:var(--ds-text-warning-bolder)}
+.status-lozenge--danger{background:var(--ds-background-danger-subtler);border-color:var(--ds-border-danger-subtle);color:var(--ds-text-danger-bolder)}
+.status-lozenge--information{background:var(--ds-background-information-subtler);border-color:var(--ds-border-information-subtle);color:var(--ds-text-information-bolder)}
+.status-lozenge--discovery{background:var(--ds-background-discovery-subtler);border-color:var(--ds-border-discovery-subtle);color:var(--ds-text-discovery-bolder)}
+.status-lozenge--discovery .glyph{color:var(--ds-text-discovery)}

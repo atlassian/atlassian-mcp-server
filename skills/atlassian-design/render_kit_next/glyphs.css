@@ -1,0 +1,5 @@
+/* Glyphs: 16px ADS core icons in the text's colour, or a tone, @atlaskit/object's accent colours */
+.glyph{flex:none;width:1rem;height:1rem;fill:currentColor}
+.glyph--blue{color:var(--ds-icon-accent-blue)} .glyph--teal{color:var(--ds-icon-accent-teal)}
+.glyph--purple{color:var(--ds-icon-accent-purple)} .glyph--yellow{color:var(--ds-icon-accent-yellow)}
+.glyph--green{color:var(--ds-icon-accent-green)} .glyph--red{color:var(--ds-icon-accent-red)}

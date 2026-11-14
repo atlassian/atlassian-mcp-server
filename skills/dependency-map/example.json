@@ -1,0 +1,231 @@
+{
+  "mockup": true,
+  "anchor": {
+    "title": "Search migration",
+    "url": "https://home.atlassian.com/project/example-search-migration",
+    "icon": "project",
+    "kind": "project",
+    "status": {
+      "text": "At risk",
+      "tone": "warning"
+    },
+    "owner": "Sana Khoury",
+    "team": "Team Atlas",
+    "needBy": "Nov 14, 2026"
+  },
+  "dependencies": [
+    {
+      "id": "PLAT-221",
+      "title": "PLAT-221 Design sign-off for search results",
+      "url": "https://example.atlassian.net/browse/PLAT-221",
+      "icon": "task",
+      "side": "upstream",
+      "state": "blocked",
+      "team": "Platform Design",
+      "date": "Nov 7",
+      "from": "Jira",
+      "why": "Design sign-off for search results is blocked on the design system 4.0 release, which Platform now expects on Nov 20, six days after your target.",
+      "contact": "Contact: Marco Ricci, design lead, Platform. Escalate to: Hannah Cole. Reach: #design-system in Slack."
+    },
+    {
+      "title": "Search index service v2",
+      "url": "https://home.atlassian.com/project/example-index",
+      "icon": "project",
+      "side": "upstream",
+      "state": "at-risk",
+      "team": "Team Ledger",
+      "date": "Nov 18",
+      "from": "Projects",
+      "why": "Search index service v2 is due Nov 18, four days after you need it. The last update was 16 days ago.",
+      "contact": "Contact: Leo Brandt, engineering manager, Team Ledger. Escalate to: Priya Raman."
+    },
+    {
+      "title": "INFRA-512 Provision search cluster in EU",
+      "url": "https://example.atlassian.net/browse/INFRA-512",
+      "icon": "task",
+      "status": {
+        "text": "Done",
+        "tone": "neutral"
+      },
+      "side": "upstream",
+      "state": "stale",
+      "team": "Infrastructure",
+      "date": "Done Oct 2",
+      "from": "Jira",
+      "why": "The EU search cluster was done on Oct 2 and nobody on Team Atlas has picked it up in 17 days.",
+      "contact": "Contact: Jo Okafor, infrastructure lead. The work on your side has no assignee."
+    },
+    {
+      "title": "Legal review of EU data residency",
+      "side": "upstream",
+      "state": "unknown",
+      "source": "not-recorded",
+      "team": "Legal",
+      "from": "Google Docs",
+      "evidence": {
+        "text": "The plan lists a legal review of EU data residency, with no owner or date.",
+        "quote": "Dependencies: Legal sign-off on EU data residency before the EU cluster takes traffic.",
+        "link": {
+          "title": "Search migration plan",
+          "url": "https://docs.google.com/document/d/example-plan",
+          "icon": "doc",
+          "app": "Google Docs",
+          "found": true
+        }
+      },
+      "offer": "Link this doc to the project?"
+    },
+    {
+      "title": "platform-auth #412 Search token scopes",
+      "url": "https://github.com/example/platform-auth/pull/412",
+      "icon": "pull-request",
+      "app": "GitHub",
+      "side": "upstream",
+      "state": "on-track",
+      "team": "Platform",
+      "date": "Oct 30",
+      "from": "GitHub"
+    },
+    {
+      "title": "INFRA-498 Search cluster capacity plan",
+      "url": "https://example.atlassian.net/browse/INFRA-498",
+      "icon": "task",
+      "side": "upstream",
+      "state": "done",
+      "team": "Infrastructure",
+      "date": "Done Sep 28",
+      "from": "Jira"
+    },
+    {
+      "title": "PLAT-190 Search API rate limits",
+      "url": "https://example.atlassian.net/browse/PLAT-190",
+      "icon": "task",
+      "side": "upstream",
+      "state": "done",
+      "team": "Platform",
+      "date": "Done Oct 6",
+      "from": "Jira"
+    },
+    {
+      "title": "DS-88 Design system 4.0 release",
+      "url": "https://example.atlassian.net/browse/DS-88",
+      "icon": "task",
+      "side": "upstream",
+      "hop": 2,
+      "feeds": "PLAT-221",
+      "state": "at-risk",
+      "team": "Platform",
+      "date": "Nov 20",
+      "from": "Jira"
+    },
+    {
+      "title": "Guided tours",
+      "url": "https://home.atlassian.com/project/example-tours",
+      "icon": "project",
+      "side": "downstream",
+      "state": "at-risk",
+      "team": "Team Beacon",
+      "date": "Needs it Nov 1",
+      "from": "Projects",
+      "why": "Guided tours needs search results by Nov 1, and your target is Nov 14. Team Beacon has not been told the date moved.",
+      "contact": "Contact: Amara Lindqvist, project owner, Team Beacon. Reach: #guided-tours in Slack."
+    },
+    {
+      "title": "Analytics launch dashboards",
+      "side": "downstream",
+      "state": "at-risk",
+      "source": "not-recorded",
+      "team": "Data team",
+      "date": "Needs it Oct 31",
+      "from": "Slack",
+      "why": "The data team needs the search event schema frozen by Oct 31 for the launch dashboards, two weeks before your target. Nobody has recorded this, from Slack.",
+      "contact": "Contact: Priya Raman, data lead. Reach: #search-migration in Slack.",
+      "evidence": {
+        "text": "The data team waits on the analytics event schema for its launch dashboards.",
+        "quote": "We need the search event schema frozen by Oct 31 or the launch dashboards won’t be ready.",
+        "link": {
+          "title": "#search-migration, Oct 14",
+          "url": "https://example.slack.com/archives/C0EXAMPLE/p1",
+          "icon": "hashtag",
+          "app": "Slack",
+          "found": true
+        }
+      },
+      "offer": "Link this thread to the project?"
+    },
+    {
+      "title": "HELP-77 Help centre search widget",
+      "url": "https://example.atlassian.net/browse/HELP-77",
+      "icon": "task",
+      "side": "downstream",
+      "state": "on-track",
+      "team": "Support tools",
+      "date": "Dec 5",
+      "from": "Jira"
+    },
+    {
+      "title": "Mobile search",
+      "url": "https://home.atlassian.com/project/example-mobile",
+      "icon": "project",
+      "side": "downstream",
+      "state": "on-track",
+      "team": "Team Beacon",
+      "date": "Jan 16",
+      "from": "Projects"
+    }
+  ],
+  "summary": [
+    "Search migration is held up by design sign-off. PLAT-221 waits on the design system 4.0 release, which Platform now expects on Nov 20, after your Nov 14 target. Guided tours needs search by Nov 1, so Team Beacon is exposed to the same slip and hasn’t been told.",
+    "Two dependencies exist only in Slack and the plan doc. The data team needs the event schema frozen by Oct 31, and the legal review has no owner or date. The EU search cluster has been ready since Oct 2 with nobody on Team Atlas to pick it up."
+  ],
+  "generatedFrom": "Jira, Projects, Compass, GitHub, Slack and Google Docs",
+  "nextSteps": [
+    {
+      "text": "Ask Marco Ricci whether search results can sign off against the current design system.",
+      "from": "From PLAT-221 in Jira"
+    },
+    {
+      "text": "Tell Amara Lindqvist and Priya Raman the date has moved, and agree what Guided tours and the dashboards can ship on time.",
+      "from": "From Guided tours in Projects and the #search-migration thread"
+    },
+    {
+      "text": "Assign someone on Team Atlas to pick up the EU search cluster this sprint.",
+      "from": "From INFRA-512 in Jira"
+    },
+    {
+      "text": "Link the schema thread and the legal review to the project so they show up in planning.",
+      "from": "From the #search-migration thread and the Search migration plan"
+    }
+  ],
+  "footer": {
+    "tags": [
+      {
+        "text": "Jira"
+      },
+      {
+        "text": "Projects"
+      },
+      {
+        "text": "Compass"
+      },
+      {
+        "text": "GitHub"
+      },
+      {
+        "text": "Slack"
+      },
+      {
+        "text": "Google Drive"
+      },
+      {
+        "text": "No results from Microsoft Teams",
+        "muted": true
+      }
+    ],
+    "lines": [
+      "Followed 2 hops from Search migration. Did not follow DS-88’s own dependencies.",
+      "Searched Slack and Drive for the last 30 days.",
+      "Prepared today, Oct 19, 9:40 AM PT."
+    ]
+  }
+}
