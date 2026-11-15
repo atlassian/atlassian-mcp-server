@@ -11,5 +11,9 @@ Thumbs.db
 # Logs
 *.log
 
+# Python cache
+__pycache__/
+*.pyc
+
 # Local Node.js validation dependencies
 node_modules/
