@@ -23,17 +23,41 @@ def sanitize_jql_value(value: str) -> str:
         return value
     
     # Remove or escape potentially dangerous characters
-    # Allow alphanumeric, spaces, hyphens, underscores, dots, @
-    safe_pattern = re.compile(r'^[a-zA-Z0-9\s\-_.@]+$')
+    # Allow alphanumeric, spaces, hyphens, underscores, dots, @, and double quotes (which get escaped)
+    safe_pattern = re.compile(r'^[a-zA-Z0-9\s\-_.@"]+$')
     
     if not safe_pattern.match(value):
         raise ValueError(
             f"Invalid characters in input: '{value}'. "
-            f"Only alphanumeric characters, spaces, hyphens, underscores, dots, and @ are allowed."
+            f"Only alphanumeric characters, spaces, hyphens, underscores, dots, @, and double quotes are allowed."
         )
     
     # Escape double quotes by doubling them (JQL escaping)
     return value.replace('"', '""')
+
+
+def sanitize_order_by(order_by: str) -> str:
+    """
+    Sanitize and validate an ORDER BY clause for use in JQL.
+    
+    Args:
+        order_by: The input order by clause (e.g., "priority DESC, updated DESC")
+        
+    Returns:
+        Sanitized order by clause safe for JQL queries
+    """
+    if not order_by:
+        return order_by
+    
+    safe_pattern = re.compile(r'^[a-zA-Z0-9\s\-_.@,]+$')
+    
+    if not safe_pattern.match(order_by):
+        raise ValueError(
+            f"Invalid characters in ORDER BY clause: '{order_by}'. "
+            f"Only alphanumeric characters, spaces, hyphens, underscores, dots, @, and commas are allowed."
+        )
+    
+    return order_by.strip()
 
 
 def sanitize_jql_list(values: List[str]) -> List[str]:
@@ -105,7 +129,7 @@ def build_project_query(
     
     if order_by:
         # Validate order_by contains only safe keywords
-        order_by = sanitize_jql_value(order_by)
+        order_by = sanitize_order_by(order_by)
         query += f' ORDER BY {order_by}'
     
     return query
