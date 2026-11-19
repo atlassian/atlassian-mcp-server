@@ -13,3 +13,8 @@ Thumbs.db
 
 # Local Node.js validation dependencies
 node_modules/
+
+# Generated standalone client packages and Python caches
+dist/
+__pycache__/
+*.pyc
