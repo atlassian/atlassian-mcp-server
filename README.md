@@ -175,7 +175,7 @@ This repository publishes the same MCP server and skills in several package form
 | [Agent Plugins v1](https://agent-plugins.org/) | [`plugin.json`](plugin.json) and [`mcp.json`](mcp.json) | [`skills/`](skills/) |
 | Claude Code plugin | [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) | [`.mcp.json`](.mcp.json) and [`skills/`](skills/) |
 | Cursor plugin | [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json) | [`.mcp.json`](.mcp.json) and [`skills/`](skills/) |
-| Gemini Agent plugin | [Build the ingestion ZIP](docs/gemini-agent.md) | Scoped instructions, offline reports, and flat v2 tools |
+| Gemini Agent plugin | [`.gemini-plugin/plugin.json`](.gemini-plugin/plugin.json) | [`.mcp.json`](.mcp.json) and the listed [`skills/`](skills/) |
 | Gemini CLI extension | [`gemini-extension.json`](gemini-extension.json) | MCP server configuration embedded in the manifest |
 | MCP Registry | [`server.json`](server.json) | Remote server metadata |
 
@@ -183,6 +183,12 @@ The skills in [`skills/`](skills/) target the `/v2/mcp` endpoint and are what ev
 installs. The previous generation is archived in [`skills/v1/`](skills/v1/) for anyone still on a v1
 endpoint; it is not installed by any plugin and is set up manually. See
 [`skills/README.md`](skills/README.md) for the differences.
+
+The Gemini Agent manifest selects 13 shared skills. It omits `how-it-works` and
+`atlassian-mcp-code-search` while the Gemini onboarding connector lacks code access;
+those skills remain available to other clients. The same skill sources support
+direct tools and discovery/execution clients, with longer guidance in each skill's
+`references/` directory. No client-specific skill build is required.
 
 Both `mcp.json` and `.mcp.json` are intentional. Agent Plugins requires the root `mcp.json` filename and its portable transport vocabulary; existing clients continue to use `.mcp.json` and their native configuration vocabulary. Keep their endpoint settings aligned when changing either file.
 

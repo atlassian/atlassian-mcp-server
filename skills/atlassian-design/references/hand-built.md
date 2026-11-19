@@ -1,3 +1,7 @@
+# Offline use
+
+In an offline host, skip npm pack and atlassian.design fetches in this reference. Use the bundled tokens.css, icons and logos; choose the closest bundled token instead of installing packages.
+
 # Building a page by hand
 
 Use this when a skill has no renderer, or when Python can't run and a skill's Build step says to build the same page by hand. A skill with a renderer builds its page from data instead: see `data-format.md`.
@@ -78,17 +82,17 @@ Don't load these theme files at runtime. Their selectors expect `html[data-color
 ### Spacing and layout
 
 - 8px base: `space.100` = 8px, `space.200` = 16px, and so on. Use only the scale.
-  - **0–8px** (`space.0`–`space.100`): icon-to-text gaps, badge and cell padding, button-group gaps, input padding, title-to-description in a card
-  - **12–24px** (`space.150`–`space.300`): component padding, avatar-to-content gaps, card internals
-  - **32–80px** (`space.400`–`space.1000`): page sections and layout
+  - **0-8px** (`space.0`-`space.100`): icon-to-text gaps, badge and cell padding, button-group gaps, input padding, title-to-description in a card
+  - **12-24px** (`space.150`-`space.300`): component padding, avatar-to-content gaps, card internals
+  - **32-80px** (`space.400`-`space.1000`): page sections and layout
 - Group by proximity and similarity, keep a steady rhythm in lists and tables, and use size and whitespace for hierarchy.
 - Build layouts with flex/grid `gap` in space tokens: Stack is a vertical gap, Inline is a horizontal gap.
-- **Grid.** 12 columns. Content spans 3–12 columns.
+- **Grid.** 12 columns. Content spans 3-12 columns.
   - **Fluid** grids fill the width. Use them for dense views such as boards.
   - **Fixed-narrow** grids (about 760px max) are for reading.
   - **Fixed-wide** grids (about 1200px max) are for tables.
-  - Small viewports are 320–1023px. Large viewports are 1024px and up. Design at least two breakpoints.
-- The Atlassian app shell has a top navigation bar (about 48px, `--ds-surface`, bottom `--ds-border`), an optional left side navigation (about 240–320px), the main content area, and an optional right aside.
+  - Small viewports are 320-1023px. Large viewports are 1024px and up. Design at least two breakpoints.
+- The Atlassian app shell has a top navigation bar (about 48px, `--ds-surface`, bottom `--ds-border`), an optional left side navigation (about 240-320px), the main content area, and an optional right aside.
 
 ### Radius
 
@@ -112,7 +116,7 @@ The focus ring sits 2px outside the element, with a corner radius 2px larger tha
 - **Weights:** regular for paragraphs, medium for component text and any text beside an icon, bold only for rare emphasis.
 - **Metric:** use metric styles for standalone numbers (45%, $70, 3 in review, donut centres, single-value tiles). Don't use them for chart titles, legends or long statements.
 - **Code:** use `--ds-font-code`, with `--ds-background-neutral` behind inline code.
-- Keep lines at 60–80 characters. Don't truncate text without a way to read it all. Links must look different from the surrounding text, and links to objects or pages are smart links (see "Smart links").
+- Keep lines at 60-80 characters. Don't truncate text without a way to read it all. Links must look different from the surrounding text, and links to objects or pages are smart links (see "Smart links").
 
 ### Iconography
 
@@ -131,7 +135,7 @@ The focus ring sits 2px outside the element, with a corner radius 2px larger tha
 
 - **Chart chrome:** title uses `--ds-text` with a heading style, tick labels use `--ds-text-subtle` in body-small, gridlines use `--ds-border`, threshold and reference lines use `--ds-chart-neutral`, and the legend uses `--ds-text`.
 - **Single series:** use `--ds-chart-brand`. To make one datum stand out, draw the rest in `--ds-chart-neutral`.
-- **Categories:** use `--ds-chart-categorical-1…8` in numeric order. Cap at 5–6 colors and group the rest as "Other."
+- **Categories:** use `--ds-chart-categorical-1…8` in numeric order. Cap at 5-6 colors and group the rest as "Other."
 - **Status and severity:** use `--ds-chart-success`/`-warning`/`-danger`/`-information`/`-discovery`. The `-bold` variant marks the more extreme value (for example, Highest vs High priority).
 - **Readability:**
   - Chart colors don't reach 3:1 against each other, so separate adjacent marks with a gap or a `--ds-border-inverse` stroke.
@@ -152,7 +156,7 @@ The CSS is in `render_kit/ads.css`. The comment above each component gives its s
 - Use one primary button per section. Default and subtle buttons handle secondary actions. Use danger buttons sparingly.
 - In modals and forms, put the primary button on the right.
 - Use buttons for actions and links for navigation.
-- Label buttons with 1–3 word verbs, never "Submit" or "Click here."
+- Label buttons with 1-3 word verbs, never "Submit" or "Click here."
 
 ## Smart links (required for every link)
 
@@ -230,7 +234,7 @@ For a live artifact, show where each section's data came from and when:
 - Focus is always visible (`--ds-border-focused`, 2px, offset 2px).
 - Images: alt text under 125 characters that describes purpose. Decorative images get `alt=""`. Never start with "Image of."
 - Headings are in order, landmarks (`header`, `nav`, `main`, `aside`) are present, and tabs use `role="tablist"`/`"tab"`/`"tabpanel"` with `aria-selected`.
-- Respect `prefers-reduced-motion`. Keep motion short (150–200ms, `--ds-easing-out-practical`).
+- Respect `prefers-reduced-motion`. Keep motion short (150-200ms, `--ds-easing-out-practical`).
 - Check contrast in both themes. Dark overlays can fail where light mode passes.
 
 ## Before publishing

@@ -5,6 +5,11 @@ description: "Search across company knowledge bases (Confluence, Jira, internal 
 
 # Search Company Knowledge
 
+## Tool access
+
+Call an operation directly when its exact name is in the current tool list. Otherwise, if discovery and execution tools are available, discover the operation when needed and use the returned read/write/destructive runner and schema. With a flat connector, an operation absent from the tool list is unavailable; report that gap instead of inventing a call. Examples below name operations directly; translate them to the available runner only when necessary. Use current input schemas and never change a parameter to a v1 spelling.
+
+
 ## Keywords
 find information, search company knowledge, look up, what is, explain, company docs, internal documentation, Confluence search, Jira search, our documentation, internal knowledge, knowledge base, search for, tell me about, get information about, company systems, terminology, find everything about, what do we know about, deployment, authentication, infrastructure, processes, procedures, how to, how does, our systems, our processes, internal systems, company processes, technical documentation, engineering docs, architecture, configuration, search our docs, search internal docs, find in our docs
 
@@ -51,12 +56,12 @@ search(
 )
 ```
 
-**When to use:** 
+**When to use:**
 - Default approach for most queries
 - When you don't know which system has the information
 - Fastest way to get results from multiple sources
 
-> **`search` is semantic search — pass natural language, never query syntax.** CQL or JQL in
+> **`search` is semantic search. pass natural language, never query syntax.** CQL or JQL in
 > `query` will silently return poor results instead of erroring. Use `searchConfluence` (CQL) or
 > `searchJiraIssuesUsingJql` (JQL) when you need a structured filter such as a title or type match.
 
@@ -163,16 +168,14 @@ getJiraIssue(
 
 **Returns:** Full issue details including description and status.
 
-**`getJiraIssue` does not return comment bodies** — it only reports how many comments the issue
-has. When the discussion matters, fetch the comments separately. `listJiraIssueComments` is not a
-primary tool, so run it through `execute`, and paginate with `startAt`/`maxResults` until you have
+**`getJiraIssue` does not return comment bodies**. It only reports how many comments the issue
+has. When the discussion matters, fetch the comments separately. `listJiraIssueComments` is called using the tool-access rules above, and paginate with `startAt`/`maxResults` until you have
 the comments you need:
 
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="listJiraIssueComments",
+listJiraIssueComments(
   cloudId="...",
-  inputs={"issueIdOrKey": "PROJ-123", "maxResults": 50}
+  "issueIdOrKey": "PROJ-123", "maxResults": 50
 )
 ```
 
@@ -226,8 +229,8 @@ Combine information from multiple sources into a coherent answer.
 ```
 Stratus minions are background worker processes that handle async tasks.
 
-According to the Confluence documentation, they process jobs from the queue and 
-can be scaled horizontally. This is confirmed by several Jira tickets (PROJ-145, 
+According to the Confluence documentation, they process jobs from the queue and
+can be scaled horizontally. This is confirmed by several Jira tickets (PROJ-145,
 PROJ-203) which discuss minion configuration and scaling strategies.
 ```
 
@@ -251,7 +254,7 @@ The billing system has two main components:
 There is conflicting information about the authentication timeout:
 
 - **Official Documentation** (Confluence) states: 30-minute session timeout
-- **Implementation Reality** (Jira PROJ-456, filed Oct 2023): Actual timeout is 
+- **Implementation Reality** (Jira PROJ-456, filed Oct 2023): Actual timeout is
   15 minutes due to load balancer configuration
 - **Status:** Engineering team aware, fix planned but no timeline yet
 
@@ -397,7 +400,7 @@ I found documentation about [topic], but note that it's from [date] and may be o
 
 [Provide the information anyway]
 
-You may want to verify this is still current, especially if it's from more than 
+You may want to verify this is still current, especially if it's from more than
 a year ago.
 ```
 
@@ -406,7 +409,7 @@ a year ago.
 If search returns inaccessible content:
 
 ```
-Search results mention [topic] in the following locations, but I don't have 
+Search results mention [topic] in the following locations, but I don't have
 access to view the full content:
 - Confluence page: [title] (Space: [SPACE])
 - Jira issue: PROJ-123
@@ -416,118 +419,9 @@ You may need to access these directly or check your permissions.
 
 ---
 
-## Examples
+## Worked answers
 
-### Example 1: Clear Documentation Available
-
-**User:** "What are Stratus minions?"
-
-**Process:**
-1. Search: `search(cloudId="...", query="Stratus minions")`
-2. Find: Confluence page "Stratus Architecture" + 3 Jira tickets
-3. Fetch: Get full Confluence page content
-4. Synthesize: Combine architectural overview with implementation details from tickets
-5. Cite: Provide links to all sources
-
-**Answer:**
-```
-Stratus minions are background worker processes that handle asynchronous task 
-processing in the Stratus system.
-
-**Key Characteristics:**
-- Run independently from web servers
-- Process jobs from a Redis queue
-- Can be scaled horizontally for increased throughput
-- Handle tasks like email sending, report generation, and data processing
-
-**Architecture:**
-According to the Stratus Architecture documentation, minions follow a 
-worker-queue pattern where:
-1. Web application enqueues tasks
-2. Minions poll the queue for work
-3. Tasks are processed asynchronously
-4. Results are stored in the database
-
-**Implementation Notes:**
-From Jira ticket PROJ-203, the current deployment runs 5 minion instances, 
-with plans to scale to 10 for handling increased load.
-
-## Sources
-- [Stratus Architecture Guide](link)
-- [PROJ-203](link) - Minion scaling implementation
-```
-
-### Example 2: Conflicting Information
-
-**User:** "How long is our session timeout?"
-
-**Process:**
-1. Search across Confluence and Jira
-2. Find: Docs say 30 min, but ticket reports actual timeout is 15 min
-3. Fetch both sources for complete context
-4. Clearly note the discrepancy
-
-**Answer:**
-```
-There is a discrepancy between documented and actual behavior:
-
-**Official Documentation** (Security Guidelines):
-Session timeout is configured for 30 minutes of inactivity.
-
-**Actual Behavior** (PROJ-456, reported Oct 2023):
-Users are being logged out after 15 minutes due to a load balancer configuration 
-that overrides the application setting.
-
-**Current Status:**
-The engineering team is aware of this issue. The load balancer timeout needs to 
-be adjusted to match the application setting. No fix timeline has been set.
-
-**Recommendation:** Plan for 15-minute timeout until this is resolved.
-
-## Sources
-- [Security Guidelines](link) - Official documentation
-- [PROJ-456](link) - Timeout discrepancy bug report
-```
-
-### Example 3: Partial Information
-
-**User:** "Explain our deployment process"
-
-**Process:**
-1. Search finds some information but not complete
-2. Synthesize what is available
-3. Note gaps in documentation
-
-**Answer:**
-```
-Based on available documentation, here's what I found about the deployment process:
-
-**Build Phase** (from Confluence "CI/CD Guide"):
-1. Code pushed to main branch triggers GitHub Actions
-2. Automated tests run (unit, integration)
-3. Docker image built and pushed to registry
-
-**Deployment Phase** (from Jira PROJ-789):
-4. Staging deployment happens automatically
-5. Manual approval required for production
-6. Blue-green deployment strategy used
-
-**Gaps in Documentation:**
-I couldn't find documented information about:
-- Rollback procedures
-- Database migration handling
-- Post-deployment verification steps
-
-These details may exist in tribal knowledge or need to be documented.
-
-## Sources
-- [CI/CD Guide](link)
-- [PROJ-789](link) - Deployment pipeline implementation
-
-Would you like me to search for more specific aspects of deployment?
-```
-
----
+Read [the answer examples](references/answer-examples.md) when choosing how to show agreement, contradictions or partial evidence.
 
 ## Tips for High-Quality Answers
 

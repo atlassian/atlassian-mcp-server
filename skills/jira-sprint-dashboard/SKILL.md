@@ -21,6 +21,15 @@ This skill is read-only by default. Do not create, update, transition, assign,
 or comment on Jira work items unless the user explicitly asks for a write action
 after reviewing the dashboard.
 
+## Tool access
+
+Call an operation directly when exposed. Otherwise, discover it when discovery is
+available and use the matching runner and returned schema. If neither path exists,
+report the missing capability. Use `searchJiraIssuesUsingJql` for scope queries,
+`listJiraBoards`, `getJiraBoardConfig`, `getJiraBoardSprintData` and
+`listJiraBoardSprints` and `getJiraBoardIssueData` for board/sprint context when available. Confirm exact
+parameters from the session schema. Omitted app metadata does not mean no access.
+
 ## Output Mode
 
 Use the richest dashboard renderer supported by the current environment. The
@@ -119,10 +128,11 @@ project = "SPACE_KEY" AND updated >= -60d ORDER BY updated DESC
 Use a 60-day recent movement window by default unless the user asks for another
 period.
 
-Not every board supports sprints. Team-managed boards of type `simple` have no
-sprints at all: `sprint in openSprints()` returns nothing and a board-sprint
-lookup fails with "The board does not support sprints". Treat that as a signal to
-go straight to snapshot mode rather than an error worth retrying.
+Not every board supports sprints. Check the board configuration and sprint
+capabilities; type `simple` alone does not establish that sprints are unavailable.
+Use snapshot mode when the board confirms no sprint support or the sprint read
+returns "The board does not support sprints". Report an unavailable sprint tool
+as a coverage gap rather than evidence that the board has no sprints.
 
 ## Query Jira
 
@@ -138,7 +148,7 @@ available estimate/story point field.
 Jira search defaults to a compact view, so a sprint dashboard built from it will
 look sprint-less even when the sprint is active. To get them, either pass
 `view: "evidence"` (or `"full"`), or request this site's `customfield_*` IDs
-explicitly — the IDs differ per Cloud site. Custom field values come back under
+explicitly. the IDs differ per Cloud site. Custom field values come back under
 `fields.customFields`, not as top-level `customfield_*` keys.
 
 Start with `maxResults: 100`. For complete sprint, board, or filter dashboards,

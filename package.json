@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "package:gemini": "python3 -B scripts/package_gemini.py",
     "test": "node --test scripts/*.test.mjs scripts/validation/*.test.mjs",
     "validate": "node scripts/validate-template.mjs"
   },

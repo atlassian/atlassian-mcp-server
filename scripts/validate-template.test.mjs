@@ -71,3 +71,31 @@ test("the CLI rejects a non-object Gemini Agent manifest", async (t) => {
   assert.equal(result.exitCode, 1);
   assert.match(result.stderr, /Gemini Agent plugin manifest must contain a JSON object/);
 });
+
+test("the CLI rejects Gemini-selected skills over 500 lines", async (t) => {
+  const fixtureRoot = await createFixture(t);
+  const skillPath = path.join(fixtureRoot, "skills", "assess-release", "SKILL.md");
+  await fs.writeFile(skillPath, [
+    "---", "name: assess-release", "description: Test description", "---",
+    ...Array.from({ length: 497 }, () => "Text"),
+  ].join("\n"), "utf8");
+
+  const result = await runValidator(fixtureRoot);
+
+  assert.equal(result.exitCode, 1);
+  assert.match(result.stderr, /skill must be at most 500 lines/);
+});
+
+test("the CLI enforces Gemini body word limits without counting frontmatter", async (t) => {
+  const fixtureRoot = await createFixture(t);
+  const skillPath = path.join(fixtureRoot, "skills", "assess-release", "SKILL.md");
+  const frontmatter = "---\nname: assess-release\ndescription: Test description\n---\n";
+  await fs.writeFile(skillPath, frontmatter + Array(2999).fill("word").join(" "), "utf8");
+  const passing = await runValidator(fixtureRoot);
+  assert.equal(passing.exitCode, 0, passing.stderr);
+
+  await fs.appendFile(skillPath, " word", "utf8");
+  const failing = await runValidator(fixtureRoot);
+  assert.equal(failing.exitCode, 1);
+  assert.match(failing.stderr, /skill body must be under 3000 words/);
+});

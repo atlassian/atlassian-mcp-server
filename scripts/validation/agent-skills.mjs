@@ -42,6 +42,28 @@ export function parseFrontmatter(content) {
   return { fields, error: null };
 }
 
+export async function validateSkillSize(validation, filePath) {
+  if (!(await pathExists(filePath)) || !(await fs.stat(filePath)).isFile()) {
+    return;
+  }
+
+  const content = normalizeNewlines(await fs.readFile(filePath, "utf8")).replace(/\n$/, "");
+  const relativeFile = path.relative(validation.repoRoot, filePath);
+  if (content.split("\n").length > 500) {
+    addError(validation, `Gemini Agent: skill must be at most 500 lines: ${relativeFile}.`);
+  }
+
+  const { error } = parseFrontmatter(content);
+  if (error) {
+    return; // Agent Skills validation reports malformed frontmatter.
+  }
+  const body = content.replace(/^---\n[\s\S]*?\n---[\t ]*(?:\n|$)/, "").trim();
+  const words = body ? body.split(/\s+/).length : 0;
+  if (words >= 3000) {
+    addError(validation, `Gemini Agent: skill body must be under 3000 words: ${relativeFile}.`);
+  }
+}
+
 async function validateFrontmatterFile(
   validation,
   filePath,

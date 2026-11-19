@@ -28,7 +28,7 @@ other hosts use their documented capabilities or the static report fallback.
 ## Archived v1 skills
 
 The previous generation is archived in [`v1/`](v1/), unchanged, for anyone still pointed at a v1
-endpoint (`/v1/mcp/authv2` or `/v1/mcp`). **No plugin installs the archived skills** — plugin
+endpoint (`/v1/mcp/authv2` or `/v1/mcp`). **No plugin installs the archived skills**. Plugin
 discovery only looks one level deep for a `SKILL.md`, so `v1/` is skipped. Set them up manually if
 you need them.
 
@@ -36,20 +36,24 @@ you need them.
 
 A skill written for one generation will fail against the other. The most consequential differences:
 
-* **Not every tool is directly callable.** v2 exposes a small set of *primary* tools in the
-  client's tool list; the rest are reached through the `discover` and `execute` meta-tools. Each
-  skill that needs one explains the convention in its **Calling non-primary tools** section.
-* **Confluence tools were renamed** from `*Page` to `*Content` — `getConfluencePage` →
+* **Tool exposure depends on the client.** Some v2 connections expose primary tools
+  plus `discover` and execution runners; connections configured with `?tools=all`
+  expose flat direct operations. Call exposed operations directly and discover an
+  operation only when needed. Both use the same input schemas. Google's Gemini
+  Agent onboarding connector uses `https://mcp.atlassian.com/v2/mcp?tools=all`;
+  repository-wide MCP configuration keeps the shared `/v2/mcp` endpoint.
+* **Confluence tools were renamed** from `*Page` to `*Content`. `getConfluencePage` →
   `getConfluenceContent`, `createConfluencePage` → `createConfluenceContent`,
   `updateConfluencePage` → `updateConfluenceContent`, and `searchConfluenceUsingCql` →
   `searchConfluence`. The v1 names survive only as search-recall synonyms, not callable operations.
 * **Confluence read and write contracts changed.** Reads default to a summary and need
   `detail="full"` for the body; document edits require a `snapshotToken` from the preceding read;
-  writes must honor space instructions via `getConfluenceSpace`; and create/update take a `parent`
-  object plus a required `contentType`, with `body` as `{format, value}`.
-* **Some Jira tools were renamed** — `getVisibleJiraProjects` → `listJiraProjects`,
+  writes must honor space instructions via `getConfluenceSpace`; creates take a `parent`
+  object and required `contentType`; document updates use the current `snapshotToken`.
+  Both write bodies use `{format, value}`.
+* **Some Jira tools were renamed**. `getVisibleJiraProjects` → `listJiraProjects`,
   `getJiraProjectIssueTypesMetadata` → `listJiraProjectIssueTypesMetadata`, `addCommentToJiraIssue` → `addOrEditJiraIssueComment`.
-* **Jira create parameters differ** — `createJiraIssue` takes `issueType` and `assignee`, not
+* **Jira create parameters differ**. `createJiraIssue` takes `issueType` and `assignee`, not
   `issueTypeName` and `assignee_account_id`.
 
 For the current tool reference, see
