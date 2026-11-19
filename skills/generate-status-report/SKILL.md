@@ -5,12 +5,17 @@ description: "Generate project status reports from Jira issues and publish to Co
 
 # Generate Status Report
 
+## Tool access
+
+Call an operation directly when its exact name is in the current tool list. Otherwise, if discovery and execution tools are available, discover the operation when needed and use the returned read/write/destructive runner and schema. With a flat connector, an operation absent from the tool list is unavailable; report that gap instead of inventing a call. Examples below name operations directly; translate them to the available runner only when necessary. Use current input schemas and never change a parameter to a v1 spelling.
+
+
 ## Keywords
 status report, project status, weekly update, daily standup, Jira report, project summary, blockers, progress update, Confluence report, sprint report, project update, publish to Confluence, write to Confluence, post report
 
 Automatically query Jira for project status, analyze issues, and generate formatted status reports published to Confluence.
 
-**CRITICAL**: This skill should be **interactive**. Always clarify scope (time period, audience, Confluence destination) with the user before or after generating the report. Do not silently skip Confluence publishing—always offer it.
+**CRITICAL**: This skill should be **interactive**. Always clarify scope (time period, audience, Confluence destination) with the user before or after generating the report. Do not silently skip Confluence publishing, always offer it.
 
 ## Workflow
 
@@ -39,7 +44,7 @@ Clarify these details:
 **Target audience:**
 - If not specified, ask: "Who is this report for? (Executives/Delivery Managers, Team-level, or Daily standup)"
 - **Executives/Delivery Managers**: High-level summary with key metrics and blockers
-- **Team-level**: Detailed breakdown with issue-by-issue status  
+- **Team-level**: Detailed breakdown with issue-by-issue status
 - **Daily standup**: Brief update on yesterday/today/blockers
 
 **Report destination:**
@@ -159,7 +164,7 @@ Use **Daily Standup Format**:
 
 ## Step 5: Publish to Confluence
 
-**After generating the report, ALWAYS offer to publish to Confluence** (unless user explicitly said not to).
+**After generating the report, ALWAYS offer to publish to Confluence** (unless user explicitly said not to), and wait for authorization before publishing.
 
 If user hasn't specified Confluence details yet, ask:
 - "Would you like me to publish this report to Confluence?"
@@ -168,37 +173,34 @@ If user hasn't specified Confluence details yet, ask:
 
 Use the `createConfluenceContent` tool to publish the report.
 
-**Before authoring the body**, load the authoring guidance. `getContentFormatGuide` is not a
-primary tool, so run it through `execute` (see [Calling non-primary tools](#calling-non-primary-tools)).
+**Before authoring the body**, load the authoring guidance. Call `getContentFormatGuide` using the tool-access rules above.
 Note that `toolName` takes the
 content key `createConfluencePage`, **not** the name of the tool you are about to call:
 
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-    name="getContentFormatGuide",
-    inputs={"toolName": "createConfluencePage"}
+getContentFormatGuide(
+    toolName="createConfluencePage"
 )
 ```
 
-Never skip the body because the guidance failed to load — load it first, then build a real body.
+Never skip the body because the guidance failed to load. load it first, then build a real body.
 
 **Then load the space instructions.** Spaces can carry durable authoring guidance that is
 authoritative and overrides authoring defaults on conflict. Apply this decision rule:
 
 1. Skip this step only if a `getConfluenceContent` call for content in the target space returned
    `metadata.hasSpaceInstructions=false`.
-2. Otherwise — true or unknown — call `getConfluenceSpace` once before authoring:
+2. Otherwise. true or unknown. call `getConfluenceSpace` once before authoring:
 
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-    name="getConfluenceSpace",
+getConfluenceSpace(
     cloudId="...",
-    inputs={"spaceIdOrKey": "[space ID or key]"}
+    spaceIdOrKey="[space ID or key]"
 )
 ```
 
 3. Apply any returned `spaceInstructions`. If a successful response omits them, no instructions
-   are configured — author with defaults and do not block.
+   are configured. author with defaults and do not block.
 
 Reuse the result for the rest of the task: do not call `getConfluenceSpace` again for the same
 space, and do not follow it with a separate `getConfluenceSpaceInstructions` call.
@@ -245,7 +247,7 @@ following the spec returned by `getContentFormatGuide`. Use:
 If the user doesn't specify a Confluence space:
 
 1. Use `listConfluenceSpaces` to list available spaces. This is not a primary tool, so run it
-   through `execute`: `executeRead(name="listConfluenceSpaces", cloudId="...")`
+   through `execute`: `listConfluenceSpaces(cloudId="...")`
 2. Look for spaces related to the project (matching project name or key)
 3. If unsure, ask the user which space to use
 4. Default to creating in the most relevant team or project space
@@ -262,30 +264,27 @@ getConfluenceContent(
     cloudId="...",
     content_id="123456",
     content_format="markdown",
-    detail="full",
-    include_metadata=True
+    detail="full"
 )
 ```
 
 2. Load the authoring guidance for the edit (`toolName` is the content key, not the tool you call):
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-    name="getContentFormatGuide",
-    inputs={"toolName": "updateConfluencePage"}
+getContentFormatGuide(
+    toolName="updateConfluencePage"
 )
 ```
 
 3. Load the space instructions unless step 1 returned `metadata.hasSpaceInstructions=false`. Reuse
    the result if you already loaded it for this space during this task:
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-    name="getConfluenceSpace",
+getConfluenceSpace(
     cloudId="...",
-    inputs={"spaceIdOrKey": "[space ID or key]"}
+    spaceIdOrKey="[space ID or key]"
 )
 ```
 
-4. Update the page with new content. **`snapshotToken` is required for document edits** — pass the
+4. Update the page with new content. **`snapshotToken` is required for document edits**. pass the
    value from the step 1 response. Omitting it will fail the update:
 ```
 updateConfluenceContent(
@@ -298,7 +297,7 @@ updateConfluenceContent(
 ```
 
 > Concurrency note: the `snapshotToken` ties your edit to the version you read. Do not reuse a
-> stale token across edits — re-read the content with `getConfluenceContent` before each update.
+> stale token across edits. re-read the content with `getConfluenceContent` before each update.
 
 ## Complete Example Workflow
 
@@ -352,13 +351,13 @@ Use Executive Summary Format from templates. Create concise report with metrics,
 **Step 5 - Publish:**
 ```python
 # Find appropriate space (not a primary tool - run it through execute)
-executeRead(name="listConfluenceSpaces", cloudId="...")
+listConfluenceSpaces(cloudId="...")
 
 # Load authoring guidance before composing the body
-executeRead(name="getContentFormatGuide", inputs={"toolName": "createConfluencePage"})
+getContentFormatGuide(toolName="createConfluencePage")
 
 # Load space instructions (skip only if hasSpaceInstructions was false for this space)
-executeRead(name="getConfluenceSpace", cloudId="...", inputs={"spaceIdOrKey": "PHX"})
+getConfluenceSpace(cloudId="...", spaceIdOrKey="PHX")
 
 # Create page
 createConfluenceContent(
@@ -409,34 +408,3 @@ Quick reference of common JQL query patterns for status reports. Use this for st
 Detailed templates for different report types and audiences. Reference this to select the appropriate format and structure for your report.
 
 ---
-
-## Calling non-primary tools
-
-The Atlassian Rovo MCP server exposes only a small set of **primary** tools directly in your tool
-list. Everything else lives in the catalog and is reached through meta-tools:
-
-- **`discover`** — describe the goal in natural language when you do not know an operation's name.
-  It returns the exact `name` and `inputs` to use. Do not call `discover` for an operation you
-  already have as a primary tool.
-- **An execute-family tool** — run a catalog operation by name. Check your tool list: some clients
-  expose a single **`execute`**, others expose **`executeRead`** / **`executeWrite`** /
-  **`executeDestructive`** and expect the tier matching the operation. The arguments are identical:
-
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="<operationName>",
-  cloudId="...",
-  inputs={"param": "value"}
-)
-```
-
-Rules that matter:
-
-- **`cloudId` is a top-level argument**, a sibling of `name` and `inputs` — never put it inside
-  `inputs`. Operations declared `omitCloudId` (such as `getContentFormatGuide`) take no `cloudId`.
-- **`inputs` is a flat object.** The server routes each parameter to path, query, or body itself.
-- **Use the exact parameter names from the live tool schema.** Unrecognized parameters are dropped
-  rather than reported as an error, so a wrong name fails silently — the call succeeds and your
-  value is simply ignored. When in doubt, read the schema or `discover` result first.
-- If the call reports an unknown operation, run `discover` with different keywords and use the
-  name it returns rather than guessing.

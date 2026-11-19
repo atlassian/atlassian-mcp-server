@@ -1,6 +1,6 @@
 ---
 name: "atlassian-design"
-description: "Apply the Atlassian Design System (ADS) to artifacts, pages, mockups and prototypes — official tokens (light and dark), type, spacing, elevation, icons, component recipes, smart links, content and accessibility rules. Use when asked for Atlassian-style or ADS-styled UI."
+description: "Apply the Atlassian Design System (ADS) to artifacts, pages, mockups and prototypes, using official tokens (light and dark), type, spacing, elevation, icons, component recipes, smart links, content and accessibility rules. Use when asked for Atlassian-style or ADS-styled UI."
 ---
 
 # Atlassian Design System (ADS) for artifacts
@@ -25,9 +25,13 @@ This skill is distilled from the official ADS MCP server (`https://mcp.atlassian
 - If the Atlassian Design System connector (tools named like `ads_plan`, `ads_search_tokens`, `ads_search_components`, `ads_search_icons`, `ads_get_guidelines`, `ads_get_a11y_guidelines`) is enabled in the session, call `ads_plan` first to look up tokens, icons and components for the task, and `ads_get_guidelines` for foundations and content questions. The connector is more current than this file.
 - Without the connector, this skill and its references are enough for most artifacts. For anything it doesn't cover, fetch the public docs at `https://atlassian.design` (for example `/components/<name>/usage`, `/foundations/color`, `/components/tokens/all-tokens`).
 
+## Offline hosts
+
+When the host has no network access or package installation, use only the bundled render_kit, render_kit_next, tokens, icons and logos. Skip npm pack, public-document fetches, CDN assets and connector lookups that are not exposed. Choose the closest bundled token when an exact one is unavailable and state a material design limitation. The bundled Python report renderers use the standard library and need no installs. Prefer a self-contained static HTML file; a report request does not authorize publication.
+
 ## Non-negotiables
 
-1. **Never hard-code a color, space, radius, shadow or font value.** Use the `--ds-*` custom properties in `render_kit/tokens.css`. If you need a value it doesn't have, pull it from the npm package (see "Getting any other token" in `references/hand-built.md`).
+1. **Never hard-code a color, space, radius, shadow or font value.** Use the `--ds-*` custom properties in `render_kit/tokens.css`. In a networked host, if you need a value it does not have, pull it from the npm package (see "Getting any other token" in `references/hand-built.md`).
 2. **Choose tokens by role, not by how they look.** Brand is for primary actions and selection. Danger, warning, success, information and discovery carry meaning. Accents (blue, teal, green, lime, yellow, orange, red, magenta, purple, gray) are for categories and user-chosen colors only.
 3. **Support light and dark.** Every token has a dark value. Ship both.
 4. **Use sentence case everywhere**: titles, headings, buttons, tabs, labels and menu items. Use all caps only for acronyms and the legacy lozenge.

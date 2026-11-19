@@ -5,9 +5,14 @@ description: "Automatically convert Confluence specification documents into stru
 
 # Spec to Backlog
 
+## Tool access
+
+Call an operation directly when its exact name is in the current tool list. Otherwise, if discovery and execution tools are available, discover the operation when needed and use the returned read/write/destructive runner and schema. With a flat connector, an operation absent from the tool list is unavailable; report that gap instead of inventing a call. Examples below name operations directly; translate them to the available runner only when necessary. Use current input schemas and never change a parameter to a v1 spelling.
+
+
 ## Overview
 
-Transform Confluence specification documents into structured Jira backlogs automatically. This skill reads requirement documents from Confluence, intelligently breaks them down into logical implementation tasks, **creates an Epic first** to organize the work, then generates individual Jira tickets linked to that Epic—eliminating tedious manual copy-pasting.
+Transform Confluence specification documents into structured Jira backlogs automatically. This skill reads requirement documents from Confluence, intelligently breaks them down into logical implementation tasks, **creates an Epic first** to organize the work, then generates individual Jira tickets linked to that Epic, eliminating tedious manual copy-pasting.
 
 ## Core Workflow
 
@@ -47,7 +52,7 @@ searchConfluence(
 ```
 
 > **Do not put CQL into `search`.** The `search` tool is Rovo semantic search and takes natural
-> language, not query syntax — passing CQL to it will miss the page. Use `search` only for
+> language, not query syntax. passing CQL to it will miss the page. Use `search` only for
 > natural-language discovery (`query="one-click checkout spec"`), and `searchConfluence` when you
 > want a title or type filter.
 
@@ -77,13 +82,11 @@ This returns the page content in Markdown format, which you'll analyze in Step 3
 "Which Jira project should I create these tickets in? Please provide the project key (e.g., PROJ, ENG, PRODUCT)."
 
 ### If user is unsure:
-Call `listJiraProjects` to show available projects. It is not a primary tool, so run it through
-`execute` (see [Calling non-primary tools](#calling-non-primary-tools)):
+Call `listJiraProjects` to show available projects. Use the tool-access rules above:
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="listJiraProjects",
+listJiraProjects(
   cloudId="...",
-  inputs={"action": "create"}
+  action="create"
 )
 ```
 
@@ -91,12 +94,11 @@ Present the list: "I found these projects you can create issues in: PROJ (Projec
 
 ### Once you have the project key:
 Call `listJiraProjectIssueTypesMetadata` to understand what issue types are available. This is
-also not a primary tool:
+called using the tool-access rules above:
 ```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="listJiraProjectIssueTypesMetadata",
+listJiraProjectIssueTypesMetadata(
   cloudId="...",
-  inputs={"projectIdOrKey": "PROJ"}
+  projectIdOrKey="PROJ"
 )
 ```
 
@@ -152,7 +154,7 @@ What is the overall objective or feature being implemented? This becomes your Ep
 
 **Example Epic summaries:**
 - "User Authentication System"
-- "Payment Gateway Integration"  
+- "Payment Gateway Integration"
 - "Dashboard Performance Optimization"
 - "Mobile App Notifications Feature"
 
@@ -198,7 +200,7 @@ I've analyzed the spec and here's the backlog I'll create:
 
 **Implementation Tickets (7):**
 1. [Story] [Task 1 Summary]
-2. [Task] [Task 2 Summary]  
+2. [Task] [Task 2 Summary]
 3. [Story] [Task 3 Summary]
 4. [Bug] [Task 4 Summary]
 5. [Task] [Task 5 Summary]
@@ -240,35 +242,11 @@ createJiraIssue(
 )
 ```
 
-### Epic Description Structure:
-
-```markdown
-## Overview
-[1-2 sentence summary of what this epic delivers]
-
-## Source
-Confluence Spec: [Link to Confluence page]
-
-## Objectives
-- [Key objective 1]
-- [Key objective 2]
-- [Key objective 3]
-
-## Scope
-[Brief description of what's included and what's not]
-
-## Success Criteria
-- [Measurable criterion 1]
-- [Measurable criterion 2]
-- [Measurable criterion 3]
-
-## Technical Notes
-[Any important technical context from the spec]
-```
+Use [the Epic templates](references/epic-templates.md) for context, source link, objectives, scope and success criteria.
 
 ### Capture the Epic Key:
 
-The response will include the Epic's key (e.g., "PROJ-123"). **Save this key**—you'll need it for every child ticket.
+The response will include the Epic's key (e.g., "PROJ-123"). **Save this key**, you'll need it for every child ticket.
 
 **Example response:**
 ```json
@@ -324,32 +302,7 @@ Use action verbs and be specific:
 - ❌ "Do backend work" (too vague)
 - ❌ "Frontend" (not actionable)
 
-### Task Description Structure:
-
-```markdown
-## Context
-[Brief context for this task from the Confluence spec]
-
-## Requirements
-- [Requirement 1]
-- [Requirement 2]
-- [Requirement 3]
-
-## Technical Details
-[Specific technical information relevant to this task]
-- Technologies: [e.g., Node.js, React, PostgreSQL]
-- Components: [e.g., API routes, database tables, UI components]
-- Dependencies: [e.g., requires PROJ-124 to be completed first]
-
-## Acceptance Criteria
-- [ ] [Testable criterion 1]
-- [ ] [Testable criterion 2]
-- [ ] [Testable criterion 3]
-
-## Related
-- Confluence Spec: [Link to relevant section if possible]
-- Epic: PROJ-123
-```
+Use [the ticket writing guide](references/ticket-writing-guide.md) for context, requirements, technical details, acceptance criteria and source links.
 
 ### Acceptance Criteria Best Practices:
 
@@ -430,19 +383,14 @@ https://yoursite.atlassian.net/browse/PROJ-123
 ### Custom Required Fields
 
 **If ticket creation fails due to required fields:**
-1. Use `getJiraIssueTypeMetaWithFields` to identify what fields are required. It is not a primary
-   tool, so run it through `execute`:
+1. Use `getJiraIssueTypeMetaWithFields` to identify what fields are required. It uses the tool-access rules above:
    ```
-   executeRead(   # or execute(...) if your client exposes a single execute tool
-     name="getJiraIssueTypeMetaWithFields",
-     cloudId="...",
-     inputs={"projectIdOrKey": "PROJ", "issueTypeId": "10001"}
-   )
+   getJiraIssueTypeMetaWithFields(cloudId="...", projectIdOrKey="PROJ", issueTypeId="10001")
    ```
 
 2. Ask user for values: "This project requires a 'Priority' field. What priority should I use? (e.g., High, Medium, Low)"
 
-3. Pass native parameters directly — `priority` is a top-level string, not an
+3. Pass native parameters directly. `priority` is a top-level string, not an
    `additional_fields` entry. Reserve `additional_fields` for custom fields:
    ```
    priority="High",
@@ -474,7 +422,7 @@ https://yoursite.atlassian.net/browse/PROJ-123
 
 **If `createJiraIssue` fails:**
 1. Check the error message for specific issues (permissions, required fields, invalid values)
-2. Use `executeRead(name="listJiraProjectIssueTypesMetadata", ...)` to verify issue type availability
+2. Use `listJiraProjectIssueTypesMetadata` to verify issue type availability
 3. Inform user: "I encountered an error creating tickets: [error message]. This might be due to project permissions or required fields."
 
 ---
@@ -514,74 +462,6 @@ https://yoursite.atlassian.net/browse/PROJ-123
 
 ---
 
-## Examples of Good Breakdowns
+## Breakdown examples
 
-### Example 1: New Feature - Search Functionality
-
-**Epic:** Product Search and Filtering
-
-**Tickets:**
-1. [Task] Design search index schema and data structure
-2. [Task] Implement backend search API with Elasticsearch
-3. [Story] Build search input and results UI components
-4. [Story] Add advanced filtering (price, category, ratings)
-5. [Story] Implement search suggestions and autocomplete
-6. [Task] Optimize search performance and add caching
-7. [Task] Write search integration tests and documentation
-
-### Example 2: Bug Fix - Performance Issue
-
-**Epic:** Resolve Dashboard Load Time Issues
-
-**Tickets:**
-1. [Task] Profile and identify performance bottlenecks
-2. [Bug] Optimize database queries with indexes and caching
-3. [Bug] Implement lazy loading for dashboard widgets
-4. [Bug] Add pagination to large data tables
-5. [Task] Set up performance monitoring and alerts
-
-### Example 3: Infrastructure - CI/CD Pipeline
-
-**Epic:** Automated Deployment Pipeline
-
-**Tickets:**
-1. [Task] Set up GitHub Actions workflow configuration
-2. [Task] Implement automated testing in CI pipeline
-3. [Task] Configure staging environment deployment
-4. [Task] Implement blue-green production deployment
-5. [Task] Add deployment rollback mechanism
-6. [Task] Create deployment runbook and documentation
-
-
----
-
-## Calling non-primary tools
-
-The Atlassian Rovo MCP server exposes only a small set of **primary** tools directly in your tool
-list. Everything else lives in the catalog and is reached through meta-tools:
-
-- **`discover`** — describe the goal in natural language when you do not know an operation's name.
-  It returns the exact `name` and `inputs` to use. Do not call `discover` for an operation you
-  already have as a primary tool.
-- **An execute-family tool** — run a catalog operation by name. Check your tool list: some clients
-  expose a single **`execute`**, others expose **`executeRead`** / **`executeWrite`** /
-  **`executeDestructive`** and expect the tier matching the operation. The arguments are identical:
-
-```
-executeRead(   # or execute(...) if your client exposes a single execute tool
-  name="<operationName>",
-  cloudId="...",
-  inputs={"param": "value"}
-)
-```
-
-Rules that matter:
-
-- **`cloudId` is a top-level argument**, a sibling of `name` and `inputs` — never put it inside
-  `inputs`. Operations declared `omitCloudId` (such as `getContentFormatGuide`) take no `cloudId`.
-- **`inputs` is a flat object.** The server routes each parameter to path, query, or body itself.
-- **Use the exact parameter names from the live tool schema.** Unrecognized parameters are dropped
-  rather than reported as an error, so a wrong name fails silently — the call succeeds and your
-  value is simply ignored. When in doubt, read the schema or `discover` result first.
-- If the call reports an unknown operation, run `discover` with different keywords and use the
-  name it returns rather than guessing.
+Read [the breakdown examples](references/breakdown-examples.md) for feature, bug-fix and infrastructure scopes.

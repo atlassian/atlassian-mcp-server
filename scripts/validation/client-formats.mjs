@@ -1,5 +1,5 @@
 import path from "node:path";
-import { validateAgentSkills, validateComponentFrontmatter } from "./agent-skills.mjs";
+import { validateAgentSkills, validateComponentFrontmatter, validateSkillSize } from "./agent-skills.mjs";
 import {
   addError,
   addWarning,
@@ -80,6 +80,7 @@ export async function validateOtherClientManifests(validation, pluginDir) {
             addError(validation, "Gemini Agent skills must reference root-level ./skills/<name>/SKILL.md files.");
           } else {
             await validateReferencedPath(validation, pluginDir, "skills", skill, "Gemini Agent plugin");
+            await validateSkillSize(validation, path.resolve(pluginDir, skill));
           }
         }
       }
