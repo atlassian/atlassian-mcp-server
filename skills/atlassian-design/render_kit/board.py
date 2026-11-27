@@ -130,6 +130,6 @@ def board_script(d):
 
         board_script({"connector": "Atlassian Rovo", ...})
     """
-    data = json.dumps(d, ensure_ascii=False).replace('</', '<\\/')
-    connector = json.dumps(d.get('connector', 'Atlassian Rovo')).replace('</', '<\\/')
+    data = json.dumps(d, ensure_ascii=False).replace('<', '\\u003c')
+    connector = json.dumps(d.get('connector', 'Atlassian Rovo')).replace('<', '\\u003c')
     return f'const DATA = {data};\nconst CONNECTOR = {connector};\n' + BOARD_JS
